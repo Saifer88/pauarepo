@@ -147,6 +147,29 @@ h1, h2, h3, h4, h5 {
     font-size: 1.6rem;
     font-weight: 700;
     letter-spacing: -0.5px;
+    padding: 0;
+}
+
+.nav-logo {
+    transition: opacity 0.3s ease;
+}
+
+.navbar:not(.scrolled) .nav-logo-white {
+    opacity: 1;
+}
+
+.navbar:not(.scrolled) .nav-logo-dark {
+    opacity: 0;
+    position: absolute;
+}
+
+.navbar.scrolled .nav-logo-white {
+    opacity: 0;
+    position: absolute;
+}
+
+.navbar.scrolled .nav-logo-dark {
+    opacity: 1;
 }
 
 .brand-accent {
@@ -519,53 +542,26 @@ h1, h2, h3, h4, h5 {
 
 @media (max-width: 991px) {
     .reviews-bubbles {
-        height: 550px;
+        height: 600px;
         max-width: 700px;
     }
 
     .review-bubble {
-        width: 80px;
-        height: 80px;
+        width: 75px;
+        height: 75px;
         padding: 8px;
     }
 
     .review-bubble .bubble-text,
     .review-bubble .bubble-author {
-        font-size: 0.45rem;
+        font-size: 0.4rem;
     }
 
     .review-bubble.active,
     .review-bubble:hover {
-        width: 350px;
-        height: 350px;
-        padding: 50px;
-        left: 50% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%);
-    }
-}
-
-@media (max-width: 767px) {
-    .reviews-bubbles {
-        height: 450px;
-        max-width: 100%;
-    }
-
-    .review-bubble {
-        width: 65px;
-        height: 65px;
-        padding: 6px;
-    }
-
-    .review-bubble .bubble-text {
-        display: none;
-    }
-
-    .review-bubble.active,
-    .review-bubble:hover {
-        width: 300px;
-        height: 300px;
-        padding: 40px;
+        width: 320px;
+        height: 320px;
+        padding: 45px;
         left: 50% !important;
         top: 50% !important;
         transform: translate(-50%, -50%);
@@ -573,9 +569,105 @@ h1, h2, h3, h4, h5 {
 
     .review-bubble.active .bubble-text,
     .review-bubble:hover .bubble-text {
+        font-size: 0.78rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .reviews-bubbles {
+        height: 500px;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .review-bubble {
+        width: 80px;
+        height: 80px;
+        padding: 8px;
+        opacity: 0.7;
+    }
+
+    .review-bubble .bubble-text,
+    .review-bubble .bubble-author {
+        display: block;
+        font-size: 0.35rem;
+        line-height: 1.2;
+    }
+
+    .review-bubble .bubble-text {
+        -webkit-line-clamp: 2;
         display: -webkit-box;
-        font-size: 0.7rem;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .review-bubble.active,
+    .review-bubble:hover {
+        width: 260px;
+        height: 260px;
+        padding: 35px;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    .review-bubble.active .bubble-text,
+    .review-bubble:hover .bubble-text {
+        font-size: 0.72rem;
+        -webkit-line-clamp: 5;
+        overflow: hidden;
+        line-height: 1.4;
+    }
+
+    .review-bubble.active .bubble-author,
+    .review-bubble:hover .bubble-author {
+        font-size: 0.72rem;
+    }
+
+    .review-bubble.text-visible .bubble-text,
+    .review-bubble.text-visible .bubble-author {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .reviews-bubbles {
+        height: 420px;
+    }
+
+    .review-bubble {
+        width: 65px;
+        height: 65px;
+        padding: 6px;
+        opacity: 0.7;
+    }
+
+    .review-bubble .bubble-text {
+        font-size: 0.32rem;
+        -webkit-line-clamp: 2;
+    }
+
+    .review-bubble .bubble-author {
+        font-size: 0.32rem;
+    }
+
+    .review-bubble.active,
+    .review-bubble:hover {
+        width: 230px;
+        height: 230px;
+        padding: 30px;
+    }
+
+    .review-bubble.active .bubble-text,
+    .review-bubble:hover .bubble-text {
+        font-size: 0.65rem;
         -webkit-line-clamp: 4;
+    }
+
+    .review-bubble.active .bubble-author,
+    .review-bubble:hover .bubble-author {
+        font-size: 0.65rem;
     }
 }
 

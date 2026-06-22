@@ -75,8 +75,10 @@ async function loadReviews() {
         const containerRect = container.getBoundingClientRect();
         const centerX = container.offsetWidth / 2;
         const centerY = container.offsetHeight / 2;
-        const radiusX = Math.min(centerX - 60, 420);
-        const radiusY = Math.min(centerY - 60, 320);
+        const isMobile = window.innerWidth <= 767;
+        const isTablet = window.innerWidth <= 991;
+        const radiusX = isMobile ? Math.min(centerX - 40, 150) : isTablet ? Math.min(centerX - 40, 280) : Math.min(centerX - 60, 420);
+        const radiusY = isMobile ? Math.min(centerY - 40, 190) : isTablet ? Math.min(centerY - 40, 230) : Math.min(centerY - 60, 320);
 
         validReviews.forEach((review, i) => {
             const name = abbreviateName(review.author);
@@ -85,8 +87,9 @@ async function loadReviews() {
 
             // Calculate position on ellipse
             const angle = (2 * Math.PI * i) / total - Math.PI / 2;
-            const x = centerX + radiusX * Math.cos(angle) - 50;
-            const y = centerY + radiusY * Math.sin(angle) - 50;
+            const bubbleOffset = isMobile ? 40 : 50;
+            const x = centerX + radiusX * Math.cos(angle) - bubbleOffset;
+            const y = centerY + radiusY * Math.sin(angle) - bubbleOffset;
 
             bubble.style.left = `${x}px`;
             bubble.style.top = `${y}px`;
@@ -149,13 +152,16 @@ async function loadReviews() {
         function repositionBubbles() {
             const cX = container.offsetWidth / 2;
             const cY = container.offsetHeight / 2;
-            const rX = Math.min(cX - 60, 420);
-            const rY = Math.min(cY - 60, 320);
+            const mob = window.innerWidth <= 767;
+            const tab = window.innerWidth <= 991;
+            const rX = mob ? Math.min(cX - 40, 150) : tab ? Math.min(cX - 40, 280) : Math.min(cX - 60, 420);
+            const rY = mob ? Math.min(cY - 40, 190) : tab ? Math.min(cY - 40, 230) : Math.min(cY - 60, 320);
 
             bubbles.forEach((bubble, i) => {
                 const angle = (2 * Math.PI * i) / total - Math.PI / 2;
-                const x = cX + rX * Math.cos(angle) - 50;
-                const y = cY + rY * Math.sin(angle) - 50;
+                const offset = mob ? 40 : 50;
+                const x = cX + rX * Math.cos(angle) - offset;
+                const y = cY + rY * Math.sin(angle) - offset;
                 bubble.style.left = `${x}px`;
                 bubble.style.top = `${y}px`;
             });
