@@ -676,6 +676,114 @@ h1, h2, h3, h4, h5 {
     background: var(--bg-dark) !important;
 }
 
+/* ===== PRICING CARDS ===== */
+.pricing-section {
+    background: linear-gradient(160deg, #1a1a1a 0%, #2a2a2a 100%);
+}
+
+.pricing-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.pricing-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212, 165, 116, 0.3);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.pricing-card-featured {
+    background: rgba(212, 165, 116, 0.08);
+    border-color: var(--accent);
+    box-shadow: 0 0 40px rgba(212, 165, 116, 0.1);
+}
+
+.pricing-card-featured:hover {
+    background: rgba(212, 165, 116, 0.12);
+    border-color: var(--accent);
+    box-shadow: 0 20px 60px rgba(212, 165, 116, 0.2);
+}
+
+.pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 20px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.pricing-icon {
+    font-size: 2.5rem;
+}
+
+.pricing-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 0.75rem;
+}
+
+.pricing-description {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.pricing-features {
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+.pricing-features li {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.88rem;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+.pricing-features li i {
+    color: var(--accent);
+}
+
+.btn-outline-accent {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-weight: 500;
+    padding: 14px 36px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-accent:hover,
+.btn-outline-accent:focus {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 165, 116, 0.3);
+}
+
 /* ===== CONTACT ===== */
 .map-link {
     transition: all 0.3s ease;
