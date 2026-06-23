@@ -497,8 +497,7 @@ h1, h2, h3, h4, h5 {
     transition: all 0.5s ease;
 }
 
-.review-bubble.active,
-.review-bubble:hover {
+.review-bubble.active {
     opacity: 1;
     border-color: var(--accent);
     background: #fff;
@@ -513,8 +512,7 @@ h1, h2, h3, h4, h5 {
     transform: translate(-50%, -50%);
 }
 
-.review-bubble.active .bubble-text,
-.review-bubble:hover .bubble-text {
+.review-bubble.active .bubble-text {
     font-size: 0.85rem;
     -webkit-line-clamp: unset;
     overflow: visible;
@@ -524,8 +522,7 @@ h1, h2, h3, h4, h5 {
     opacity: 0;
 }
 
-.review-bubble.active .bubble-author,
-.review-bubble:hover .bubble-author {
+.review-bubble.active .bubble-author {
     font-size: 0.85rem;
     opacity: 0;
 }
@@ -557,8 +554,7 @@ h1, h2, h3, h4, h5 {
         font-size: 0.4rem;
     }
 
-    .review-bubble.active,
-    .review-bubble:hover {
+    .review-bubble.active {
         width: 320px;
         height: 320px;
         padding: 45px;
@@ -567,8 +563,7 @@ h1, h2, h3, h4, h5 {
         transform: translate(-50%, -50%);
     }
 
-    .review-bubble.active .bubble-text,
-    .review-bubble:hover .bubble-text {
+    .review-bubble.active .bubble-text {
         font-size: 0.78rem;
     }
 }
@@ -601,8 +596,7 @@ h1, h2, h3, h4, h5 {
         overflow: hidden;
     }
 
-    .review-bubble.active,
-    .review-bubble:hover {
+    .review-bubble.active {
         width: 260px;
         height: 260px;
         padding: 35px;
@@ -612,16 +606,14 @@ h1, h2, h3, h4, h5 {
         opacity: 1;
     }
 
-    .review-bubble.active .bubble-text,
-    .review-bubble:hover .bubble-text {
+    .review-bubble.active .bubble-text {
         font-size: 0.72rem;
         -webkit-line-clamp: 5;
         overflow: hidden;
         line-height: 1.4;
     }
 
-    .review-bubble.active .bubble-author,
-    .review-bubble:hover .bubble-author {
+    .review-bubble.active .bubble-author {
         font-size: 0.72rem;
     }
 
@@ -652,21 +644,18 @@ h1, h2, h3, h4, h5 {
         font-size: 0.32rem;
     }
 
-    .review-bubble.active,
-    .review-bubble:hover {
+    .review-bubble.active {
         width: 230px;
         height: 230px;
         padding: 30px;
     }
 
-    .review-bubble.active .bubble-text,
-    .review-bubble:hover .bubble-text {
+    .review-bubble.active .bubble-text {
         font-size: 0.65rem;
         -webkit-line-clamp: 4;
     }
 
-    .review-bubble.active .bubble-author,
-    .review-bubble:hover .bubble-author {
+    .review-bubble.active .bubble-author {
         font-size: 0.65rem;
     }
 }

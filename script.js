@@ -105,7 +105,6 @@ async function loadReviews() {
         const bubbles = Array.from(container.querySelectorAll('.review-bubble'));
         let highlightOrder = shuffle([...Array(bubbles.length).keys()]);
         let currentIdx = 0;
-        let userHovering = false;
 
         function highlightBubble(index) {
             bubbles.forEach(b => {
@@ -120,33 +119,13 @@ async function loadReviews() {
         }
 
         function autoHighlight() {
-            if (userHovering) return;
             highlightBubble(highlightOrder[currentIdx]);
             currentIdx = (currentIdx + 1) % highlightOrder.length;
             if (currentIdx === 0) highlightOrder = shuffle([...Array(bubbles.length).keys()]);
         }
 
         autoHighlight();
-        setInterval(autoHighlight, 8000);
-
-        // Hover interaction
-        bubbles.forEach((bubble) => {
-            bubble.addEventListener('mouseenter', () => {
-                userHovering = true;
-                bubbles.forEach(b => {
-                    b.classList.remove('active');
-                    b.classList.remove('text-visible');
-                });
-                bubble.classList.add('active');
-                setTimeout(() => {
-                    bubble.classList.add('text-visible');
-                }, 600);
-            });
-
-            bubble.addEventListener('mouseleave', () => {
-                userHovering = false;
-            });
-        });
+        setInterval(autoHighlight, 5000);
 
         // Reposition on resize
         function repositionBubbles() {
