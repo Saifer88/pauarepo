@@ -65,88 +65,25 @@ async function loadReviews() {
     try {
         const response = await fetch('reviews.json');
         const reviews = await response.json();
-        const container = document.getElementById('reviewsBubbles');
+        const container = document.getElementById('reviewsMasonry');
         if (!container) return;
 
         const validReviews = shuffle(reviews.filter(r => r.comment.length > 10));
-        const total = validReviews.length;
 
-        // Position bubbles in a circular layout
-        const containerRect = container.getBoundingClientRect();
-        const centerX = container.offsetWidth / 2;
-        const centerY = container.offsetHeight / 2;
-        const isMobile = window.innerWidth <= 767;
-        const isTablet = window.innerWidth <= 991;
-        const radiusX = isMobile ? Math.min(centerX - 40, 150) : isTablet ? Math.min(centerX - 40, 280) : Math.min(centerX - 60, 420);
-        const radiusY = isMobile ? Math.min(centerY - 40, 190) : isTablet ? Math.min(centerY - 40, 230) : Math.min(centerY - 60, 320);
-
-        validReviews.forEach((review, i) => {
+        validReviews.forEach(review => {
             const name = abbreviateName(review.author);
-            const bubble = document.createElement('div');
-            bubble.className = 'review-bubble';
-
-            // Calculate position on ellipse
-            const angle = (2 * Math.PI * i) / total - Math.PI / 2;
-            const bubbleOffset = isMobile ? 40 : 50;
-            const x = centerX + radiusX * Math.cos(angle) - bubbleOffset;
-            const y = centerY + radiusY * Math.sin(angle) - bubbleOffset;
-
-            bubble.style.left = `${x}px`;
-            bubble.style.top = `${y}px`;
-
-            bubble.innerHTML = `
-                <p class="bubble-text">"${review.comment}"</p>
-                <p class="bubble-author">— ${name}</p>
+            const initials = review.author.trim().split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2);
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.innerHTML = `
+                <p class="review-text">"${review.comment}"</p>
+                <div class="review-author">
+                    <span class="review-avatar">${initials}</span>
+                    <span>${name}</span>
+                </div>
             `;
-            container.appendChild(bubble);
+            container.appendChild(card);
         });
-
-        // Highlight animation in random order
-        const bubbles = Array.from(container.querySelectorAll('.review-bubble'));
-        let highlightOrder = shuffle([...Array(bubbles.length).keys()]);
-        let currentIdx = 0;
-
-        function highlightBubble(index) {
-            bubbles.forEach(b => {
-                b.classList.remove('active');
-                b.classList.remove('text-visible');
-            });
-            bubbles[index].classList.add('active');
-            // Show text after move/resize transition completes
-            setTimeout(() => {
-                bubbles[index].classList.add('text-visible');
-            }, 600);
-        }
-
-        function autoHighlight() {
-            highlightBubble(highlightOrder[currentIdx]);
-            currentIdx = (currentIdx + 1) % highlightOrder.length;
-            if (currentIdx === 0) highlightOrder = shuffle([...Array(bubbles.length).keys()]);
-        }
-
-        autoHighlight();
-        setInterval(autoHighlight, 5000);
-
-        // Reposition on resize
-        function repositionBubbles() {
-            const cX = container.offsetWidth / 2;
-            const cY = container.offsetHeight / 2;
-            const mob = window.innerWidth <= 767;
-            const tab = window.innerWidth <= 991;
-            const rX = mob ? Math.min(cX - 40, 150) : tab ? Math.min(cX - 40, 280) : Math.min(cX - 60, 420);
-            const rY = mob ? Math.min(cY - 40, 190) : tab ? Math.min(cY - 40, 230) : Math.min(cY - 60, 320);
-
-            bubbles.forEach((bubble, i) => {
-                const angle = (2 * Math.PI * i) / total - Math.PI / 2;
-                const offset = mob ? 40 : 50;
-                const x = cX + rX * Math.cos(angle) - offset;
-                const y = cY + rY * Math.sin(angle) - offset;
-                bubble.style.left = `${x}px`;
-                bubble.style.top = `${y}px`;
-            });
-        }
-
-        window.addEventListener('resize', repositionBubbles);
     } catch (err) {
         console.error('Error loading reviews:', err);
     }
