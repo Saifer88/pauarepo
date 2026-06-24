@@ -69,12 +69,18 @@ async function loadReviews() {
         if (!container) return;
 
         const validReviews = shuffle(reviews.filter(r => r.comment.length > 10));
+        const isMobile = window.innerWidth <= 767;
+        const batchSize = 5;
 
-        validReviews.forEach(review => {
+        validReviews.forEach((review, index) => {
             const name = abbreviateName(review.author);
             const initials = review.author.trim().split(' ').map(p => p[0]).join('').toUpperCase().slice(0, 2);
             const card = document.createElement('div');
             card.className = 'review-card';
+            if (isMobile && index >= batchSize) {
+                card.classList.add('review-hidden');
+                card.dataset.batch = Math.floor(index / batchSize);
+            }
             card.innerHTML = `
                 <p class="review-text">"${review.comment}"</p>
                 <div class="review-author">
@@ -84,6 +90,28 @@ async function loadReviews() {
             `;
             container.appendChild(card);
         });
+
+        // Add "show more" link on mobile
+        if (isMobile && validReviews.length > batchSize) {
+            const totalBatches = Math.ceil(validReviews.length / batchSize);
+            let currentBatch = 1;
+
+            const link = document.createElement('a');
+            link.href = '#';
+            link.className = 'reviews-show-more';
+            link.textContent = 'Mostra altre';
+            container.after(link);
+
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const cards = container.querySelectorAll(`.review-card[data-batch="${currentBatch}"]`);
+                cards.forEach(card => card.classList.remove('review-hidden'));
+                currentBatch++;
+                if (currentBatch >= totalBatches) {
+                    link.remove();
+                }
+            });
+        }
     } catch (err) {
         console.error('Error loading reviews:', err);
     }

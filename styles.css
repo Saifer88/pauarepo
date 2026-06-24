@@ -546,6 +546,26 @@ h1, h2, h3, h4, h5 {
     }
 }
 
+/* Reviews mobile show-more */
+.review-card.review-hidden {
+    display: none;
+}
+
+.reviews-show-more {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.reviews-show-more:hover {
+    color: var(--accent-dark);
+    text-decoration: none;
+}
+
 /* ===== CTA DARK SECTION ===== */
 .bg-dark {
     background: var(--bg-dark) !important;
