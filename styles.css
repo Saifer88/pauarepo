@@ -809,6 +809,33 @@ h1, h2, h3, h4, h5 {
     box-shadow: 0 8px 25px rgba(212, 165, 116, 0.3);
 }
 
+/* ===== PRICING OPTIONS ===== */
+.pricing-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.pricing-options .btn-sm {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    border-radius: 50px;
+}
+
+.pricing-options .btn-primary {
+    font-weight: 600;
+}
+
+.pricing-included {
+    background: rgba(212, 165, 116, 0.12);
+    border: 1px solid rgba(212, 165, 116, 0.4);
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 50px;
+    display: inline-block;
+}
+
 /* ===== PRICING HIGHLIGHT ANIMATION ===== */
 .pricing-card.highlight-pulse {
     animation: pricingPulse 0.6s ease-in-out 3;
