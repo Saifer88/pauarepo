@@ -189,7 +189,7 @@ h1, h2, h3, h4, h5 {
 /* ===== HERO ===== */
 .hero-section {
     position: relative;
-    background: url('images/gallery-5.jpg') center/cover no-repeat;
+    background: url('images/paola-portrait.jpg') center/cover no-repeat;
     min-height: 100vh;
     overflow: hidden;
 }
@@ -276,6 +276,38 @@ h1, h2, h3, h4, h5 {
     border-color: var(--accent-light);
 }
 
+/* ===== CREDENTIALS SECTION ===== */
+.credentials-section h5 {
+    font-family: var(--font-heading);
+    color: var(--dark);
+}
+
+.credential-year {
+    min-width: 52px;
+    font-size: 0.72rem;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-top: 2px;
+}
+
+.credential-item strong {
+    font-size: 0.9rem;
+    color: var(--dark);
+}
+
+.credential-item p {
+    font-size: 0.82rem;
+}
+
+.credential-item-sm small {
+    font-size: 0.84rem;
+    color: var(--text);
+}
+
+.credentials-list {
+    padding-left: 4px;
+}
+
 /* ===== SERVICE CARDS ===== */
 .service-card {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -286,6 +318,10 @@ h1, h2, h3, h4, h5 {
 .service-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important;
+}
+
+.service-link {
+    cursor: pointer;
 }
 
 .featured-card {
@@ -773,6 +809,37 @@ h1, h2, h3, h4, h5 {
     box-shadow: 0 8px 25px rgba(212, 165, 116, 0.3);
 }
 
+/* ===== PRICING HIGHLIGHT ANIMATION ===== */
+.pricing-card.highlight-pulse {
+    animation: pricingPulse 0.6s ease-in-out 3;
+}
+
+@keyframes pricingPulse {
+    0%, 100% {
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 0 rgba(212, 165, 116, 0);
+    }
+    50% {
+        border-color: var(--accent);
+        box-shadow: 0 0 30px rgba(212, 165, 116, 0.4);
+    }
+}
+
+.pricing-card-featured.highlight-pulse {
+    animation: pricingPulseFeatured 0.6s ease-in-out 3;
+}
+
+@keyframes pricingPulseFeatured {
+    0%, 100% {
+        border-color: var(--accent);
+        box-shadow: 0 0 40px rgba(212, 165, 116, 0.1);
+    }
+    50% {
+        border-color: #fff;
+        box-shadow: 0 0 40px rgba(212, 165, 116, 0.5);
+    }
+}
+
 /* ===== CONTACT ===== */
 .map-link {
     transition: all 0.3s ease;
@@ -850,6 +917,57 @@ footer .navbar-brand {
 .gallery-item:nth-child(3),
 #risultati .col-lg-4:nth-child(3) .card {
     transition-delay: 0.2s;
+}
+
+/* ===== COOKIE BANNER ===== */
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: #fff;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 1.5rem;
+    transform: translateY(0);
+    transition: transform 0.4s ease;
+}
+
+.cookie-banner.hidden {
+    transform: translateY(100%);
+    pointer-events: none;
+}
+
+.cookie-banner-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cookie-text {
+    flex: 1;
+    min-width: 280px;
+}
+
+.cookie-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+    .cookie-banner-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cookie-actions {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ===== RESPONSIVE ===== */

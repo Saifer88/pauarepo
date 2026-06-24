@@ -174,6 +174,66 @@ document.querySelectorAll('.service-card, .method-step, .card').forEach(el => {
     observer.observe(el);
 });
 
+// ===== SERVICE CARDS → PACKAGES HIGHLIGHT =====
+document.querySelectorAll('.service-link').forEach(card => {
+    card.addEventListener('click', () => {
+        const highlightIds = card.dataset.highlight.split(',');
+        const packagesSection = document.getElementById('pacchetti');
+
+        // Scroll to packages section
+        const offset = 80;
+        const top = packagesSection.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+
+        // Wait for scroll to complete, then highlight
+        setTimeout(() => {
+            highlightIds.forEach(id => {
+                const target = document.querySelector(`[data-package="${id.trim()}"]`);
+                if (target) {
+                    target.classList.remove('highlight-pulse');
+                    // Force reflow to restart animation
+                    void target.offsetWidth;
+                    target.classList.add('highlight-pulse');
+                    target.addEventListener('animationend', () => {
+                        target.classList.remove('highlight-pulse');
+                    }, { once: true });
+                }
+            });
+        }, 600);
+    });
+
+    // Keyboard accessibility
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.click();
+        }
+    });
+});
+
+// ===== COOKIE BANNER =====
+const cookieBanner = document.getElementById('cookieBanner');
+const cookieAccept = document.getElementById('cookieAccept');
+const cookieReject = document.getElementById('cookieReject');
+
+if (cookieBanner) {
+    // Check if consent was already given
+    const consent = localStorage.getItem('cookie_consent');
+    if (consent) {
+        cookieBanner.classList.add('hidden');
+    }
+
+    cookieAccept.addEventListener('click', () => {
+        localStorage.setItem('cookie_consent', 'accepted');
+        cookieBanner.classList.add('hidden');
+    });
+
+    cookieReject.addEventListener('click', () => {
+        localStorage.setItem('cookie_consent', 'rejected');
+        cookieBanner.classList.add('hidden');
+    });
+}
+
 // ===== WHATSAPP FORM =====
 const whatsappForm = document.getElementById('whatsappForm');
 if (whatsappForm) {
