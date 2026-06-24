@@ -554,11 +554,14 @@ h1, h2, h3, h4, h5 {
 .reviews-show-more {
     display: block;
     text-align: center;
-    margin-top: 1rem;
     color: var(--accent);
     font-size: 0.9rem;
     font-weight: 500;
     text-decoration: none;
+    background: transparent;
+    border: none;
+    padding: 1rem 0;
+    margin-bottom: 0;
 }
 
 .reviews-show-more:hover {
