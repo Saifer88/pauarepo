@@ -43,6 +43,19 @@ document.querySelectorAll('.gallery-slide').forEach(item => {
     });
 });
 
+// ===== STRUTTURA GALLERY =====
+const strutturaMain = document.getElementById('strutturaMain');
+if (strutturaMain) {
+    document.querySelectorAll('.struttura-thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            const src = thumb.dataset.src;
+            strutturaMain.src = src;
+            document.querySelectorAll('.struttura-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        });
+    });
+}
+
 // ===== REVIEWS MOBILE SHOW MORE =====
 function initReviewsShowMore() {
     const container = document.getElementById('reviewsMasonry');

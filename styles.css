@@ -570,6 +570,76 @@ h1, h2, h3, h4, h5 {
     text-decoration: none;
 }
 
+/* ===== STRUTTURA GALLERY ===== */
+.struttura-gallery {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.struttura-hero {
+    border-radius: 1.2rem;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.struttura-hero img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+    transition: opacity 0.3s ease;
+}
+
+.struttura-thumbs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.struttura-thumb {
+    border: 2px solid transparent;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    width: 90px;
+    height: 70px;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.struttura-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.struttura-thumb:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+.struttura-thumb.active {
+    border-color: var(--accent);
+    opacity: 1;
+}
+
+@media (max-width: 767px) {
+    .struttura-hero img {
+        max-height: 300px;
+    }
+
+    .struttura-thumbs {
+        gap: 8px;
+    }
+
+    .struttura-thumb {
+        width: 60px;
+        height: 50px;
+    }
+}
+
 /* ===== CTA DARK SECTION ===== */
 .bg-dark {
     background: var(--bg-dark) !important;
