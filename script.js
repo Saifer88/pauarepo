@@ -108,11 +108,13 @@ document.querySelectorAll('.service-card, .method-step, .card').forEach(el => {
 document.querySelectorAll('.service-link').forEach(card => {
     card.addEventListener('click', () => {
         const highlightIds = card.dataset.highlight.split(',');
-        const packagesSection = document.getElementById('pacchetti');
+        const packagesRow = document.querySelector('#pacchetti .row');
 
-        // Scroll to packages section
-        const offset = 80;
-        const top = packagesSection.getBoundingClientRect().top + window.pageYOffset - offset;
+        // Center the cards row in the viewport
+        const rowRect = packagesRow.getBoundingClientRect();
+        const rowCenter = rowRect.top + window.pageYOffset + rowRect.height / 2;
+        const viewportCenter = window.innerHeight / 2;
+        const top = rowCenter - viewportCenter;
         window.scrollTo({ top, behavior: 'smooth' });
 
         // Wait for scroll to complete, then highlight
