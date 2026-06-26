@@ -1,3 +1,18 @@
+// ===== PRELOADER =====
+const preloaderStart = Date.now();
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+
+    const elapsed = Date.now() - preloaderStart;
+    const minDisplay = 500;
+    const remaining = Math.max(0, minDisplay - elapsed);
+
+    setTimeout(() => {
+        preloader.classList.add('hidden');
+    }, remaining);
+});
+
 // ===== NAVBAR SCROLL EFFECT =====
 const navbar = document.getElementById('navbar');
 
