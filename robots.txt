@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /grazie.html
+
+Sitemap: https://www.paolamincuzzi.it/sitemap.xml
