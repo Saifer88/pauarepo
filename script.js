@@ -136,7 +136,7 @@ document.querySelectorAll('.service-card, .method-step, .card').forEach(el => {
 document.querySelectorAll('.service-link').forEach(card => {
     card.addEventListener('click', () => {
         const highlightIds = card.dataset.highlight.split(',');
-        const packagesRow = document.querySelector('#pacchetti .row');
+        const packagesRow = document.querySelector('#shop .row');
 
         // Center the cards row in the viewport
         const rowRect = packagesRow.getBoundingClientRect();
