@@ -25,3 +25,9 @@ Il sito deve essere fortemente ottimizzato per le seguenti keyword principali:
 - Aggiornare il campo `<lastmod>` della pagina modificata con la data corrente (formato `YYYY-MM-DD`).
 - Se viene creata una nuova pagina pubblica, aggiungerla alla sitemap con la priorità appropriata.
 - Le pagine con `noindex` (come `grazie.html`) possono restare nella sitemap con priorità 0.1 ma devono essere bloccate in `robots.txt`.
+
+## Immagini
+
+- I nomi dei file immagine devono essere SEO-friendly: descrittivi, in minuscolo, con parole separate da trattini, e includere keyword rilevanti (es. `personal-trainer-bari-sala.webp` invece di `struttura1.png`).
+- Preferire il formato WebP per ridurre il peso e migliorare la velocità di caricamento.
+- Quando si rinomina un'immagine, aggiornare tutti i riferimenti nel codice (HTML, CSS).
