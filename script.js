@@ -71,6 +71,109 @@ if (strutturaMain) {
     });
 }
 
+// ===== STRUTTURA TABS SWIPE + FIXED HEIGHT =====
+const strutturaTabEl = document.getElementById('strutturaTab');
+if (strutturaTabEl) {
+    const tabContent = document.getElementById('strutturaTabContent');
+    const panes = Array.from(tabContent.querySelectorAll('.tab-pane'));
+    const tabs = Array.from(strutturaTabEl.querySelectorAll('[role="tab"]'));
+    const pill = document.getElementById('strutturaTabPill');
+    let currentIndex = 0;
+
+    // Position pill on active tab
+    function movePill(idx, animate = true) {
+        const tab = tabs[idx];
+        const tabRect = tab.getBoundingClientRect();
+        const parentRect = strutturaTabEl.getBoundingClientRect();
+        const offsetX = tabRect.left - parentRect.left;
+
+        if (!animate) pill.style.transition = 'none';
+        pill.style.width = tabRect.width + 'px';
+        pill.style.transform = `translateX(${offsetX - 5.6}px)`;
+        if (!animate) void pill.offsetWidth; // force reflow
+        if (!animate) pill.style.transition = '';
+    }
+
+    // Set fixed height based on tallest pane (gallery)
+    function setFixedHeight() {
+        panes.forEach(p => {
+            p.style.position = 'relative';
+            p.style.opacity = '1';
+            p.style.transform = 'none';
+            p.style.display = 'block';
+        });
+        const maxHeight = Math.max(...panes.map(p => p.offsetHeight));
+        tabContent.style.height = maxHeight + 'px';
+        panes.forEach((p, i) => {
+            if (i !== currentIndex) {
+                p.style.position = 'absolute';
+                p.style.opacity = '0';
+                p.style.transform = 'translateX(100%)';
+                p.style.display = 'block';
+            } else {
+                p.style.position = 'relative';
+            }
+        });
+        // Match map iframe height to gallery hero
+        const galleryHero = document.querySelector('.struttura-hero img');
+        const mapIframe = document.getElementById('strutturaMapIframe');
+        if (galleryHero && mapIframe) {
+            mapIframe.style.height = galleryHero.offsetHeight + 'px';
+        }
+        movePill(currentIndex, false);
+    }
+
+    setFixedHeight();
+    window.addEventListener('resize', setFixedHeight);
+    document.querySelector('.struttura-hero img')?.addEventListener('load', setFixedHeight);
+
+    // Swipe transition
+    tabs.forEach((tab, idx) => {
+        tab.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (idx === currentIndex) return;
+
+            const direction = idx > currentIndex ? 1 : -1;
+            const currentPane = panes[currentIndex];
+            const nextPane = panes[idx];
+
+            // Animate pill
+            movePill(idx, true);
+
+            // Exit current
+            currentPane.style.transform = `translateX(${-direction * 100}%)`;
+            currentPane.style.opacity = '0';
+
+            // Prep next pane entry position
+            nextPane.style.transition = 'none';
+            nextPane.style.transform = `translateX(${direction * 100}%)`;
+            nextPane.style.opacity = '0';
+            nextPane.style.position = 'absolute';
+            void nextPane.offsetWidth;
+
+            // Animate in
+            nextPane.style.transition = '';
+            nextPane.style.transform = 'translateX(0)';
+            nextPane.style.opacity = '1';
+
+            setTimeout(() => {
+                currentPane.style.position = 'absolute';
+                currentPane.classList.remove('active');
+                nextPane.style.position = 'relative';
+                nextPane.classList.add('active');
+            }, 500);
+
+            // Update tab active state
+            tabs.forEach(t => t.classList.remove('active'));
+            tabs[idx].classList.add('active');
+            tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+            tabs[idx].setAttribute('aria-selected', 'true');
+
+            currentIndex = idx;
+        });
+    });
+}
+
 // ===== REVIEWS MOBILE SHOW MORE =====
 function initReviewsShowMore() {
     const container = document.getElementById('reviewsMasonry');
