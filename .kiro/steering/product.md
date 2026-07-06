@@ -10,7 +10,7 @@ Personal/professional website for **Paola Mincuzzi**, a Personal Trainer based i
 - Display client testimonials loaded from a JSON file
 
 ## Target Audience
-Italian-speaking clients in the Bari area seeking personal training, kinesiology, or functional recovery services.
+Italian-speaking adults aged 35–60 in the Bari area seeking personal training, postural correction, kinesiology, or functional recovery services. People who want to get back in shape, prevent age-related issues, or recover from injuries/sedentary lifestyle.
 
 ## Key Features
 - Single-page scrolling website with section-based navigation

@@ -1,5 +1,6 @@
 ---
 inclusion: auto
+description: "Ultra-compressed communication mode (caveman ultra). Cuts token usage ~75%. Always active."
 ---
 
 # Caveman Mode — ALWAYS ACTIVE at level ULTRA

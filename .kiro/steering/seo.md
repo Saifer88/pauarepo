@@ -7,6 +7,9 @@ Il sito deve essere fortemente ottimizzato per le seguenti keyword principali:
 2. **paola mincuzzi personal trainer bari**
 3. **allenamento funzionale bari**
 4. **allenamento posturale bari**
+5. **allenamento dopo i 40 Bari**
+6. **personal trainer over 40**
+7. **rimettersi in forma dopo i 35**
 
 ## Regole
 
