@@ -834,6 +834,28 @@ h1, h2, h3, h4, h5 {
     color: #fff;
 }
 
+.btn-outline-accent {
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+}
+
+.btn-outline-accent:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* ===== FAQ STYLE C: Numbered two-column ===== */
+.faq-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.3;
+    line-height: 1;
+    min-width: 50px;
+}
+
 /* ===== CTA DARK SECTION ===== */
 .bg-dark {
     background: var(--bg-dark) !important;

@@ -5,11 +5,12 @@ window.addEventListener('load', () => {
     if (!preloader) return;
 
     const elapsed = Date.now() - preloaderStart;
-    const minDisplay = 500;
+    const minDisplay = 300;
     const remaining = Math.max(0, minDisplay - elapsed);
 
     setTimeout(() => {
         preloader.classList.add('hidden');
+        setTimeout(() => preloader.remove(), 500);
     }, remaining);
 });
 
