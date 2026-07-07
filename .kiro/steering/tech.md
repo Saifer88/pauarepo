@@ -22,6 +22,22 @@ Static single-page website. No build system, bundler, or package manager. All fi
 - CSS uses custom properties (`:root` variables) for theming
 - Bootstrap is used via CDN, not customized or compiled locally
 
+## Minificazione
+
+Dopo ogni modifica a `styles.css` o `script.js`, rigenerare i file minificati:
+
+```bash
+# CSS
+npx clean-css-cli styles.css -o styles.min.css
+
+# JS
+npx terser script.js -o script.min.js --compress --mangle
+```
+
+- `index.html` punta a `styles.min.css` e `script.min.js` (i file di produzione)
+- I file sorgente (`styles.css`, `script.js`) restano per lo sviluppo
+- Eseguire sempre la minificazione prima di commit/deploy
+
 ## Common Commands
 ```bash
 # Serve locally (any static server works)
