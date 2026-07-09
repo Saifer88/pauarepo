@@ -83,6 +83,11 @@ if (strutturaTabEl) {
 
     // Position pill on active tab
     function movePill(idx, animate = true) {
+        if (window.innerWidth <= 385) {
+            pill.style.display = 'none';
+            return;
+        }
+        pill.style.display = '';
         const tab = tabs[idx];
         const tabRect = tab.getBoundingClientRect();
         const parentRect = strutturaTabEl.getBoundingClientRect();
@@ -91,7 +96,7 @@ if (strutturaTabEl) {
         if (!animate) pill.style.transition = 'none';
         pill.style.width = tabRect.width + 'px';
         pill.style.transform = `translateX(${offsetX - 5.6}px)`;
-        if (!animate) void pill.offsetWidth; // force reflow
+        if (!animate) void pill.offsetWidth;
         if (!animate) pill.style.transition = '';
     }
 
@@ -233,6 +238,11 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.service-card, .method-step, .card').forEach(el => {
     el.classList.add('reveal');
+    observer.observe(el);
+});
+
+// Stagger animation for disfunzioni demo
+document.querySelectorAll('.disfunzioni-stagger').forEach(el => {
     observer.observe(el);
 });
 
