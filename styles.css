@@ -405,6 +405,15 @@ h1, h2, h3, h4, h5 {
 .service-card .card-title {
     font-family: var(--font-heading);
     font-size: 1.3rem;
+    text-align: center;
+}
+
+.service-card .card-text {
+    text-align: center;
+}
+
+.service-card .service-icon {
+    text-align: center;
 }
 
 .service-card .list-unstyled li {
@@ -843,6 +852,11 @@ h1, h2, h3, h4, h5 {
 .btn-outline-accent:hover {
     background: var(--accent);
     color: #fff;
+}
+
+.bg-accent.bg-opacity-10 {
+    background: rgba(212, 165, 116, 0.25) !important;
+    border: 1px solid rgba(212, 165, 116, 0.4);
 }
 
 /* ===== FAQ STYLE C: Numbered two-column ===== */
