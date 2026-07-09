@@ -493,17 +493,23 @@ h1, h2, h3, h4, h5 {
     overflow: hidden;
     width: 100%;
     padding: 20px 0;
+    cursor: grab;
+    user-select: none;
+}
+
+.gallery-carousel.dragging {
+    cursor: grabbing;
 }
 
 .gallery-track {
     display: flex;
     gap: 20px;
-    animation: scroll 35s linear infinite;
     width: max-content;
+    will-change: transform;
 }
 
 .gallery-track:hover {
-    animation-play-state: paused;
+    /* no animation-play-state needed, handled by JS */
 }
 
 .gallery-slide {

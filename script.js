@@ -52,12 +52,110 @@ const lightboxImage = document.getElementById('lightboxImage');
 document.querySelectorAll('.gallery-slide').forEach(item => {
     item.addEventListener('click', (e) => {
         e.preventDefault();
+        if (item.closest('.gallery-carousel')?.classList.contains('dragged')) return;
         const imgSrc = item.getAttribute('href');
         lightboxImage.src = imgSrc;
         const modal = new bootstrap.Modal(lightboxModal);
         modal.show();
     });
 });
+
+// ===== GALLERY DRAG + AUTO-SCROLL =====
+const galleryCarousel = document.querySelector('.gallery-carousel');
+const galleryTrack = document.querySelector('.gallery-track');
+
+if (galleryCarousel && galleryTrack) {
+    let scrollPos = 0;
+    let isDragging = false;
+    let startX = 0;
+    let dragStartScroll = 0;
+    let dragMoved = false;
+    let autoSpeed = 0.5; // px per frame
+    let animId = null;
+    let velocity = 0;
+    let lastX = 0;
+    let lastTime = 0;
+    let inertiaActive = false;
+
+    const maxScroll = galleryTrack.scrollWidth - galleryCarousel.offsetWidth;
+
+    function autoScroll() {
+        if (!isDragging) {
+            if (inertiaActive) {
+                // Apply inertia
+                scrollPos += velocity;
+                velocity *= 0.95; // friction
+                if (Math.abs(velocity) < 0.3) {
+                    inertiaActive = false;
+                    autoSpeed = 0.5;
+                }
+            } else {
+                scrollPos += autoSpeed;
+            }
+            if (scrollPos >= maxScroll) scrollPos = 0;
+            if (scrollPos < 0) scrollPos = maxScroll;
+            galleryTrack.style.transform = `translateX(${-scrollPos}px)`;
+        }
+        animId = requestAnimationFrame(autoScroll);
+    }
+
+    autoScroll();
+
+    function startDrag(x) {
+        isDragging = true;
+        dragMoved = false;
+        inertiaActive = false;
+        startX = x;
+        lastX = x;
+        lastTime = Date.now();
+        dragStartScroll = scrollPos;
+        galleryCarousel.classList.add('dragging');
+    }
+
+    function moveDrag(x) {
+        if (!isDragging) return;
+        const dx = x - startX;
+        if (Math.abs(dx) > 5) dragMoved = true;
+        // Track velocity
+        const now = Date.now();
+        const dt = now - lastTime;
+        if (dt > 0) {
+            velocity = -(x - lastX) / dt * 16; // normalize to ~frame speed
+        }
+        lastX = x;
+        lastTime = now;
+        scrollPos = dragStartScroll - dx;
+        scrollPos = Math.max(0, Math.min(scrollPos, maxScroll));
+        galleryTrack.style.transform = `translateX(${-scrollPos}px)`;
+    }
+
+    function endDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        galleryCarousel.classList.remove('dragging');
+        if (dragMoved) {
+            galleryCarousel.classList.add('dragged');
+            setTimeout(() => galleryCarousel.classList.remove('dragged'), 100);
+            // Start inertia
+            inertiaActive = true;
+            autoSpeed = 0;
+        }
+    }
+
+    // Mouse
+    galleryCarousel.addEventListener('mousedown', (e) => { e.preventDefault(); startDrag(e.pageX); });
+    document.addEventListener('mousemove', (e) => moveDrag(e.pageX));
+    document.addEventListener('mouseup', endDrag);
+
+    // Touch
+    galleryCarousel.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX), { passive: true });
+    galleryCarousel.addEventListener('touchmove', (e) => moveDrag(e.touches[0].pageX), { passive: true });
+    galleryCarousel.addEventListener('touchend', endDrag);
+
+    // Pause auto-scroll on hover (desktop)
+    galleryCarousel.addEventListener('mouseenter', () => { if (!inertiaActive) autoSpeed = 0; });
+    galleryCarousel.addEventListener('mouseleave', () => { if (!inertiaActive) autoSpeed = 0.5; });
+}
 
 // ===== STRUTTURA GALLERY =====
 const strutturaMain = document.getElementById('strutturaMain');
