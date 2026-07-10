@@ -3,4 +3,19 @@ Allow: /
 
 Disallow: /grazie.html
 
+# Block gallery images from Google Images (keep portrait visible)
+User-agent: Googlebot-Image
+Allow: /images/paola-mincuzzi-pt-bari*
+Allow: /images/logo*
+Allow: /images/favicon*
+Allow: /images/apple-touch*
+Disallow: /images/personal-trainer-bari-allenamento*
+Disallow: /images/allenamento-funzionale-bari*
+Disallow: /images/allenamento-posturale-bari*
+Disallow: /images/paola-mincuzzi-personal-training*
+Disallow: /images/teammincuzzi-allenamento*
+Disallow: /images/personal-trainer-bari-sessione*
+Disallow: /images/chinesiologia-bari*
+Disallow: /images/recupero-funzionale-bari*
+
 Sitemap: https://www.paolamincuzzi.it/sitemap.xml
