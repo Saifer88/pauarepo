@@ -34,3 +34,12 @@ Il sito deve essere fortemente ottimizzato per le seguenti keyword principali:
 - I nomi dei file immagine devono essere SEO-friendly: descrittivi, in minuscolo, con parole separate da trattini, e includere keyword rilevanti (es. `personal-trainer-bari-sala.webp` invece di `struttura1.png`).
 - Preferire il formato WebP per ridurre il peso e migliorare la velocità di caricamento.
 - Quando si rinomina un'immagine, aggiornare tutti i riferimenti nel codice (HTML, CSS).
+
+## Disfunzioni trattate
+
+Quando si aggiunge, rimuove o modifica una disfunzione nella card Recupero Funzionale:
+
+1. Aggiornare `<meta name="keywords">` con la nuova keyword (es. "diastasi addominale Bari")
+2. Aggiungere una FAQ corrispondente nel JSON-LD `FAQPage` schema (nel `<head>`)
+3. Aggiungere la stessa FAQ come elemento visibile nella sezione FAQ del sito
+4. Se rilevante, aggiornare la `<meta name="description">` per includere la disfunzione
