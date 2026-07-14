@@ -4,7 +4,10 @@
 /
 ├── index.html          # Single-page website (all sections)
 ├── styles.css          # All custom styles (CSS custom properties + Bootstrap overrides)
+├── styles.min.css      # CSS minificato (generato da build.sh)
 ├── script.js           # All interactivity (navbar, lightbox, reviews, scroll, forms)
+├── script.min.js       # JS minificato (generato da build.sh)
+├── build.sh            # Script di build: minifica CSS e JS
 ├── reviews.json        # Client testimonials data (array of {author, comment})
 ├── images/             # All static assets
 │   ├── hero-bg.jpg

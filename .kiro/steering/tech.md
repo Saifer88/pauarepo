@@ -24,22 +24,27 @@ Static single-page website. No build system, bundler, or package manager. All fi
 
 ## Minificazione
 
-Dopo ogni modifica a `styles.css` o `script.js`, rigenerare i file minificati:
+Dopo ogni modifica a `styles.css` o `script.js`, rigenerare i file minificati eseguendo:
 
 ```bash
-# CSS
-npx clean-css-cli styles.css -o styles.min.css
-
-# JS
-npx terser script.js -o script.min.js --compress --mangle
+./build.sh
 ```
 
+Lo script `build.sh` (nella root del progetto) esegue automaticamente:
+1. Minificazione CSS: `npx clean-css-cli styles.css -o styles.min.css`
+2. Minificazione JS: `npx terser script.js -o script.min.js --compress --mangle`
+
+Regole:
 - `index.html` punta a `styles.min.css` e `script.min.js` (i file di produzione)
 - I file sorgente (`styles.css`, `script.js`) restano per lo sviluppo
-- Eseguire sempre la minificazione prima di commit/deploy
+- Eseguire sempre `./build.sh` prima di commit/deploy
+- Se si modifica solo `index.html`, la minificazione non è necessaria
 
 ## Common Commands
 ```bash
+# Minifica CSS e JS per la produzione
+./build.sh
+
 # Serve locally (any static server works)
 python3 -m http.server 8000
 # or

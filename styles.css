@@ -1091,7 +1091,7 @@ h1, h2, h3, h4, h5 {
 
 /* ===== PRICING HIGHLIGHT ANIMATION ===== */
 .pricing-card.highlight-pulse {
-    animation: pricingPulse 0.6s ease-in-out 3;
+    animation: pricingPulse 1.5s ease-in-out 6;
 }
 
 @keyframes pricingPulse {
@@ -1106,7 +1106,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .pricing-card-featured.highlight-pulse {
-    animation: pricingPulseFeatured 0.6s ease-in-out 3;
+    animation: pricingPulseFeatured 1.5s ease-in-out 6;
 }
 
 @keyframes pricingPulseFeatured {
