@@ -895,7 +895,7 @@ h1, h2, h3, h4, h5 {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 1.5rem;
-    padding: 2.5rem 2rem;
+    padding: 1.8rem 1.5rem;
     display: flex;
     flex-direction: column;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -952,27 +952,30 @@ h1, h2, h3, h4, h5 {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .pricing-features {
     text-align: left;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .pricing-features li {
     color: rgba(255, 255, 255, 0.75);
     font-size: 0.88rem;
-    padding: 6px 0;
+    padding: 5px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: baseline;
+}
+
+.pricing-features li i {
+    flex-shrink: 0;
+    color: var(--accent);
 }
 
 .pricing-features li:last-child {
     border-bottom: none;
-}
-
-.pricing-features li i {
-    color: var(--accent);
 }
 
 .btn-outline-accent {
