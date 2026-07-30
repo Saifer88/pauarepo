@@ -1038,6 +1038,19 @@ h1, h2, h3, h4, h5 {
     padding: 1rem 1.5rem;
 }
 
+.pricing-btn-spacer {
+    height: calc(1.25rem * 1.5 + 2rem); /* matches btn-lg + pricing-btn-single height */
+}
+
+.pricing-included-note {
+    font-size: .72rem;
+    color: rgba(255, 255, 255, .6);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1.2rem;
+}
+
 .pricing-btn .pricing-btn-icon {
     position: absolute;
     left: 1.5rem;
