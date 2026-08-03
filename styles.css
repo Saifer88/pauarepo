@@ -676,9 +676,8 @@ h1, h2, h3, h4, h5 {
 
 .struttura-hero img {
     width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
     transition: opacity 0.3s ease;
 }
 
@@ -718,10 +717,6 @@ h1, h2, h3, h4, h5 {
 }
 
 @media (max-width: 767px) {
-    .struttura-hero img {
-        max-height: 300px;
-    }
-
     .struttura-thumbs {
         gap: 8px;
     }
@@ -736,14 +731,38 @@ h1, h2, h3, h4, h5 {
 .sala-layout {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: 1fr;
     gap: 2.5rem;
-    align-items: start;
     max-width: 1100px;
     margin: 0 auto;
 }
 
+.sala-layout-gallery {
+    overflow: hidden;
+    min-height: 0;
+}
+
 .sala-layout-gallery .struttura-gallery {
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sala-layout-gallery .struttura-hero {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.sala-layout-gallery .struttura-hero img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .sala-info-card {
@@ -825,6 +844,11 @@ h1, h2, h3, h4, h5 {
     .sala-layout {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+
+    .sala-layout-gallery .struttura-hero {
+        flex: none;
+        height: 280px;
     }
 
     .sala-info-card {
