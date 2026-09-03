@@ -94,11 +94,45 @@
         }
     }
     </script>
+    <!-- WebSite Schema (entità principale per i sitelink) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Paola Mincuzzi Chinesiologa e Personal Trainer Bari",
+        "url": "https://www.paolamincuzzi.it/",
+        "inLanguage": "it-IT",
+        "publisher": {
+            "@type": "Person",
+            "name": "Paola Mincuzzi"
+        },
+        "hasPart": [
+            {
+                "@type": "WebPage",
+                "name": "Fitness Aziendale",
+                "description": "Fitness aziendale in loco a Bari e provincia: classi di allenamento funzionale e ginnastica posturale per il benessere dei dipendenti.",
+                "url": "https://www.paolamincuzzi.it/fitness-aziendale/"
+            },
+            {
+                "@type": "WebPage",
+                "name": "Servizi",
+                "description": "Personal training, valutazione funzionale e recupero funzionale a Bari.",
+                "url": "https://www.paolamincuzzi.it/#servizi"
+            },
+            {
+                "@type": "WebPage",
+                "name": "Shop",
+                "description": "Pacchetti di allenamento personalizzato acquistabili online.",
+                "url": "https://www.paolamincuzzi.it/#shop"
+            }
+        ]
+    }
+    </script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "SiteNavigationElement",
-        "name": ["Chi Sono", "Servizi", "Metodo", "Risultati", "Dicono di me", "Struttura", "Shop", "F.A.Q.", "Contatti"],
+        "name": ["Chi Sono", "Servizi", "Metodo", "Risultati", "Dicono di me", "Struttura", "Shop", "Fitness Aziendale", "F.A.Q.", "Contatti"],
         "url": [
             "https://www.paolamincuzzi.it/#chi-sono",
             "https://www.paolamincuzzi.it/#servizi",
@@ -107,6 +141,7 @@
             "https://www.paolamincuzzi.it/#risultati",
             "https://www.paolamincuzzi.it/#struttura",
             "https://www.paolamincuzzi.it/#shop",
+            "https://www.paolamincuzzi.it/fitness-aziendale/",
             "https://www.paolamincuzzi.it/#faq",
             "https://www.paolamincuzzi.it/#contatti"
         ]
@@ -192,6 +227,16 @@
                 "provider": {"@type": "Person", "name": "Paola Mincuzzi"},
                 "areaServed": {"@type": "City", "name": "Bari"},
                 "serviceType": "Recupero Funzionale"
+            },
+            {
+                "@type": "Service",
+                "position": 4,
+                "name": "Fitness Aziendale in Loco",
+                "description": "Classi di fitness funzionale e ginnastica posturale direttamente in azienda a Bari e provincia, per il benessere e la produttività dei dipendenti.",
+                "provider": {"@type": "Person", "name": "Paola Mincuzzi"},
+                "areaServed": {"@type": "City", "name": "Bari"},
+                "serviceType": "Fitness Aziendale",
+                "url": "https://www.paolamincuzzi.it/fitness-aziendale/"
             }
         ]
     }
@@ -554,7 +599,8 @@
                     <li class="nav-item"><a class="nav-link" href="#struttura">Struttura</a></li>
                     <li class="nav-item"><a class="nav-link" href="#shop">Shop</a></li>
                     <li class="nav-item"><a class="nav-link" href="#faq">F.A.Q.</a></li>
-                    <li class="nav-item ms-lg-2"><a class="btn btn-primary btn-sm px-3" href="#contatti"><i class="bi bi-telephone me-1"></i>Contattami</a></li>
+                    <li class="nav-item ms-lg-2"><a class="btn btn-aziendale btn-sm px-3" href="/fitness-aziendale/"><i class="bi bi-building me-1"></i>Fitness Aziendale</a></li>
+                    <li class="nav-item ms-lg-1"><a class="btn btn-primary btn-sm px-3" href="#contatti"><i class="bi bi-telephone me-1"></i>Contattami</a></li>
                 </ul>
             </div>
         </div>
@@ -762,6 +808,33 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Fitness Aziendale - full width row -->
+            <div class="row g-4 mt-4">
+                <div class="col-12">
+                    <a href="/fitness-aziendale/" class="text-decoration-none">
+                        <div class="card border-0 shadow service-card service-card-aziendale">
+                            <div class="card-body p-4 p-lg-5">
+                                <div class="row align-items-center g-4">
+                                    <div class="col-lg-8">
+                                        <span class="badge service-badge-aziendale mb-3"><i class="bi bi-building me-1"></i>Nuovo · Servizio B2B</span>
+                                        <h5 class="card-title fw-bold fs-4 text-white">Fitness Aziendale in Loco</h5>
+                                        <p class="card-text mb-3" style="color:rgba(255,255,255,0.8);">Classi di fitness funzionale e posturale direttamente nella tua azienda, a Bari e provincia. Un investimento sul benessere e sulla produttività del team.</p>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <span class="text-white"><i class="bi bi-people-fill me-2" style="color:var(--accent);"></i>Gruppi da 5 a 20 persone</span>
+                                            <span class="text-white"><i class="bi bi-clock-fill me-2" style="color:var(--accent);"></i>Orari flessibili</span>
+                                            <span class="text-white"><i class="bi bi-geo-alt-fill me-2" style="color:var(--accent);"></i>Nei vostri spazi</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 text-lg-end text-center">
+                                        <span class="btn btn-aziendale btn-lg"><i class="bi bi-envelope me-2"></i>Richiedi un preventivo</span>
+                                        <p class="small mt-2 mb-0" style="color:rgba(255,255,255,0.55);">Scopri il servizio dedicato</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1415,6 +1488,7 @@
                         <a href="#faq" class="text-white-50 text-decoration-none small">F.A.Q.</a>
                         <a href="#contatti" class="text-white-50 text-decoration-none small">Contatti</a>
                     </div>
+                    <a href="/fitness-aziendale/" class="btn btn-aziendale btn-sm mt-3"><i class="bi bi-building me-1"></i>Fitness Aziendale</a>
                 </div>
             </div>
             <hr class="border-secondary my-4">

@@ -3,6 +3,9 @@
     --accent: #d4a574;
     --accent-dark: #c08f5a;
     --accent-light: #f0dfc8;
+    --aziendale: #16213e;
+    --aziendale-soft: #1e2d52;
+    --aziendale-light: #2a3d6b;
     --dark: #111111;
     --dark-soft: #1a1a1a;
     --text: #2d2d2d;
@@ -138,6 +141,9 @@ h1, h2, h3, h4, h5 {
     font-weight: 500;
     border-width: 2px;
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-outline-light:hover {
@@ -1131,12 +1137,84 @@ h1, h2, h3, h4, h5 {
     padding: 10px 20px;
     font-weight: 500;
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-accent:hover {
     background: #c4955a;
     color: #fff;
     transform: translateY(-2px);
+}
+
+/* ===== FITNESS AZIENDALE (tema blu) ===== */
+.btn-aziendale {
+    background: var(--aziendale);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 22px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-aziendale:hover {
+    background: var(--aziendale-light);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Su sfondo scuro (footer) alziamo il blu per contrasto */
+.bg-dark .btn-aziendale {
+    background: var(--aziendale-light);
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.bg-dark .btn-aziendale:hover {
+    background: #35508c;
+}
+
+.btn-outline-aziendale {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 10px 22px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-outline-aziendale:hover {
+    background: #fff;
+    color: var(--aziendale);
+    border-color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Service card variante aziendale (nella home) */
+.service-card-aziendale {
+    background: linear-gradient(135deg, var(--aziendale), var(--aziendale-soft));
+    border-radius: 1.2rem !important;
+}
+
+.service-card-aziendale:hover {
+    transform: translateY(-6px);
+}
+
+.service-badge-aziendale {
+    background: rgba(255,255,255,0.12);
+    color: var(--accent);
+    font-weight: 600;
+    padding: 0.45rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
 }
 
 /* ===== PRICING OPTIONS ===== */
@@ -1307,6 +1385,140 @@ footer .navbar-brand {
     transition-delay: 0.2s;
 }
 
+/* ===== DEMO FITNESS AZIENDALE ===== */
+.demo-az-tag {
+    display: inline-block;
+    background: rgba(212,165,116,0.18);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 1rem;
+    border-radius: 2rem;
+}
+
+.demo-az-banner {
+    background: linear-gradient(135deg, rgba(212,165,116,0.12), rgba(255,255,255,0.03));
+    border: 1px solid rgba(212,165,116,0.25);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+}
+
+.demo-az-card {
+    border-radius: 1.2rem;
+}
+
+.demo-az-pricing {
+    position: relative;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.2rem;
+    padding: 2rem 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.demo-az-pricing:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+}
+
+.demo-az-pricing-featured {
+    background: rgba(212,165,116,0.1);
+    border-color: var(--accent);
+}
+
+.demo-az-badge {
+    position: absolute;
+    top: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.3rem 1rem;
+    border-radius: 2rem;
+}
+
+.demo-az-price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin: 0.75rem 0 1rem;
+}
+
+.demo-az-price span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+}
+
+.demo-az-pricing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.7);
+}
+
+.demo-az-pricing-list li {
+    padding: 0.35rem 0;
+}
+
+.demo-az-benefit {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1rem;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.demo-az-benefit:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-3px);
+}
+
+.demo-az-benefit i {
+    font-size: 1.8rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.demo-az-benefit strong {
+    display: block;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.demo-az-benefit span {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.8rem;
+}
+
+.demo-az-cta {
+    background: linear-gradient(135deg, rgba(212,165,116,0.15), rgba(255,255,255,0.03));
+    border: 1px solid rgba(212,165,116,0.25);
+    border-radius: 1.5rem;
+    padding: 2.5rem 1.5rem;
+}
+
+.btn-outline-accent {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-outline-accent:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
 /* ===== COOKIE BANNER ===== */
 .cookie-banner {
     position: fixed;
@@ -1392,5 +1604,344 @@ footer .navbar-brand {
 
     .method-step::after {
         display: none;
+    }
+}
+
+/* ============================================= */
+/* ===== PAGINA FITNESS AZIENDALE (tema blu) ==== */
+/* ============================================= */
+.az-page {
+    background: var(--aziendale);
+    color: #fff;
+}
+
+.az-navbar {
+    background: rgba(13, 20, 40, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.az-navbar .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.az-navbar .nav-link:hover {
+    color: #fff;
+}
+
+.az-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.az-navbar .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+@media (max-width: 991px) {
+    /* Override delle regole globali .navbar (che forzano tema chiaro) per la pagina aziendale */
+    .navbar.az-navbar,
+    .navbar.az-navbar:not(.scrolled),
+    .navbar.az-navbar.scrolled {
+        background: rgba(13, 20, 40, 0.95) !important;
+    }
+    .navbar.az-navbar .nav-link,
+    .navbar.az-navbar:not(.scrolled) .nav-link {
+        color: rgba(255, 255, 255, 0.85) !important;
+    }
+    .navbar.az-navbar .nav-link:hover,
+    .navbar.az-navbar:not(.scrolled) .nav-link:hover {
+        color: #fff !important;
+    }
+    .navbar.az-navbar .navbar-toggler-icon,
+    .navbar.az-navbar:not(.scrolled) .navbar-toggler-icon {
+        filter: invert(1) !important;
+    }
+    .az-navbar .navbar-collapse {
+        background: var(--aziendale-soft);
+        border-radius: 1rem;
+        padding: 1rem;
+        margin-top: 0.75rem;
+    }
+}
+
+/* Hero */
+.az-hero {
+    background: linear-gradient(135deg, var(--aziendale) 0%, var(--aziendale-soft) 100%);
+    padding: 10rem 0 5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.az-hero::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(212, 165, 116, 0.12), transparent 70%);
+    border-radius: 50%;
+}
+
+.az-breadcrumb {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.az-breadcrumb .breadcrumb-item a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.az-breadcrumb .breadcrumb-item.active {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.az-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.az-tag {
+    display: inline-block;
+    background: rgba(212, 165, 116, 0.18);
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.4rem 1.1rem;
+    border-radius: 2rem;
+}
+
+.az-hero-feature {
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.az-hero-feature i {
+    color: var(--accent);
+}
+
+.az-hero-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    backdrop-filter: blur(6px);
+}
+
+.az-list li {
+    padding: 0.5rem 0;
+    color: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.az-list li:last-child {
+    border-bottom: none;
+}
+
+.az-list li i {
+    color: var(--accent);
+}
+
+/* Sezioni */
+.az-section {
+    background: var(--aziendale);
+}
+
+.az-section-alt {
+    background: var(--aziendale-soft);
+}
+
+/* Pricing */
+.az-pricing {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.2rem;
+    padding: 2.25rem 1.75rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.az-pricing:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.az-pricing-featured {
+    background: rgba(212, 165, 116, 0.1);
+    border-color: var(--accent);
+}
+
+.az-pricing-badge {
+    position: absolute;
+    top: -0.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 1.1rem;
+    border-radius: 2rem;
+    white-space: nowrap;
+}
+
+.az-pricing-sub {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.az-price {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin: 0.5rem 0 1.25rem;
+}
+
+.az-price span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.az-pricing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.75rem 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.az-pricing-list li {
+    padding: 0.4rem 0;
+}
+
+.az-pricing-list li i {
+    color: var(--accent);
+}
+
+/* Uniforma l'altezza dei bottoni nelle card prezzi (accent vs outline) */
+.az-pricing .btn {
+    padding: 12px 24px;
+    font-weight: 600;
+}
+
+/* Benefici */
+.az-benefit {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.75rem 1rem;
+    text-align: center;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.az-benefit:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-4px);
+}
+
+.az-benefit i {
+    font-size: 2rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.az-benefit strong {
+    display: block;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+}
+
+.az-benefit span {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.85rem;
+}
+
+/* Come funziona */
+.az-step {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.2rem;
+    padding: 2rem 1.75rem;
+    height: 100%;
+}
+
+.az-step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+/* CTA finale */
+.az-cta {
+    background: linear-gradient(135deg, rgba(212, 165, 116, 0.14), rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(212, 165, 116, 0.25);
+    border-radius: 1.5rem;
+    padding: 3.5rem 1.5rem;
+}
+
+/* QR code condivisione */
+.az-qr-card {
+    background: #fff;
+    border-radius: 1.25rem;
+    padding: 1.75rem 1.5rem 1.5rem;
+    display: inline-block;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    max-width: 300px;
+    width: 100%;
+}
+
+.az-qr-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.az-qr-code img,
+.az-qr-code canvas {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+}
+
+.az-qr-caption {
+    color: var(--aziendale);
+    font-weight: 600;
+    font-size: 0.85rem;
+    word-break: break-all;
+}
+
+/* Footer */
+.az-footer {
+    background: #0d1428;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 991px) {
+    .az-hero {
+        padding: 8rem 0 3.5rem;
     }
 }

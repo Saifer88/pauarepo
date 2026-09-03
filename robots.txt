@@ -2,6 +2,9 @@ User-agent: *
 Allow: /
 
 Disallow: /grazie.html
+# Nota: /fitness-aziendale.html NON è bloccato qui di proposito.
+# È un redirect con <meta robots="noindex,follow"> + canonical verso /fitness-aziendale/:
+# per far leggere il noindex a Google la pagina deve restare crawlabile.
 
 # Block gallery images from Google Images (keep portrait visible)
 User-agent: Googlebot-Image
