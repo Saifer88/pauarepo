@@ -291,6 +291,31 @@ h1, h2, h3, h4, h5 {
     transition: color 0.3s ease;
 }
 
+/* Navbar compatta su desktop: tutto in una riga */
+@media (min-width: 992px) {
+    .navbar .navbar-nav.ms-auto {
+        gap: 0 !important;
+    }
+    .navbar .nav-link {
+        font-size: 0.78rem;
+        letter-spacing: 0.4px;
+        padding: 8px 9px !important;
+    }
+    .navbar .navbar-nav .btn.btn-sm {
+        padding: 7px 12px;
+        font-size: 0.76rem;
+    }
+    .navbar .navbar-nav .btn.btn-sm .bi {
+        font-size: 0.85rem;
+    }
+    .navbar .nav-item.ms-lg-2 {
+        margin-left: 0.35rem !important;
+    }
+    .navbar .nav-item.ms-lg-1 {
+        margin-left: 0.25rem !important;
+    }
+}
+
 /* ===== HERO ===== */
 .hero-section {
     position: relative;
@@ -427,6 +452,27 @@ h1, h2, h3, h4, h5 {
 
 .service-link {
     cursor: pointer;
+}
+
+/* Card servizio usata come link (<a>): mantiene i colori di testo standard */
+a.service-card,
+a.service-card:hover,
+a.service-card:focus {
+    color: var(--text);
+}
+
+/* Utility colore blu aziendale */
+.text-aziendale {
+    color: var(--aziendale) !important;
+}
+
+/* Card Fitness Aziendale: colore primario blu (mantiene la forma uniforme) */
+.service-card-aziendale {
+    border-top: 3px solid var(--aziendale) !important;
+}
+
+.service-card-aziendale .service-icon-aziendale {
+    color: var(--aziendale);
 }
 
 .featured-card {
@@ -1198,25 +1244,6 @@ h1, h2, h3, h4, h5 {
     transform: translateY(-2px);
 }
 
-/* Service card variante aziendale (nella home) */
-.service-card-aziendale {
-    background: linear-gradient(135deg, var(--aziendale), var(--aziendale-soft));
-    border-radius: 1.2rem !important;
-}
-
-.service-card-aziendale:hover {
-    transform: translateY(-6px);
-}
-
-.service-badge-aziendale {
-    background: rgba(255,255,255,0.12);
-    color: var(--accent);
-    font-weight: 600;
-    padding: 0.45rem 1rem;
-    border-radius: 2rem;
-    font-size: 0.8rem;
-}
-
 /* ===== PRICING OPTIONS ===== */
 .pricing-options {
     display: flex;
@@ -1901,7 +1928,40 @@ footer .navbar-brand {
     padding: 3.5rem 1.5rem;
 }
 
+.az-email-copied {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Bottone navbar "Condividi" (QR) bianco */
+.btn-qr-white {
+    background: #fff;
+    color: var(--aziendale);
+    border: 1.5px solid #fff;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-qr-white:hover,
+.btn-qr-white:focus {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+    transform: translateY(-2px);
+}
+
 /* QR code condivisione */
+/* Sezione Condividi in risalto (accent) */
+.az-condividi {
+    border-top: 3px solid var(--accent);
+    position: relative;
+}
+
 .az-qr-card {
     background: #fff;
     border-radius: 1.25rem;
@@ -1910,6 +1970,8 @@ footer .navbar-brand {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     max-width: 300px;
     width: 100%;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 6px rgba(212, 165, 116, 0.15), 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 .az-qr-code {

@@ -89,6 +89,7 @@
                     <li class="nav-item"><a class="nav-link" href="#benefici">Benefici</a></li>
                     <li class="nav-item"><a class="nav-link" href="/">Torna al sito</a></li>
                     <li class="nav-item ms-lg-2"><a class="btn btn-accent btn-sm px-3" href="#preventivo"><i class="bi bi-envelope me-1"></i>Richiedi preventivo</a></li>
+                    <li class="nav-item ms-lg-1"><a class="btn btn-qr-white btn-sm px-3" href="#condividi"><i class="bi bi-qr-code me-1"></i>Condividi</a></li>
                 </ul>
             </div>
         </div>
@@ -274,15 +275,16 @@
                 <p class="mb-4 mx-auto" style="max-width: 560px; color:rgba(255,255,255,0.7);">Raccontami le esigenze della tua azienda: preparo una proposta su misura, senza impegno. Fitness aziendale in loco a Bari e provincia.</p>
                 <div class="d-flex flex-wrap gap-3 justify-content-center">
                     <a href="https://wa.me/393452541794?text=Salve%20Dott.ssa%20Mincuzzi%2C%20vorrei%20informazioni%20sul%20fitness%20aziendale%20in%20loco" target="_blank" rel="noopener" class="btn btn-accent btn-lg"><i class="bi bi-whatsapp me-2"></i>Scrivimi su WhatsApp</a>
-                    <a href="mailto:info@paolamincuzzi.it?subject=Richiesta%20preventivo%20Fitness%20Aziendale" class="btn btn-outline-light btn-lg"><i class="bi bi-envelope me-2"></i>Invia una email</a>
+                    <a href="mailto:info@paolamincuzzi.it?subject=Richiesta%20preventivo%20Fitness%20Aziendale" id="azEmailBtn" data-email="info@paolamincuzzi.it" class="btn btn-outline-light btn-lg"><i class="bi bi-envelope me-2"></i>Invia una email</a>
                 </div>
+                <p class="az-email-copied mt-3 mb-0" id="azEmailCopied" role="status" aria-live="polite" hidden><i class="bi bi-check-circle-fill me-1"></i>Email copiata negli appunti: info@paolamincuzzi.it</p>
                 <p class="small mt-4 mb-0" style="color:rgba(255,255,255,0.5);"><i class="bi bi-telephone me-1"></i>+39 345 254 1794 · info@paolamincuzzi.it</p>
             </div>
         </div>
     </section>
 
     <!-- Condividi / QR Code -->
-    <section class="py-section az-section" id="condividi">
+    <section class="py-section az-section-alt az-condividi" id="condividi">
         <div class="container">
             <div class="row align-items-center g-5 justify-content-center">
                 <div class="col-lg-6">
@@ -344,6 +346,7 @@
                         <a href="#pacchetti-aziendali" class="text-white-50 text-decoration-none small">Pacchetti</a>
                         <a href="#benefici" class="text-white-50 text-decoration-none small">Benefici</a>
                         <a href="#preventivo" class="text-white-50 text-decoration-none small">Richiedi preventivo</a>
+                        <a href="#condividi" class="text-accent text-decoration-none small fw-semibold"><i class="bi bi-qr-code me-1"></i>Condividi con QR</a>
                     </div>
                 </div>
             </div>
@@ -379,6 +382,41 @@
                     if (dataUrl) downloadBtn.setAttribute('href', dataUrl);
                 }, 300);
             }
+        });
+    </script>
+    <!-- Fallback email: copia negli appunti se mailto non apre client -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var btn = document.getElementById('azEmailBtn');
+            var msg = document.getElementById('azEmailCopied');
+            if (!btn || !msg) return;
+            var email = btn.getAttribute('data-email');
+            var timer;
+            function showCopied() {
+                msg.hidden = false;
+                clearTimeout(timer);
+                timer = setTimeout(function () { msg.hidden = true; }, 4000);
+            }
+            function copyEmail() {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    return navigator.clipboard.writeText(email);
+                }
+                // Fallback legacy
+                var ta = document.createElement('textarea');
+                ta.value = email;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); } catch (e) {}
+                document.body.removeChild(ta);
+                return Promise.resolve();
+            }
+            btn.addEventListener('click', function () {
+                // mailto continua a funzionare per chi ha un client;
+                // in ogni caso copiamo l'indirizzo cosi l'utente ha sempre un'azione utile
+                copyEmail().then(showCopied).catch(showCopied);
+            });
         });
     </script>
 </body>
