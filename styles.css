@@ -1934,6 +1934,20 @@ footer .navbar-brand {
     font-size: 0.9rem;
 }
 
+/* Hero: immagine a destra piena altezza (layout H) */
+.az-hero-img {
+    object-fit: cover;
+    min-height: 500px;
+}
+
+@media (max-width: 991px) {
+    .az-hero-img {
+        min-height: 300px;
+    }
+}
+
+
+
 /* Bottone navbar "Condividi" (QR) bianco */
 .btn-qr-white {
     background: #fff;
