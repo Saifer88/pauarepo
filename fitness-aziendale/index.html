@@ -305,7 +305,7 @@
                     <div class="az-qr-card">
                         <div id="azQrCode" class="az-qr-code" aria-label="QR code verso la pagina Fitness Aziendale"></div>
                         <p class="az-qr-caption mb-2">paolamincuzzi.it/fitness-aziendale</p>
-                        <a href="#" id="azQrDownload" class="btn btn-accent btn-sm" download="fitness-aziendale-paola-mincuzzi.png"><i class="bi bi-download me-2"></i>Scarica l'immagine</a>
+                        <a href="#" id="azQrDownload" class="btn btn-accent btn-sm" download="fitness-aziendale-paola-mincuzzi.png"><i class="bi bi-download me-2"></i>Download QR Code</a>
                     </div>
                 </div>
             </div>
@@ -376,15 +376,23 @@
                 colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.H
             });
-            // Collega il pulsante di download all'immagine generata
+            // Download solo dell'immagine QR (canvas o img generati da qrcodejs)
             var downloadBtn = document.getElementById('azQrDownload');
             if (downloadBtn) {
-                setTimeout(function () {
-                    var img = target.querySelector('img');
+                downloadBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
                     var canvas = target.querySelector('canvas');
-                    var dataUrl = img ? img.src : (canvas ? canvas.toDataURL('image/png') : null);
-                    if (dataUrl) downloadBtn.setAttribute('href', dataUrl);
-                }, 300);
+                    var img = target.querySelector('img');
+                    var dataUrl = canvas ? canvas.toDataURL('image/png')
+                                : (img && img.src ? img.src : null);
+                    if (!dataUrl) return;
+                    var a = document.createElement('a');
+                    a.href = dataUrl;
+                    a.download = 'fitness-aziendale-paola-mincuzzi.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
             }
         });
     </script>
