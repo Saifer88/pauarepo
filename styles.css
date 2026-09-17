@@ -1260,6 +1260,40 @@ a.service-card:focus {
     font-weight: 600;
 }
 
+/* Box risalto orari + prezzo (Small Class) */
+.pricing-highlight {
+    background: rgba(212, 165, 116, 0.12);
+    border: 1px solid rgba(212, 165, 116, 0.35);
+    border-radius: 0.9rem;
+    padding: 1rem;
+    margin: 0 0 1.25rem;
+    text-align: center;
+}
+
+.pricing-highlight-price {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+}
+
+.pricing-highlight-price span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.pricing-highlight-schedule {
+    margin-top: 0.5rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.pricing-highlight-schedule i {
+    color: var(--accent);
+}
+
 /* ===== PRICING BUTTONS ===== */
 .pricing-btn {
     position: relative;
