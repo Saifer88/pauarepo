@@ -15,6 +15,14 @@
     --bg-dark: #111111;
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Inter', sans-serif;
+
+    /* ===== Refresh B: design tokens (additivi, non rompono l'esistente) ===== */
+    --line: #ece5db;                 /* bordi caldi */
+    --bg-warm: #fbf9f6;              /* sfondo crema alternativo */
+    --shadow-soft: 0 20px 50px -20px rgba(80, 60, 40, 0.22);
+    --shadow-card: 0 12px 30px -14px rgba(80, 60, 40, 0.18);
+    /* spacing scale 8px */
+    --s1: 8px; --s2: 16px; --s3: 24px; --s4: 40px; --s5: 64px; --s6: 96px;
 }
 
 /* ===== PRELOADER ===== */
@@ -168,6 +176,13 @@ h1, h2, h3, h4, h5 {
 .btn-lg {
     padding: 16px 40px;
     font-size: 1rem;
+}
+
+/* Focus visibile accessibile su tutti i bottoni (refresh B) */
+.btn:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    box-shadow: none;
 }
 
 /* ===== NAVBAR ===== */
@@ -354,6 +369,49 @@ h1, h2, h3, h4, h5 {
     letter-spacing: -1px;
 }
 
+/* Hero stat-strip (refresh B) */
+.hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s4);
+    margin-top: var(--s4);
+    padding-top: var(--s3);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.hero-stat-num .bi {
+    font-size: 1.1rem;
+    color: var(--accent);
+}
+
+.hero-stat-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.02em;
+}
+
+@media (max-width: 767px) {
+    .hero-text .d-flex.gap-3 { justify-content: center; }
+    .hero-stats { justify-content: center; gap: var(--s3); }
+}
+
 /* ===== SECTIONS ===== */
 .py-section {
     padding: 120px 0;
@@ -364,6 +422,18 @@ h1, h2, h3, h4, h5 {
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 3px;
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    border-radius: 50px;
+    background: var(--accent-light);
+    color: var(--accent-dark);
+}
+
+/* Su sezioni scure il tag resta leggibile */
+.pricing-section .section-tag,
+.bg-dark .section-tag {
+    background: rgba(212, 165, 116, 0.15);
+    color: var(--accent);
 }
 
 .display-5 {
@@ -402,7 +472,7 @@ h1, h2, h3, h4, h5 {
 
 .credential-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-card);
     border-color: var(--accent-light);
 }
 
@@ -440,14 +510,16 @@ h1, h2, h3, h4, h5 {
 
 /* ===== SERVICE CARDS ===== */
 .service-card {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 1.2rem !important;
     overflow: hidden;
+    border: 1px solid var(--line) !important;
 }
 
 .service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-soft) !important;
+    border-color: transparent !important;
 }
 
 .service-link {
@@ -473,6 +545,7 @@ a.service-card:focus {
 
 .service-card-aziendale .service-icon-aziendale {
     color: var(--aziendale);
+    background: rgba(22, 33, 62, 0.08);
 }
 
 .featured-card {
@@ -482,8 +555,17 @@ a.service-card:focus {
 }
 
 .service-icon {
-    font-size: 2rem;
-    color: var(--accent);
+    font-size: 1.6rem;
+    color: var(--accent-dark);
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--accent-light);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .service-card .card-title {
@@ -623,7 +705,7 @@ a.service-card:focus {
 
 .review-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-card);
     border-color: var(--accent-light);
 }
 
@@ -1080,10 +1162,10 @@ a.service-card:focus {
 }
 
 .pricing-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(212, 165, 116, 0.3);
+    transform: translateY(-6px);
+    border-color: rgba(212, 165, 116, 0.45);
     background: rgba(255, 255, 255, 0.07);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.55);
 }
 
 .pricing-card-featured {
@@ -1833,6 +1915,7 @@ footer .navbar-brand {
     transform: translateY(-5px);
     border-color: var(--accent);
     background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 24px 60px -22px rgba(0, 0, 0, 0.6);
 }
 
 .az-pricing-featured {
@@ -1938,6 +2021,13 @@ footer .navbar-brand {
     border-radius: 1.2rem;
     padding: 2rem 1.75rem;
     height: 100%;
+    transition: all 0.3s ease;
+}
+
+.az-step:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-4px);
+    border-color: rgba(212, 165, 116, 0.4);
 }
 
 .az-step-num {
