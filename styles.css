@@ -574,6 +574,33 @@ a.service-card:focus {
     text-align: center;
 }
 
+/* Allinea link "Scopri" in fondo + liste alla stessa altezza (prima riga servizi) */
+#servizi .row:first-of-type .service-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+#servizi .row:first-of-type .service-card .card-title {
+    min-height: 3.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#servizi .row:first-of-type .service-card .list-unstyled {
+    flex: 1;
+}
+
+#servizi .row:first-of-type .service-card .card-body > span:last-child {
+    margin-top: auto;
+}
+
+@media (max-width: 991px) {
+    #servizi .row:first-of-type .service-card .card-title {
+        min-height: 0;
+    }
+}
+
 .service-card .card-text {
     text-align: center;
 }
@@ -1205,6 +1232,16 @@ a.service-card:focus {
     font-size: 1.3rem;
     color: #fff;
     margin-bottom: 0.75rem;
+}
+
+/* Allinea titoli pricing su più righe (desktop): descrizioni partono alla stessa Y */
+@media (min-width: 992px) {
+    .pricing-title {
+        min-height: 3.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .pricing-description {
@@ -2143,5 +2180,48 @@ footer .navbar-brand {
 @media (max-width: 991px) {
     .az-hero {
         padding: 8rem 0 3.5rem;
+    }
+}
+
+
+/* ===== ACCESSIBILITÀ: riduzione del movimento (WCAG) ===== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    /* Elementi che appaiono con reveal restano subito visibili */
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Nessun sollevamento/scala in hover */
+    .service-card:hover,
+    .pricing-card:hover,
+    .review-card:hover,
+    .credential-card:hover,
+    .gallery-slide:hover,
+    .method-step:hover,
+    .az-pricing:hover,
+    .az-benefit:hover,
+    .az-step:hover,
+    .btn:hover {
+        transform: none !important;
+    }
+
+    /* Carosello galleria e animazioni continue ferme */
+    .gallery-track {
+        animation: none !important;
+    }
+
+    .preloader-bar-fill,
+    .preloader-logo {
+        animation: none !important;
     }
 }

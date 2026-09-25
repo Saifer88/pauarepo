@@ -12,9 +12,11 @@ window.addEventListener('load', () => {
 
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
+if (navbar) {
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+}
 
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -60,7 +62,9 @@ if (galleryCarousel && galleryTrack) {
     let dragMoved = false;
     let startX = 0;
     let dragStartScroll = 0;
-    let autoSpeed = 0.5;
+    // Rispetta prefers-reduced-motion: nessuno scorrimento automatico
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let autoSpeed = prefersReducedMotion ? 0 : 0.5;
     let velocity = 0;
     let lastX = 0;
     let lastTime = 0;
@@ -80,7 +84,7 @@ if (galleryCarousel && galleryTrack) {
                 velocity *= 0.95;
                 if (Math.abs(velocity) < 0.3) {
                     inertiaActive = false;
-                    autoSpeed = 0.5;
+                    autoSpeed = prefersReducedMotion ? 0 : 0.5;
                 }
             } else {
                 scrollPos += autoSpeed;
