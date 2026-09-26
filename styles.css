@@ -1256,6 +1256,16 @@ a.service-card:focus {
     margin-bottom: 1.5rem;
 }
 
+.pricing-card[data-package="1"] .pricing-features {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.pricing-card[data-package="1"] .pricing-feature-plan {
+    margin-block: auto;
+}
+
 .pricing-features li {
     color: rgba(255, 255, 255, 0.75);
     font-size: 0.88rem;
@@ -1272,6 +1282,78 @@ a.service-card:focus {
 
 .pricing-features li:last-child {
     border-bottom: none;
+}
+
+.pricing-features .pricing-feature-plan {
+    display: block;
+    padding: 0.85rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(212, 165, 116, 0.28);
+    border-radius: 0.8rem;
+    background: rgba(212, 165, 116, 0.07);
+}
+
+.pricing-plan-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-bottom: 0.65rem;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.pricing-plan-heading i {
+    color: var(--accent);
+}
+
+.pricing-plan-duration {
+    flex-shrink: 0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(212, 165, 116, 0.16);
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.pricing-features .pricing-plan-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: pricing-step;
+}
+
+.pricing-features .pricing-plan-steps li {
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.78rem;
+    line-height: 1.35;
+}
+
+.pricing-features .pricing-plan-steps li:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.pricing-features .pricing-plan-steps li::before {
+    display: grid;
+    width: 1.5rem;
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(212, 165, 116, 0.16);
+    color: var(--accent);
+    content: counter(pricing-step, decimal-leading-zero);
+    counter-increment: pricing-step;
+    font-size: 0.62rem;
+    font-weight: 700;
 }
 
 .btn-outline-accent {
