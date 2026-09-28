@@ -333,9 +333,8 @@ h1, h2, h3, h4, h5 {
 
 /* ===== HERO ===== */
 .hero-section {
-    --hero-image-position: 50% 38%;
     position: relative;
-    background: #141615;
+    background: #2c332f url('images/hero-personal-training-bari.webp') center/cover no-repeat;
     min-height: 100vh;
     overflow: hidden;
 }
@@ -344,15 +343,14 @@ h1, h2, h3, h4, h5 {
     content: '';
     position: absolute;
     inset: 0;
-    background: url('images/paola-mincuzzi-personal-trainer-bari-portrait.webp') var(--hero-image-position)/cover no-repeat;
-    filter: saturate(0.55);
+    background: rgba(20, 24, 21, 0.34);
     pointer-events: none;
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(20, 22, 21, 0.72);
+    background: rgba(20, 24, 21, 0.2);
     pointer-events: none;
 }
 
@@ -417,9 +415,12 @@ h1, h2, h3, h4, h5 {
     .orbit-card { padding: 1.25rem; }
 }
 @media (max-width: 991px) {
-    .hero-section { --hero-image-position: 54% top; }
+    .hero-section {
+        background-image: url('images/hero-personal-training-bari-mobile.webp');
+        background-position: center center;
+    }
     .hero-layout { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
-    .service-orbit { width: 100%; max-width: 540px; margin: 0 auto; }
+    .service-orbit { display: none; }
 }
 @media (max-width: 575px) {
     .orbit-card { width: 76%; padding: 1.1rem; }

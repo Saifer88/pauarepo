@@ -26,7 +26,8 @@ if (serviceOrbit) {
         cards.forEach((card, index) => {
             const angle = (index - position) * Math.PI / 2;
             const depth = (Math.cos(angle) + 1) / 2;
-            const horizontal = Math.sin(angle) * stageWidth * 0.2;
+            const orbitOffset = stageWidth > 600 ? stageWidth * 0.12 : 0;
+            const horizontal = Math.sin(angle) * stageWidth * 0.2 + orbitOffset;
             const vertical = Math.cos(angle) * 64;
             card.style.transform = `translate(-50%, -50%) translate(${horizontal}px, ${vertical}px) scale(${0.66 + depth * 0.34})`;
             card.style.opacity = String(0.3 + depth * 0.7);
