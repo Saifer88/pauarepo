@@ -604,9 +604,9 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
+    <nav class="navbar navbar-expand-lg fixed-top" id="navbar" aria-label="Navigazione principale">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="#hero" aria-label="Paola Mincuzzi - Torna all'inizio">
                 <img src="images/logo-white.png" alt="Paola Mincuzzi Chinesiologa e Personal Trainer Bari" class="nav-logo nav-logo-white" height="90">
                 <img src="images/logo.png" alt="Paola Mincuzzi Chinesiologa e Personal Trainer Bari" class="nav-logo nav-logo-dark" height="90">
             </a>
@@ -614,18 +614,17 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center gap-lg-2">
-                    <li class="nav-item"><a class="nav-link" href="#chi-sono">Chi Sono</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#servizi">Servizi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#metodo">Metodo</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#galleria">Risultati</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#risultati">Dicono di me</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#struttura">Struttura</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#shop">Shop</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#faq">F.A.Q.</a></li>
-                    <li class="nav-item ms-lg-2"><a class="btn btn-aziendale btn-sm px-3" href="/fitness-aziendale/"><i class="bi bi-building me-1"></i>Fitness Aziendale</a></li>
-                    <li class="nav-item ms-lg-1"><a class="btn btn-primary btn-sm px-3" href="#contatti"><i class="bi bi-telephone me-1"></i>Contattami</a></li>
+                <ul class="navbar-nav align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="#servizi" data-nav-sections="servizi">Servizi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#metodo" data-nav-sections="metodo">Metodo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#galleria" data-nav-sections="galleria risultati">Risultati</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#struttura" data-nav-sections="struttura">Studio</a></li>
                 </ul>
+                <div class="navbar-actions">
+                    <a class="nav-contact-link" href="#contatti"><i class="bi bi-telephone" aria-hidden="true"></i><span>Contattami</span></a>
+                    <a class="nav-business" href="/fitness-aziendale/"><i class="bi bi-building" aria-hidden="true"></i><span>Fitness aziende</span></a>
+                    <a class="btn btn-primary btn-sm nav-shop" href="#shop" data-nav-sections="shop"><i class="bi bi-bag" aria-hidden="true"></i><span>Shop</span></a>
+                </div>
             </div>
         </div>
     </nav>
@@ -1486,68 +1485,66 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-5">
+    <footer class="site-footer text-white" id="footer">
         <div class="container">
-            <div class="row g-4 mb-4">
-                <div class="col-lg-4 mb-3 mb-lg-0">
-                    <a href="#" class="d-inline-block mb-3">
-                        <img src="images/logo-white.png" alt="Paola Mincuzzi Chinesiologa e Personal Trainer Bari" height="85">
-                    </a>
-                    <p class="text-white-50 small mb-3">Chinesiologa e Personal Trainer Bari | #teammincuzzi 💪</p>
-                    <div class="d-flex gap-3">
-                        <a href="https://www.instagram.com/paola_mincuzzi" target="_blank" rel="noopener" class="text-accent" aria-label="Instagram">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-                        <a href="https://www.facebook.com/PaolaMincuzziPersonalTrainer" target="_blank" rel="noopener" class="text-accent" aria-label="Facebook">
-                            <i class="bi bi-facebook"></i>
-                        </a>
-                        <a href="https://wa.me/393452541794" target="_blank" rel="noopener" class="text-accent" aria-label="WhatsApp">
-                            <i class="bi bi-whatsapp"></i>
-                        </a>
-                        <a href="https://share.google/v0J34AKJqdy9Hqay7" target="_blank" rel="noopener" class="text-accent" aria-label="Google">
-                            <i class="bi bi-google"></i>
-                        </a>
-                        <a href="https://www.threads.com/@paolagaiamincuzzi" target="_blank" rel="noopener" class="text-accent" aria-label="Threads">
-                            <i class="bi bi-threads"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-3 mb-lg-0">
-                    <h6 class="fw-bold mb-3 text-white">Contatti</h6>
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <i class="bi bi-envelope-fill text-accent"></i>
-                        <a href="mailto:info@paolamincuzzi.it" class="text-white-50 text-decoration-none small">info@paolamincuzzi.it</a>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <i class="bi bi-whatsapp text-accent"></i>
-                        <a href="https://wa.me/393452541794" target="_blank" rel="noopener" class="text-white-50 text-decoration-none small">+39 345 254 1794</a>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="bi bi-geo-alt-fill text-accent"></i>
-                        <span class="text-white-50 small">Via Tanzi, 7, 70121 Bari BA</span>
-                    </div>
-                    <div class="rounded-3 overflow-hidden mt-2" style="max-width: 280px;">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3635.7985199241484!2d16.874866876485196!3d41.11929041258112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1347e95dbb6151d7%3A0x64e6609eadcba0c3!2sDott.ssa%20Paola%20Mincuzzi!5e1!3m2!1sen!2sit!4v1783329213745!5m2!1sen!2sit" width="100%" height="180" style="border:0; border-radius: 0.5rem;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Mappa Personal Trainer Bari - Via Tanzi 7"></iframe>
-                    </div>
-                </div>
+            <div class="row g-5 footer-main">
                 <div class="col-lg-4">
-                    <h6 class="fw-bold mb-3 text-white">Navigazione</h6>
-                    <div class="d-flex flex-column gap-1">
-                        <a href="#chi-sono" class="text-white-50 text-decoration-none small">Chi Sono</a>
-                        <a href="#servizi" class="text-white-50 text-decoration-none small">Servizi</a>
-                        <a href="#metodo" class="text-white-50 text-decoration-none small">Metodo</a>
-                        <a href="#galleria" class="text-white-50 text-decoration-none small">Risultati</a>
-                        <a href="#risultati" class="text-white-50 text-decoration-none small">Dicono di me</a>
-                        <a href="#struttura" class="text-white-50 text-decoration-none small">Struttura</a>
-                        <a href="#shop" class="text-white-50 text-decoration-none small">Shop</a>
-                        <a href="#faq" class="text-white-50 text-decoration-none small">F.A.Q.</a>
-                        <a href="#contatti" class="text-white-50 text-decoration-none small">Contatti</a>
+                    <a href="#hero" class="footer-brand" aria-label="Paola Mincuzzi - Torna all'inizio">
+                        <img src="images/logo-white.png" alt="Paola Mincuzzi Chinesiologa e Personal Trainer Bari" width="168" height="85">
+                    </a>
+                    <p class="footer-intro">Chinesiologa e Personal Trainer a Bari. Percorsi individuali per allenamento, postura e recupero funzionale.</p>
+                    <p class="footer-signature">#teammincuzzi</p>
+                    <div class="footer-social" aria-label="Profili social">
+                        <a href="https://www.instagram.com/paola_mincuzzi" target="_blank" rel="noopener" aria-label="Instagram">
+                            <i class="bi bi-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.facebook.com/PaolaMincuzziPersonalTrainer" target="_blank" rel="noopener" aria-label="Facebook">
+                            <i class="bi bi-facebook" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://wa.me/393452541794" target="_blank" rel="noopener" aria-label="WhatsApp">
+                            <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://share.google/v0J34AKJqdy9Hqay7" target="_blank" rel="noopener" aria-label="Google">
+                            <i class="bi bi-google" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.threads.com/@paolagaiamincuzzi" target="_blank" rel="noopener" aria-label="Threads">
+                            <i class="bi bi-threads" aria-hidden="true"></i>
+                        </a>
                     </div>
-                    <a href="/fitness-aziendale/" class="btn btn-aziendale btn-sm mt-3"><i class="bi bi-building me-1"></i>Fitness Aziendale</a>
+                </div>
+                <div class="col-sm-6 col-lg-2">
+                    <h2 class="footer-heading">Esplora</h2>
+                    <nav class="footer-links" aria-label="Navigazione nel footer">
+                        <a href="#servizi">Servizi</a>
+                        <a href="#metodo">Metodo</a>
+                        <a href="#galleria">Risultati</a>
+                        <a href="#struttura">Studio</a>
+                    </nav>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <h2 class="footer-heading">Contatti</h2>
+                    <address class="footer-contacts">
+                        <a href="mailto:info@paolamincuzzi.it"><i class="bi bi-envelope" aria-hidden="true"></i><span>info@paolamincuzzi.it</span></a>
+                        <a href="https://wa.me/393452541794" target="_blank" rel="noopener"><i class="bi bi-whatsapp" aria-hidden="true"></i><span>+39 345 254 1794</span></a>
+                        <a href="https://www.google.com/maps/search/?api=1&amp;query=Via+Tanzi+7+Bari" target="_blank" rel="noopener"><i class="bi bi-geo-alt" aria-hidden="true"></i><span>Via Tanzi 7, Bari</span></a>
+                        <a href="#contatti"><i class="bi bi-chat-dots" aria-hidden="true"></i><span>Contattami</span></a>
+                    </address>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <h2 class="footer-heading">Percorsi</h2>
+                    <div class="footer-actions">
+                        <a href="#shop" class="footer-shop"><i class="bi bi-bag" aria-hidden="true"></i><span>Vai allo Shop</span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                        <a href="/fitness-aziendale/" class="footer-business"><i class="bi bi-building" aria-hidden="true"></i><span>Fitness aziende</span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                    </div>
                 </div>
             </div>
-            <hr class="border-secondary my-4">
-            <p class="text-center text-white-50 small mb-0">&copy; 2026 Paola Mincuzzi — Chinesiologa e Personal Trainer Bari | P.IVA: IT08663600727</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Paola Mincuzzi · P.IVA IT08663600727</p>
+                <div class="footer-legal">
+                    <a href="cookie-policy.html">Cookie Policy</a>
+                    <a href="#hero" aria-label="Torna all'inizio della pagina">Torna su <i class="bi bi-arrow-up" aria-hidden="true"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 

@@ -90,8 +90,46 @@ if (serviceOrbit) {
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
 if (navbar) {
-    window.addEventListener('scroll', () => {
+    const updateNavbar = () => {
         navbar.classList.toggle('scrolled', window.scrollY > 50);
+    };
+
+    updateNavbar();
+    window.addEventListener('scroll', updateNavbar, { passive: true });
+
+    const navLinks = Array.from(navbar.querySelectorAll('[data-nav-sections]'));
+    const sectionToLink = new Map();
+    navLinks.forEach(link => {
+        link.dataset.navSections.split(' ').forEach(id => sectionToLink.set(id, link));
+    });
+
+    const visibleSections = new Map();
+    const updateActiveLink = () => {
+        const activeEntry = Array.from(visibleSections.entries())
+            .filter(([, isVisible]) => isVisible)
+            .sort(([firstId], [secondId]) => {
+                const firstTop = document.getElementById(firstId)?.getBoundingClientRect().top ?? Infinity;
+                const secondTop = document.getElementById(secondId)?.getBoundingClientRect().top ?? Infinity;
+                return Math.abs(firstTop - 120) - Math.abs(secondTop - 120);
+            })[0];
+        const activeLink = activeEntry ? sectionToLink.get(activeEntry[0]) : null;
+
+        navLinks.forEach(link => {
+            const isActive = link === activeLink;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+        });
+    };
+
+    const sectionObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => visibleSections.set(entry.target.id, entry.isIntersecting));
+        updateActiveLink();
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+
+    sectionToLink.forEach((link, id) => {
+        const section = document.getElementById(id);
+        if (section) sectionObserver.observe(section);
     });
 }
 
