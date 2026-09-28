@@ -187,13 +187,33 @@ h1, h2, h3, h4, h5 {
 
 /* ===== NAVBAR ===== */
 .navbar {
+    background: transparent !important;
     padding: 0.85rem 0;
     border-bottom: 1px solid transparent;
-    transition: padding 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar-surface {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    border-bottom: 1px solid rgba(44, 43, 41, 0.1);
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 8px 30px rgba(44, 43, 41, 0.06);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateZ(0);
+    will-change: opacity;
+}
+
+#navbar > .container {
+    position: relative;
+    z-index: 1;
 }
 
 .navbar:not(.scrolled) {
-    background: transparent;
+    background: transparent !important;
 }
 
 .navbar:not(.scrolled) .navbar-brand {
@@ -222,6 +242,7 @@ h1, h2, h3, h4, h5 {
         box-shadow: 0 8px 30px rgba(44, 43, 41, 0.08);
         padding: 0.55rem 0;
     }
+    .navbar-surface { display: none; }
     .navbar .nav-link,
     .navbar:not(.scrolled) .nav-link {
         color: var(--text) !important;
@@ -255,11 +276,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.94) !important;
-    backdrop-filter: blur(16px);
-    border-bottom-color: rgba(44, 43, 41, 0.1);
-    box-shadow: 0 8px 30px rgba(44, 43, 41, 0.06);
-    padding: 0.45rem 0;
+    background: transparent !important;
+    padding: 0.85rem 0;
 }
 
 .navbar.scrolled .navbar-brand {
@@ -285,10 +303,10 @@ h1, h2, h3, h4, h5 {
 .nav-logo {
     width: auto;
     height: 64px;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.7s ease-in-out;
 }
 
-.navbar.scrolled .nav-logo { height: 58px; }
+.navbar.scrolled .nav-logo { height: 64px; }
 
 .navbar:not(.scrolled) .nav-logo-white {
     opacity: 1;
@@ -319,7 +337,7 @@ h1, h2, h3, h4, h5 {
     font-weight: 500;
     letter-spacing: 0;
     padding: 0.75rem 0.8rem !important;
-    transition: color 0.2s ease;
+    transition: color 0.7s ease-in-out;
 }
 
 .navbar .navbar-nav {
@@ -367,6 +385,7 @@ h1, h2, h3, h4, h5 {
     font-size: 0.82rem;
     font-weight: 500;
     text-decoration: none;
+    transition: color 0.7s ease-in-out;
 }
 
 .navbar:not(.scrolled) .nav-contact-link { color: rgba(255, 255, 255, 0.9); }

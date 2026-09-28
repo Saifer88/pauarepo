@@ -90,8 +90,18 @@ if (serviceOrbit) {
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
 if (navbar) {
+    const navbarSurface = navbar.querySelector('.navbar-surface');
+    let navbarUpdateFrame;
+
     const updateNavbar = () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 50);
+        if (navbarUpdateFrame) return;
+
+        navbarUpdateFrame = requestAnimationFrame(() => {
+            const fadeProgress = Math.min(Math.max((window.scrollY - 20) / 120, 0), 1);
+            if (navbarSurface) navbarSurface.style.opacity = String(fadeProgress);
+            navbar.classList.toggle('scrolled', window.scrollY >= 80);
+            navbarUpdateFrame = undefined;
+        });
     };
 
     updateNavbar();
