@@ -272,22 +272,23 @@ if (strutturaTabEl) {
     const initialCards = featuredCards.length ? featuredCards : cards.slice(0, 8);
     if (cards.length <= initialCards.length) return;
 
-    cards.forEach(card => {
-        if (!initialCards.includes(card)) card.classList.add('review-hidden');
-    });
+    const remainingCards = cards.filter(card => !initialCards.includes(card));
+    [...initialCards, ...remainingCards].forEach(card => container.appendChild(card));
+
+    remainingCards.forEach(card => card.classList.add('review-hidden'));
 
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'reviews-show-more';
     button.setAttribute('aria-expanded', 'false');
-    button.textContent = `Leggi altre ${cards.length - initialCards.length} recensioni`;
+    button.textContent = `Leggi altre ${remainingCards.length} recensioni`;
     container.appendChild(button);
 
     button.addEventListener('click', () => {
         const expanded = button.getAttribute('aria-expanded') === 'true';
-        cards.filter(card => !initialCards.includes(card)).forEach(card => card.classList.toggle('review-hidden', expanded));
+        remainingCards.forEach(card => card.classList.toggle('review-hidden', expanded));
         button.setAttribute('aria-expanded', String(!expanded));
-        button.textContent = expanded ? `Leggi altre ${cards.length - initialCards.length} recensioni` : 'Mostra meno recensioni';
+        button.textContent = expanded ? `Leggi altre ${remainingCards.length} recensioni` : 'Mostra meno recensioni';
     });
 })();
 

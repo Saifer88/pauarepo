@@ -883,7 +883,7 @@ a.service-card:focus {
 .gallery-toolbar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 1.5rem;
     margin-bottom: 1rem;
     color: var(--text-muted);
@@ -950,8 +950,6 @@ a.service-card:focus {
 }
 
 @media (max-width: 575px) {
-    .gallery-toolbar { align-items: end; }
-    .gallery-toolbar p { max-width: 20ch; }
     .gallery-slide { flex-basis: 78vw; }
 }
 
