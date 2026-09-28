@@ -113,116 +113,27 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ===== GALLERY: LIGHTBOX + DRAG + AUTO-SCROLL =====
+// ===== GALLERY LIGHTBOX =====
 const lightboxModal = document.getElementById('lightboxModal');
 const lightboxImage = document.getElementById('lightboxImage');
-const galleryCarousel = document.querySelector('.gallery-carousel');
-const galleryTrack = document.querySelector('.gallery-track');
+const galleryGrid = document.querySelector('.gallery-grid');
 
-if (galleryCarousel && galleryTrack) {
-    // Clone slides for seamless infinite loop
-    galleryTrack.innerHTML += galleryTrack.innerHTML;
-
-    // Lightbox via event delegation (works on cloned slides too)
-    galleryTrack.addEventListener('click', (e) => {
+if (galleryGrid && lightboxModal && lightboxImage) {
+    galleryGrid.addEventListener('click', (e) => {
         const slide = e.target.closest('.gallery-slide');
         if (!slide) return;
         e.preventDefault();
-        if (galleryCarousel.classList.contains('dragged')) return;
         lightboxImage.src = slide.getAttribute('href');
+        lightboxImage.alt = slide.querySelector('img')?.alt || 'Immagine ingrandita';
         new bootstrap.Modal(lightboxModal).show();
     });
 
-    // Drag + auto-scroll state
-    let scrollPos = 0;
-    let isDragging = false;
-    let dragMoved = false;
-    let startX = 0;
-    let dragStartScroll = 0;
-    // Rispetta prefers-reduced-motion: nessuno scorrimento automatico
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let autoSpeed = prefersReducedMotion ? 0 : 0.5;
-    let velocity = 0;
-    let lastX = 0;
-    let lastTime = 0;
-    let inertiaActive = false;
-    const halfWidth = galleryTrack.scrollWidth / 2;
+    const scrollGallery = (direction) => {
+        galleryGrid.scrollBy({ left: direction * galleryGrid.clientWidth * 0.75, behavior: 'smooth' });
+    };
 
-    function wrapScroll() {
-        if (scrollPos >= halfWidth) scrollPos -= halfWidth;
-        if (scrollPos < 0) scrollPos += halfWidth;
-    }
-
-    // Animation loop
-    (function tick() {
-        if (!isDragging) {
-            if (inertiaActive) {
-                scrollPos += velocity;
-                velocity *= 0.95;
-                if (Math.abs(velocity) < 0.3) {
-                    inertiaActive = false;
-                    autoSpeed = prefersReducedMotion ? 0 : 0.5;
-                }
-            } else {
-                scrollPos += autoSpeed;
-            }
-            wrapScroll();
-            galleryTrack.style.transform = `translateX(${-scrollPos}px)`;
-        }
-        requestAnimationFrame(tick);
-    })();
-
-    // Drag handlers
-    function startDrag(x) {
-        isDragging = true;
-        dragMoved = false;
-        inertiaActive = false;
-        startX = x;
-        lastX = x;
-        lastTime = Date.now();
-        dragStartScroll = scrollPos;
-        galleryCarousel.classList.add('dragging');
-    }
-
-    function moveDrag(x) {
-        if (!isDragging) return;
-        const dx = x - startX;
-        if (Math.abs(dx) > 5) dragMoved = true;
-        const now = Date.now();
-        const dt = now - lastTime;
-        if (dt > 0) velocity = -(x - lastX) / dt * 16;
-        lastX = x;
-        lastTime = now;
-        scrollPos = dragStartScroll - dx;
-        wrapScroll();
-        galleryTrack.style.transform = `translateX(${-scrollPos}px)`;
-    }
-
-    function endDrag() {
-        if (!isDragging) return;
-        isDragging = false;
-        galleryCarousel.classList.remove('dragging');
-        if (dragMoved) {
-            galleryCarousel.classList.add('dragged');
-            setTimeout(() => galleryCarousel.classList.remove('dragged'), 100);
-            inertiaActive = true;
-            autoSpeed = 0;
-        }
-    }
-
-    // Mouse events
-    galleryCarousel.addEventListener('mousedown', (e) => { e.preventDefault(); startDrag(e.pageX); });
-    document.addEventListener('mousemove', (e) => moveDrag(e.pageX));
-    document.addEventListener('mouseup', endDrag);
-
-    // Touch events
-    galleryCarousel.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX), { passive: true });
-    galleryCarousel.addEventListener('touchmove', (e) => moveDrag(e.touches[0].pageX), { passive: true });
-    galleryCarousel.addEventListener('touchend', endDrag);
-
-    // Pause on hover (desktop)
-    galleryCarousel.addEventListener('mouseenter', () => { if (!inertiaActive) autoSpeed = 0; });
-    galleryCarousel.addEventListener('mouseleave', () => { if (!inertiaActive) autoSpeed = 0.5; });
+    document.querySelector('.gallery-prev')?.addEventListener('click', () => scrollGallery(-1));
+    document.querySelector('.gallery-next')?.addEventListener('click', () => scrollGallery(1));
 }
 
 // ===== STRUTTURA: THUMBNAIL GALLERY =====
@@ -313,32 +224,32 @@ if (strutturaTabEl) {
     });
 }
 
-// ===== REVIEWS: MOBILE SHOW MORE =====
+// ===== REVIEWS: SHOW MORE =====
 (function initReviewsShowMore() {
     const container = document.getElementById('reviewsMasonry');
-    if (!container || window.innerWidth > 767) return;
+    if (!container) return;
 
     const cards = Array.from(container.querySelectorAll('.review-card'));
-    const batchSize = 5;
-    if (cards.length <= batchSize) return;
+    const featuredCards = cards.filter(card => card.hasAttribute('data-featured'));
+    const initialCards = featuredCards.length ? featuredCards : cards.slice(0, 8);
+    if (cards.length <= initialCards.length) return;
 
-    cards.forEach((card, i) => {
-        if (i >= batchSize) { card.classList.add('review-hidden'); card.dataset.batch = Math.floor(i / batchSize); }
+    cards.forEach(card => {
+        if (!initialCards.includes(card)) card.classList.add('review-hidden');
     });
 
-    const totalBatches = Math.ceil(cards.length / batchSize);
-    let currentBatch = 1;
-    const link = document.createElement('a');
-    link.href = '#';
-    link.className = 'reviews-show-more';
-    link.textContent = 'Mostra altre';
-    container.appendChild(link);
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'reviews-show-more';
+    button.setAttribute('aria-expanded', 'false');
+    button.textContent = `Leggi altre ${cards.length - initialCards.length} recensioni`;
+    container.appendChild(button);
 
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        container.querySelectorAll(`.review-card[data-batch="${currentBatch}"]`).forEach(c => c.classList.remove('review-hidden'));
-        currentBatch++;
-        if (currentBatch >= totalBatches) link.remove();
+    button.addEventListener('click', () => {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        cards.filter(card => !initialCards.includes(card)).forEach(card => card.classList.toggle('review-hidden', expanded));
+        button.setAttribute('aria-expanded', String(!expanded));
+        button.textContent = expanded ? `Leggi altre ${cards.length - initialCards.length} recensioni` : 'Mostra meno recensioni';
     });
 })();
 
