@@ -68,7 +68,7 @@ if (serviceOrbit) {
     function syncPlayback() {
         clearInterval(timer);
         if (!cardFocused && visible) {
-            timer = setInterval(() => selectCard(1), 5000);
+            timer = setInterval(() => selectCard(1), 3500);
         }
     }
 
