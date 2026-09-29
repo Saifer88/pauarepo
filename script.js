@@ -204,10 +204,9 @@ if (strutturaTabEl) {
     const tabs = Array.from(strutturaTabEl.querySelectorAll('[role="tab"]'));
     const pill = document.getElementById('strutturaTabPill');
     let currentIndex = 0;
+    let transitionTimer;
 
     function movePill(idx, animate = true) {
-        if (window.innerWidth <= 385) { pill.style.display = 'none'; return; }
-        pill.style.display = '';
         const tab = tabs[idx];
         const tabRect = tab.getBoundingClientRect();
         const parentRect = strutturaTabEl.getBoundingClientRect();
@@ -219,18 +218,22 @@ if (strutturaTabEl) {
 
     function setFixedHeight() {
         panes.forEach(p => { p.style.position = 'relative'; p.style.opacity = '1'; p.style.transform = 'none'; p.style.display = 'block'; });
+        const heroImg = document.querySelector('.struttura-hero img');
+        const mapIframe = document.getElementById('strutturaMapIframe');
+        if (heroImg && mapIframe) mapIframe.style.height = heroImg.offsetHeight + 'px';
         tabContent.style.height = Math.max(...panes.map(p => p.offsetHeight)) + 'px';
         panes.forEach((p, i) => {
             if (i !== currentIndex) { p.style.position = 'absolute'; p.style.opacity = '0'; p.style.transform = 'translateX(100%)'; }
             else { p.style.position = 'relative'; }
         });
-        const heroImg = document.querySelector('.struttura-hero img');
-        const mapIframe = document.getElementById('strutturaMapIframe');
-        if (heroImg && mapIframe) mapIframe.style.height = heroImg.offsetHeight + 'px';
         movePill(currentIndex, false);
     }
 
     setFixedHeight();
+    const paneResizeObserver = new ResizeObserver(() => {
+        tabContent.style.height = Math.max(...panes.map(p => p.offsetHeight)) + 'px';
+    });
+    panes.forEach(pane => paneResizeObserver.observe(pane));
     window.addEventListener('resize', setFixedHeight);
     document.querySelector('.struttura-hero img')?.addEventListener('load', setFixedHeight);
 
@@ -242,6 +245,17 @@ if (strutturaTabEl) {
             const currentPane = panes[currentIndex];
             const nextPane = panes[idx];
 
+            clearTimeout(transitionTimer);
+            panes.forEach((pane, paneIndex) => {
+                const isCurrent = paneIndex === currentIndex;
+                pane.classList.toggle('active', isCurrent);
+                pane.style.transition = 'none';
+                pane.style.position = isCurrent ? 'relative' : 'absolute';
+                pane.style.opacity = isCurrent ? '1' : '0';
+                pane.style.transform = isCurrent ? 'translateX(0)' : 'translateX(100%)';
+            });
+            void currentPane.offsetWidth;
+            panes.forEach(pane => { pane.style.transition = ''; });
             movePill(idx, true);
 
             currentPane.style.transform = `translateX(${-direction * 100}%)`;
@@ -257,7 +271,7 @@ if (strutturaTabEl) {
             nextPane.style.transform = 'translateX(0)';
             nextPane.style.opacity = '1';
 
-            setTimeout(() => {
+            transitionTimer = setTimeout(() => {
                 currentPane.style.position = 'absolute';
                 currentPane.classList.remove('active');
                 nextPane.style.position = 'relative';
