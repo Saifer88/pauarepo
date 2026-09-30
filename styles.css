@@ -767,28 +767,28 @@ a.service-card:focus {
 }
 
 /* Allinea link "Scopri" in fondo + liste alla stessa altezza (prima riga servizi) */
-#servizi .row:first-of-type .service-card .card-body {
+.services-grid .service-card .card-body {
     display: flex;
     flex-direction: column;
 }
 
-#servizi .row:first-of-type .service-card .card-title {
+.services-grid .service-card .card-title {
     min-height: 3.4rem;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#servizi .row:first-of-type .service-card .list-unstyled {
+.services-grid .service-card .list-unstyled {
     flex: 1;
 }
 
-#servizi .row:first-of-type .service-card .card-body > span:last-child {
-    margin-top: auto;
+.services-grid .service-card .card-body > span:last-child {
+    margin-top: auto !important;
 }
 
 @media (max-width: 991px) {
-    #servizi .row:first-of-type .service-card .card-title {
+    .services-grid .service-card .card-title {
         min-height: 0;
     }
 }
