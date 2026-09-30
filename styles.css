@@ -567,6 +567,20 @@ h1, h2, h3, h4, h5 {
     letter-spacing: 0;
 }
 
+.hero-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    color: var(--accent-light);
+    font-size: 0.875rem;
+    text-decoration: none;
+}
+
+.hero-proof .bi-star-fill { color: var(--accent); }
+.hero-proof:hover { color: #fff; text-decoration: none; }
+.hero-proof:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+
 @media (min-width: 992px) and (max-width: 1199px) {
     .hero-section h1 { font-size: 3.25rem; }
 }
@@ -1015,6 +1029,8 @@ a.service-card:focus {
     font-weight: 600;
     text-decoration: none;
 }
+
+.home-page .reviews-summary a { color: #805326; }
 
 .reviews-masonry {
     display: grid;
@@ -2315,6 +2331,11 @@ a.service-card:focus {
 
     .hero-text .d-flex {
         justify-content: center;
+    }
+
+    .hero-text .lead {
+        font-size: 1rem;
+        line-height: 1.5;
     }
 
     .hero-section h1 {
