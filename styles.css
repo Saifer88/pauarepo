@@ -962,8 +962,8 @@ a.service-card:focus {
 
 .gallery-slide {
     position: relative;
-    flex: 0 0 clamp(260px, 32vw, 420px);
-    aspect-ratio: 4 / 5;
+    flex: 0 0 auto;
+    height: clamp(320px, 46vw, 520px);
     border-radius: 0.5rem;
     overflow: hidden;
     display: block;
@@ -971,9 +971,10 @@ a.service-card:focus {
 }
 
 .gallery-slide img {
-    width: 100%;
+    width: auto;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    display: block;
     transition: transform 0.45s ease, filter 0.45s ease;
 }
 
@@ -983,11 +984,11 @@ a.service-card:focus {
 }
 
 @media (max-width: 991px) {
-    .gallery-slide { flex-basis: min(72vw, 340px); }
+    .gallery-slide { height: clamp(300px, 60vw, 420px); }
 }
 
 @media (max-width: 575px) {
-    .gallery-slide { flex-basis: 78vw; }
+    .gallery-slide { height: 68vw; }
 }
 
 /* ===== REVIEWS ===== */
