@@ -204,6 +204,20 @@ h1, h2, h3, h4, h5 {
     font-size: 1rem;
 }
 
+/* Radius unificato per tutti i bottoni-azione: più discreto (0.5rem) */
+.btn,
+.btn-primary,
+.btn-outline-light,
+.btn-outline-dark,
+.btn-outline-accent,
+.btn-accent,
+.btn-aziendale,
+.btn-outline-aziendale,
+.nav-shop,
+.nav-business {
+    border-radius: 0.5rem !important;
+}
+
 /* Focus visibile accessibile su tutti i bottoni (refresh B) */
 .btn:focus-visible {
     outline: 3px solid var(--accent);
@@ -1801,10 +1815,11 @@ a.service-card:focus {
     position: relative;
     display: flex;
     align-items: center;
+    border-radius: 0.5rem;
 }
 
 .pricing-btn-single {
-    padding: 1rem 1.5rem;
+    padding: 0.7rem 1.5rem;
 }
 
 .pricing-btn-spacer {
@@ -1825,6 +1840,41 @@ a.service-card:focus {
     left: 1.5rem;
     top: 50%;
     transform: translateY(-50%);
+}
+
+/* ===== PRICING: PREZZI NEI BOTTONI (variante E3) ===== */
+/* Layout verticale: prezzo pieno sbarrato sopra, prezzo nuovo grande, unità sotto */
+.pricing-btn-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.15;
+    gap: 0.05rem;
+    font-weight: 700;
+}
+
+.pricing-btn-price .pricing-price-old {
+    font-size: 0.78rem;
+    font-weight: 500;
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+.pricing-btn-price .pricing-price-new {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.pricing-btn-price .pricing-price-unit {
+    font-size: 0.74rem;
+    font-weight: 500;
+    opacity: 0.82;
+    letter-spacing: 0.01em;
+}
+
+.btn-primary .pricing-btn-price .pricing-price-old {
+    opacity: 0.75;
 }
 
 .pricing-included {
