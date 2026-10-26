@@ -20,7 +20,7 @@ Fonte: [SEO Kiro](../../.kiro/steering/seo.md). Le precisazioni su struttura att
 - Mantenere keyword pertinenti in title, meta description, meta keywords esistenti e campi testuali JSON-LD. Non inserire forzatamente tutte le keyword in ogni pagina o alterare i valori previsti dagli schemi.
 - In heading `h1`-`h3` e testo visibile, integrare servizio e localita naturalmente, senza keyword stuffing. Non rimuovere contenuti utili al posizionamento senza una sostituzione equivalente o migliore.
 - Per `/fitness-aziendale/` preservare anche le keyword specifiche gia presenti, come fitness aziendale Bari, corsi fitness in azienda e ginnastica posturale ufficio.
-- Aggiornare canonical e Open Graph in modo coerente con l'URL pubblico e il contenuto della pagina. Il dominio canonico attuale e `https://www.paolamincuzzi.it`.
+- Aggiornare canonical e Open Graph in modo coerente con l'URL pubblico e il contenuto della pagina. Il dominio canonico attuale e `https://paolamincuzzi.it`.
 
 ## Pagine e indicizzazione
 

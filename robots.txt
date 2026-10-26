@@ -21,4 +21,4 @@ Disallow: /images/personal-trainer-bari-sessione*
 Disallow: /images/chinesiologia-bari*
 Disallow: /images/recupero-funzionale-bari*
 
-Sitemap: https://www.paolamincuzzi.it/sitemap.xml
+Sitemap: https://paolamincuzzi.it/sitemap.xml
