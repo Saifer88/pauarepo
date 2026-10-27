@@ -23,6 +23,10 @@
     --shadow-card: 0 12px 30px -14px rgba(80, 60, 40, 0.18);
     /* spacing scale 8px */
     --s1: 8px; --s2: 16px; --s3: 24px; --s4: 40px; --s5: 64px; --s6: 96px;
+
+    /* ===== Easing tokens (Emil Kowalski) — curve forti, non le CSS deboli ===== */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);        /* entrate/uscite, feedback UI */
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);    /* movimento/morphing su schermo */
 }
 
 .home-page {
@@ -216,6 +220,42 @@ h1, h2, h3, h4, h5 {
 .nav-shop,
 .nav-business {
     border-radius: 0.5rem !important;
+}
+
+/* ===== Press feedback (Emil Kowalski): scale(0.97) su :active ===== */
+/* Purpose: feedback — l'interfaccia conferma di aver sentito il tocco.
+   scale() scala anche label e icone, quindi legge come pressione fisica.
+   Proprietà esplicite al posto di transition:all presente sui singoli bottoni. */
+.btn,
+.nav-shop,
+.nav-business {
+    transition: transform 140ms var(--ease-out),
+                background-color 180ms var(--ease-out),
+                border-color 180ms var(--ease-out),
+                color 180ms var(--ease-out),
+                box-shadow 180ms var(--ease-out);
+}
+
+.btn:active,
+.nav-shop:active,
+.nav-business:active {
+    transform: scale(0.97) !important;
+}
+
+/* ===== Hover gating (Emil Kowalski) ===== */
+/* I :hover con transform scattano come falso positivo al tap su touch.
+   Il sollevamento hover vale solo con puntatore fine. Il press feedback
+   (:active) resta su tutti i dispositivi perché è una pressione reale. */
+@media (hover: none) {
+    .btn:hover,
+    .btn-primary:hover,
+    .btn-outline-light:hover,
+    .btn-outline-dark:hover,
+    .btn-outline-accent:hover,
+    .btn-accent:hover,
+    .btn-aziendale:hover {
+        transform: none;
+    }
 }
 
 /* Focus visibile accessibile su tutti i bottoni (refresh B) */
@@ -589,6 +629,27 @@ h1, h2, h3, h4, h5 {
     color: var(--accent-light);
     font-size: 0.875rem;
     text-decoration: none;
+}
+
+/* ===== Entrata hero stagger (Emil Kowalski) ===== */
+/* Purpose: delight al primo caricamento (tier rare/first-time) + evita che
+   il testo compaia di colpo quando il preloader esce.
+   Stato iniziale applicato SOLO con JS attivo (classe .hero-ready su body dopo
+   il preloader), così senza JS l'hero resta subito visibile.
+   Solo opacity+transform, curva --ease-out forte, stagger 60ms. */
+body.hero-ready .hero-text > * {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroRise 0.6s var(--ease-out) forwards;
+}
+body.hero-ready .hero-text > *:nth-child(1) { animation-delay: 0ms; }
+body.hero-ready .hero-text > *:nth-child(2) { animation-delay: 60ms; }
+body.hero-ready .hero-text > *:nth-child(3) { animation-delay: 120ms; }
+body.hero-ready .hero-text > *:nth-child(4) { animation-delay: 180ms; }
+body.hero-ready .hero-text > *:nth-child(5) { animation-delay: 240ms; }
+
+@keyframes heroRise {
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-proof .bi-star-fill { color: var(--accent); }
@@ -2151,15 +2212,20 @@ a.service-card:focus {
 }
 
 /* ===== SCROLL ANIMATIONS ===== */
+/* Purpose: preventing a jarring change — il contenuto entra invece di comparire.
+   Curva --ease-out forte, parte da scale(0.985)+translate: niente "dal nulla".
+   Reveal una sola volta (JS usa once), quindi will-change solo in attesa. */
 .reveal {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(32px) scale(0.985);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    will-change: opacity, transform;
 }
 
 .reveal.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    will-change: auto;
 }
 
 /* Staggered delays */
@@ -2853,6 +2919,13 @@ a.service-card:focus {
     .reveal {
         opacity: 1 !important;
         transform: none !important;
+    }
+
+    /* Entrata hero: niente movimento, subito visibile */
+    body.hero-ready .hero-text > * {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
     }
 
     /* Nessun sollevamento/scala in hover */

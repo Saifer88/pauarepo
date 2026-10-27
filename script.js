@@ -6,9 +6,16 @@ window.addEventListener('load', () => {
     const remaining = Math.max(0, 300 - (Date.now() - preloaderStart));
     setTimeout(() => {
         preloader.classList.add('hidden');
+        // Avvia l'entrata stagger dell'hero quando il preloader esce
+        document.body.classList.add('hero-ready');
         setTimeout(() => preloader.remove(), 500);
     }, remaining);
 });
+
+// Fallback: se il preloader manca (es. già rimosso), mostra comunque l'hero
+if (!document.getElementById('preloader')) {
+    document.body.classList.add('hero-ready');
+}
 
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
