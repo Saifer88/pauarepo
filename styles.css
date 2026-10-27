@@ -182,9 +182,26 @@ h1, h2, h3, h4, h5 {
     justify-content: center;
 }
 
-.btn-outline-light:hover {
-    background: rgba(255,255,255,0.15);
+.btn-outline-light {
+    /* Neutralizza i default Bootstrap: gestiamo noi colori e sfondo negli stati */
+    --bs-btn-hover-color: #18221f;
+    --bs-btn-active-color: #18221f;
+    --bs-btn-hover-bg: #fff;
+    --bs-btn-active-bg: #fff;
+    --bs-btn-hover-border-color: #fff;
+    --bs-btn-active-border-color: #fff;
+    color: #fff;
+    border-color: #fff;
+}
+
+/* Hover "fill": il bottone si riempie di bianco, testo verde hero per contrasto netto */
+.btn-outline-light:hover,
+.btn-outline-light:focus-visible {
+    background: #fff;
+    color: #18221f;
+    border-color: #fff;
     transform: translateY(-2px);
+    box-shadow: 0 10px 28px -10px rgba(0, 0, 0, 0.45);
 }
 
 .btn-outline-dark {
@@ -650,6 +667,59 @@ body.hero-ready .hero-text > *:nth-child(5) { animation-delay: 240ms; }
 
 @keyframes heroRise {
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Numeri hero — riga discreta, niente riquadri ===== */
+.hero-stats {
+    list-style: none;
+    display: flex;
+    gap: 2.25rem;
+    margin: 1.5rem 0 1.25rem;
+    padding: 0;
+}
+.hero-stats li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+.hero-stats li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -1.125rem;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.18);
+}
+.hero-stat-value {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.15em;
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent);
+}
+.hero-stat-star {
+    font-size: 0.6em;
+    color: var(--accent);
+    transform: translateY(-0.15em);
+}
+.hero-stat-label {
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.3px;
+    color: rgba(255, 255, 255, 0.72);
+}
+@media (max-width: 767px) {
+    .hero-stats { justify-content: center; gap: 1.75rem; }
+}
+@media (max-width: 360px) {
+    .hero-stats { gap: 1.25rem; }
+    .hero-stat-label { font-size: 0.7rem; }
 }
 
 .hero-proof .bi-star-fill { color: var(--accent); }
@@ -2900,6 +2970,106 @@ a.service-card:focus {
 }
 
 
+/* =====================================================================
+   ANIMAZIONI SPINTE (Emil Kowalski) — solo transform/opacity, GPU,
+   nessun loop infinito, tutte spente da prefers-reduced-motion.
+   ===================================================================== */
+
+/* 1) Barra avanzamento scroll — sottile, accent, in cima */
+.scroll-progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    z-index: 100000;
+    background: transparent;
+    pointer-events: none;
+}
+.scroll-progress-bar {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    /* scaleX aggiornato da JS via requestAnimationFrame */
+}
+
+/* 1b) Ken Burns + parallax hero — l'immagine vive e respira */
+.hero-media img {
+    transform: scale(1.06) translateY(var(--hero-parallax, 0px));
+    animation: heroKenBurns 16s var(--ease-in-out) forwards;
+    will-change: transform;
+}
+@keyframes heroKenBurns {
+    from { transform: scale(1.06) translateY(var(--hero-parallax, 0px)); }
+    to   { transform: scale(1.0)  translateY(var(--hero-parallax, 0px)); }
+}
+/* Nota: il parallax muove solo translateY via variabile; lo scale resta all'animazione */
+
+/* 4) Titoli a parole sfalsate */
+.js-split .split-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.5em);
+    animation: wordRise 0.55s var(--ease-out) forwards;
+}
+@keyframes wordRise {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 8) CTA pulse — alone accent che pulsa poche volte all'entrata, poi stop */
+.hero-cta-pulse { position: relative; }
+.hero-cta-pulse::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.55);
+    pointer-events: none;
+}
+body.hero-ready .hero-cta-pulse::after {
+    animation: ctaPulse 1.6s var(--ease-out) 3;
+    animation-delay: 0.6s;
+}
+@keyframes ctaPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.55); }
+    70%  { box-shadow: 0 0 0 14px rgba(212, 165, 116, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 165, 116, 0); }
+}
+
+/* 5) Underline animata nav link — linea accent che cresce da sinistra */
+.navbar-nav .nav-link {
+    position: relative;
+}
+.navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.28s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+    .navbar-nav .nav-link:hover::after { transform: scaleX(1); }
+}
+.navbar-nav .nav-link.active::after { transform: scaleX(1); }
+
+/* 6) Pricing card — tilt 3D verso il cursore + glow accent */
+.row.g-4 { perspective: 1000px; }
+.pricing-card {
+    transform-style: preserve-3d;
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+    will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+    .pricing-card.tilt-active {
+        box-shadow: 0 24px 60px -24px rgba(212, 165, 116, 0.5);
+    }
+}
+
 /* ===== ACCESSIBILITÀ: riduzione del movimento (WCAG) ===== */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -2927,6 +3097,23 @@ a.service-card:focus {
         transform: none !important;
         animation: none !important;
     }
+
+    /* Animazioni spinte: disattivate o rese statiche */
+    .hero-media img {
+        animation: none !important;
+        transform: scale(1.02) !important; /* leggero crop, nessun movimento */
+    }
+    .js-split .split-word {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
+    .hero-cta-pulse::after { animation: none !important; box-shadow: none !important; }
+    .pricing-card {
+        transform: none !important;
+        transition: none !important;
+    }
+    .pricing-card.tilt-active { box-shadow: var(--shadow-card) !important; }
 
     /* Nessun sollevamento/scala in hover */
     .service-card:hover,

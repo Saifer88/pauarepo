@@ -321,3 +321,172 @@ if (whatsappForm) {
         window.open(`https://wa.me/393452541794?text=${encodeURIComponent(text)}`, '_blank');
     });
 }
+
+// =====================================================================
+// ANIMAZIONI SPINTE (Emil Kowalski) — tutte guardate da reduced-motion
+// =====================================================================
+(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    // --- 1) Barra avanzamento scroll ---
+    const progressBar = document.querySelector('#scrollProgress .scroll-progress-bar');
+    if (progressBar) {
+        let ticking = false;
+        const updateProgress = () => {
+            const h = document.documentElement;
+            const max = h.scrollHeight - h.clientHeight;
+            const ratio = max > 0 ? h.scrollTop / max : 0;
+            progressBar.style.transform = `scaleX(${ratio})`;
+            ticking = false;
+        };
+        window.addEventListener('scroll', () => {
+            if (!ticking) { ticking = true; requestAnimationFrame(updateProgress); }
+        }, { passive: true });
+        updateProgress();
+    }
+
+    // --- 1b) Parallax hero (solo translateY via variabile, scale resta al Ken Burns) ---
+    const heroImg = document.querySelector('.hero-media img');
+    const heroSection = document.querySelector('.hero-section');
+    if (heroImg && heroSection && !reduce) {
+        let hticking = false;
+        const updateParallax = () => {
+            const rect = heroSection.getBoundingClientRect();
+            if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                const shift = Math.round(window.scrollY * 0.18); // max ~18%
+                heroImg.style.setProperty('--hero-parallax', `${shift}px`);
+            }
+            hticking = false;
+        };
+        window.addEventListener('scroll', () => {
+            if (!hticking) { hticking = true; requestAnimationFrame(updateParallax); }
+        }, { passive: true });
+        updateParallax();
+    }
+
+    // --- 4) Titoli a parole sfalsate ---
+    // Split non distruttivo: avvolge ogni parola in uno <span>, poi anima su view.
+    const splitTargets = document.querySelectorAll('[data-split]');
+    if (splitTargets.length && !reduce) {
+        const splitObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                splitObserver.unobserve(el);
+                el.classList.add('js-split');
+                // Avvolge solo i nodi di testo, preserva <br> e <span> esistenti (SEO-safe)
+                el.querySelectorAll('*:not(.split-word)').forEach(() => {});
+                const wrapTextNodes = (node) => {
+                    node.childNodes.forEach(child => {
+                        if (child.nodeType === Node.TEXT_NODE && child.textContent.trim()) {
+                            const frag = document.createDocumentFragment();
+                            child.textContent.split(/(\s+)/).forEach(part => {
+                                if (/^\s+$/.test(part)) {
+                                    frag.appendChild(document.createTextNode(part));
+                                } else if (part) {
+                                    const s = document.createElement('span');
+                                    s.className = 'split-word';
+                                    s.textContent = part;
+                                    frag.appendChild(s);
+                                }
+                            });
+                            child.replaceWith(frag);
+                        } else if (child.nodeType === Node.ELEMENT_NODE && !child.classList.contains('split-word')) {
+                            wrapTextNodes(child);
+                        }
+                    });
+                };
+                wrapTextNodes(el);
+                el.querySelectorAll('.split-word').forEach((w, i) => {
+                    w.style.animationDelay = `${i * 55}ms`;
+                });
+            });
+        }, { threshold: 0.3 });
+        splitTargets.forEach(el => splitObserver.observe(el));
+    }
+
+    // --- 6) Pricing card tilt 3D verso il cursore ---
+    const cards = document.querySelectorAll('.pricing-card');
+    if (cards.length && finePointer && !reduce) {
+        cards.forEach(card => {
+            card.addEventListener('pointermove', (e) => {
+                const r = card.getBoundingClientRect();
+                const px = (e.clientX - r.left) / r.width - 0.5;
+                const py = (e.clientY - r.top) / r.height - 0.5;
+                const rotY = px * 7;   // max 7deg
+                const rotX = -py * 7;
+                card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(6px)`;
+                card.classList.add('tilt-active');
+            });
+            card.addEventListener('pointerleave', () => {
+                card.style.transform = '';
+                card.classList.remove('tilt-active');
+            });
+        });
+    }
+
+    // --- 2) Count-up numeri hero ---
+    // Markup contiene già il valore finale (SEO/no-JS). Con motion attivo
+    // conta da 0 al target e riaggiunge il suffisso (/5, %).
+    const heroStats = document.querySelectorAll('[data-count-to]');
+    if (heroStats.length && !reduce) {
+        const runCount = (el) => {
+            const target = parseFloat(el.dataset.countTo);
+            const suffix = el.dataset.countSuffix || '';
+            const decimals = parseInt(el.dataset.countDecimals || '0', 10);
+            // Soglia opzionale: i decimali compaiono solo sopra questo valore
+            const decimalAfter = el.dataset.countDecimalAfter !== undefined
+                ? parseFloat(el.dataset.countDecimalAfter) : null;
+            const duration = 2600;
+            const start = performance.now();
+            const easeOut = (t) => 1 - Math.pow(1 - t, 3); // rallenta verso la fine
+            const fmt = (n, done) => {
+                // Al valore finale: sempre intero (nessun decimale)
+                if (done) return Math.round(n) + suffix;
+                // Con soglia: decimali solo oltre la soglia, interi prima
+                if (decimalAfter !== null) {
+                    return (n > decimalAfter
+                        ? n.toFixed(decimals).replace('.', ',')
+                        : String(Math.floor(n))) + suffix;
+                }
+                return n.toFixed(decimals).replace('.', ',') + suffix;
+            };
+            const step = (now) => {
+                const t = Math.min((now - start) / duration, 1);
+                if (t < 1) {
+                    el.textContent = fmt(target * easeOut(t), false);
+                    requestAnimationFrame(step);
+                } else {
+                    el.textContent = fmt(target, true);
+                }
+            };
+            el.textContent = fmt(0, false);
+            requestAnimationFrame(step);
+        };
+        // Avvio una sola volta: guardia contro doppio trigger
+        // (MutationObserver su hero-ready + fallback timeout).
+        let started = false;
+        const startHeroCount = () => {
+            if (started) return;
+            started = true;
+            heroStats.forEach(runCount);
+        };
+        // La hero è in cima: avvia quando il preloader esce (classe hero-ready),
+        // con fallback se la classe c'è già o il preloader manca.
+        if (document.body.classList.contains('hero-ready')) {
+            setTimeout(startHeroCount, 300);
+        } else {
+            const obs = new MutationObserver(() => {
+                if (document.body.classList.contains('hero-ready')) {
+                    obs.disconnect();
+                    setTimeout(startHeroCount, 300);
+                }
+            });
+            obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+            // Fallback di sicurezza: se dopo 2.5s nulla, parte comunque
+            setTimeout(() => { obs.disconnect(); startHeroCount(); }, 2500);
+        }
+    }
+
+})();
