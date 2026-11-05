@@ -3134,3 +3134,168 @@ body.hero-ready .hero-cta-pulse::after {
         animation: none !important;
     }
 }
+
+/* ===== FLOATING WHATSAPP (desktop/tablet) ===== */
+.wa-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1045;
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    height: 56px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: #25d366;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 10px 28px -8px rgba(37, 211, 102, 0.6);
+    transform: translateY(0);
+    transition: transform 0.28s var(--ease-out), box-shadow 0.28s var(--ease-out), background 0.2s ease;
+    overflow: hidden;
+    max-width: 56px;
+}
+
+.wa-float .bi-whatsapp {
+    font-size: 1.6rem;
+    line-height: 1;
+    flex: 0 0 auto;
+}
+
+.wa-float-label {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    max-width: 0;
+    opacity: 0;
+    margin-left: 0;
+    transition: max-width 0.35s var(--ease-out), opacity 0.25s ease, margin-left 0.35s var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .wa-float:hover {
+        max-width: 280px;
+        background: #1fb855;
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 16px 36px -10px rgba(37, 211, 102, 0.7);
+    }
+    .wa-float:hover .wa-float-label {
+        max-width: 220px;
+        opacity: 1;
+        margin-left: 10px;
+    }
+}
+
+.wa-float:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+    max-width: 280px;
+}
+.wa-float:focus-visible .wa-float-label { max-width: 220px; opacity: 1; margin-left: 10px; }
+
+/* Il FAB si alza quando il cookie banner è visibile */
+body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
+
+/* ===== BARRA CTA MOBILE FISSA ===== */
+.mobile-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1044;
+    display: none;
+    gap: 10px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -8px 24px -14px rgba(80, 60, 40, 0.3);
+    transform: translateY(100%);
+    transition: transform 0.4s var(--ease-out);
+}
+
+.mobile-cta.visible { transform: translateY(0); }
+
+.mobile-cta-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 50px;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform 0.15s var(--ease-out), filter 0.2s ease;
+}
+
+.mobile-cta-btn:active { transform: scale(0.97); }
+
+.mobile-cta-wa {
+    background: #25d366;
+    color: #fff;
+}
+
+.mobile-cta-shop {
+    background: var(--accent);
+    color: #fff;
+}
+
+.mobile-cta-btn .bi { font-size: 1.2rem; }
+
+/* Mostra la barra CTA solo su mobile/tablet, nascondi il FAB */
+@media (max-width: 767px) {
+    .mobile-cta { display: flex; }
+    .wa-float { display: none; }
+    /* Il cookie banner, quando visibile, sta sopra la barra CTA: la barra resta giù */
+    body:not(.cookie-dismissed) .mobile-cta.visible { transform: translateY(100%); }
+}
+
+@media (min-width: 768px) {
+    .mobile-cta { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wa-float,
+    .wa-float-label,
+    .mobile-cta,
+    .mobile-cta-btn {
+        transition-duration: 0.001ms !important;
+    }
+}
+
+/* ===== CONTACT FORM: rassicurazione + validazione inline ===== */
+.contact-reassurance {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 12px 0 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+.contact-reassurance .bi {
+    color: var(--accent);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex: 0 0 auto;
+}
+
+.form-error {
+    margin: 6px 0 0;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #c0392b;
+}
+
+.contact-form .form-control.is-invalid {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 0.2rem rgba(192, 57, 43, 0.12);
+}

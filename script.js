@@ -292,27 +292,81 @@ const cookieBanner = document.getElementById('cookieBanner');
 if (cookieBanner) {
     if (localStorage.getItem('cookie_consent')) {
         cookieBanner.classList.add('hidden');
+        document.body.classList.add('cookie-dismissed');
     }
-    document.getElementById('cookieAccept')?.addEventListener('click', () => {
-        localStorage.setItem('cookie_consent', 'accepted');
+    const dismissCookie = (value) => {
+        localStorage.setItem('cookie_consent', value);
         cookieBanner.classList.add('hidden');
-    });
-    document.getElementById('cookieReject')?.addEventListener('click', () => {
-        localStorage.setItem('cookie_consent', 'rejected');
-        cookieBanner.classList.add('hidden');
-    });
+        document.body.classList.add('cookie-dismissed');
+    };
+    document.getElementById('cookieAccept')?.addEventListener('click', () => dismissCookie('accepted'));
+    document.getElementById('cookieReject')?.addEventListener('click', () => dismissCookie('rejected'));
 }
+
+// ===== BARRA CTA MOBILE: appare dopo l'hero, si nasconde su shop/contatti/footer =====
+(function initMobileCta() {
+    const bar = document.getElementById('mobileCta');
+    if (!bar) return;
+
+    const hero = document.getElementById('hero');
+    // Sezioni dove la barra è ridondante (CTA già presenti a schermo)
+    const hideZones = ['shop', 'contatti', 'footer'].map(id => document.getElementById(id)).filter(Boolean);
+
+    let pastHero = false;
+    let overHideZone = false;
+    const sync = () => bar.classList.toggle('visible', pastHero && !overHideZone);
+
+    if (hero) {
+        new IntersectionObserver(([entry]) => {
+            pastHero = !entry.isIntersecting;
+            sync();
+        }, { rootMargin: '-40% 0px 0px 0px' }).observe(hero);
+    } else {
+        pastHero = true;
+    }
+
+    if (hideZones.length) {
+        const visibleZones = new Set();
+        const zoneObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => e.isIntersecting ? visibleZones.add(e.target) : visibleZones.delete(e.target));
+            overHideZone = visibleZones.size > 0;
+            sync();
+        }, { rootMargin: '0px 0px -25% 0px' });
+        hideZones.forEach(zone => zoneObserver.observe(zone));
+    }
+
+    sync();
+})();
 
 // ===== WHATSAPP FORM =====
 const whatsappForm = document.getElementById('whatsappForm');
 if (whatsappForm) {
+    const nameField = document.getElementById('name');
+    const nameError = document.getElementById('nameError');
+
+    const setNameError = (show) => {
+        if (nameError) nameError.hidden = !show;
+        nameField.classList.toggle('is-invalid', show);
+        nameField.setAttribute('aria-invalid', show ? 'true' : 'false');
+    };
+
+    // Nasconde l'errore appena l'utente inizia a correggere
+    nameField?.addEventListener('input', () => {
+        if (nameField.value.trim()) setNameError(false);
+    });
+
     whatsappForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = document.getElementById('name').value.trim();
+        const name = nameField.value.trim();
         const service = document.getElementById('service').value;
         const message = document.getElementById('message').value.trim();
 
-        if (!name) { alert('Per favore inserisci il tuo nome.'); return; }
+        if (!name) {
+            setNameError(true);
+            nameField.focus();
+            return;
+        }
+        setNameError(false);
 
         let text = `Buongiorno Dott.ssa Mincuzzi! La contatto dal suo sito web.\n\nSono: ${name}\n`;
         if (service) text += `Servizio di interesse: ${service}\n`;

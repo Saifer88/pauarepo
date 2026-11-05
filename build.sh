@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # build.sh — Minifica CSS e JS per la produzione e aggiorna il cache-busting
 # Uso: ./build.sh
+#
+# Filename di output STABILI: styles.min.css e script.min.js (mai cambiano).
+# Il cache-busting ?v= è un hash del contenuto: cambia SOLO quando il file
+# minificato cambia davvero. Così non devi mai modificare index.html a mano
+# e la cache del browser resta corretta dopo ogni deploy.
 
 set -e
 
@@ -25,10 +30,19 @@ echo "==> Minificazione CSS..."
 echo "==> Minificazione JS..."
 "${JS_MIN[@]}"
 
-# ==> Cache-busting automatico: aggiorna ?v= in index.html
-# Versione = data+ora (YYYYMMDD-HHMM), univoca a ogni build.
-VERSION="$(date +%Y%m%d-%H%M)"
-echo "==> Aggiorno cache-busting a v=$VERSION ..."
+# ==> Cache-busting basato sull'hash del contenuto (primi 10 char dello sha256).
+# Stesso contenuto => stesso ?v= => index.html non cambia.
+hash_of() {
+    if command -v shasum >/dev/null 2>&1; then
+        shasum -a 256 "$1" | cut -c1-10
+    else
+        sha256sum "$1" | cut -c1-10
+    fi
+}
+
+CSS_VER="$(hash_of styles.min.css)"
+JS_VER="$(hash_of script.min.js)"
+echo "==> Cache-busting: css v=$CSS_VER, js v=$JS_VER ..."
 
 # macOS (BSD sed) richiede l'argomento vuoto dopo -i
 SED_INPLACE=(-i '')
@@ -37,7 +51,7 @@ if sed --version >/dev/null 2>&1; then
     SED_INPLACE=(-i)
 fi
 
-sed "${SED_INPLACE[@]}" -E "s#(styles\.min\.css\?v=)[^\"']*#\1${VERSION}#g" index.html
-sed "${SED_INPLACE[@]}" -E "s#(script\.min\.js\?v=)[^\"']*#\1${VERSION}#g" index.html
+sed "${SED_INPLACE[@]}" -E "s#(styles\.min\.css\?v=)[^\"']*#\1${CSS_VER}#g" index.html
+sed "${SED_INPLACE[@]}" -E "s#(script\.min\.js\?v=)[^\"']*#\1${JS_VER}#g" index.html
 
-echo "==> Build completata. (assets v=$VERSION)"
+echo "==> Build completata. (css v=$CSS_VER, js v=$JS_VER)"
