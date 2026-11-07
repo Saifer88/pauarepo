@@ -3140,6 +3140,8 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 .contact-reassurance {
     display: flex;
     align-items: flex-start;
+    justify-content: center;
+    text-align: center;
     gap: 8px;
     margin: 12px 0 0;
     font-size: 0.82rem;
