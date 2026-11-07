@@ -3789,3 +3789,35 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 @media (prefers-reduced-motion: reduce) {
     .service-chip:active span { transform: none !important; }
 }
+
+/* ===== Nota sotto i risultati ===== */
+.transform-note {
+    margin: 1.25rem 0 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ===== Mobile: le righe con gutter 3rem non devono uscire dallo schermo ===== */
+@media (max-width: 575px) {
+    .row.g-5 { --bs-gutter-x: 1.5rem; }
+}
+
+/* ===== Touch: aree toccabili di almeno 44px ===== */
+@media (pointer: coarse) {
+    .footer-links,
+    .footer-contacts { gap: 0; }
+
+    .footer-links a,
+    .footer-contacts a,
+    .footer-legal a,
+    .hero-proof,
+    .reviews-summary a,
+    .nav-contact-link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+    }
+
+    .footer-contacts a { display: flex; }
+}
