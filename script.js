@@ -37,6 +37,11 @@ if (navbar) {
     updateNavbar();
     window.addEventListener('scroll', updateNavbar, { passive: true });
 
+    // Menu mobile aperto: navbar bianca anche a scroll 0
+    const navCollapseEl = document.getElementById('navbarNav');
+    navCollapseEl?.addEventListener('show.bs.collapse', () => navbar.classList.add('menu-open'));
+    navCollapseEl?.addEventListener('hidden.bs.collapse', () => navbar.classList.remove('menu-open'));
+
     const navLinks = Array.from(navbar.querySelectorAll('[data-nav-sections]'));
     const sectionToLink = new Map();
     navLinks.forEach(link => {
@@ -94,25 +99,40 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ===== GALLERY LIGHTBOX =====
 const lightboxModal = document.getElementById('lightboxModal');
 const lightboxImage = document.getElementById('lightboxImage');
-const galleryGrid = document.querySelector('.gallery-grid');
+const transformGrid = document.getElementById('transformGrid');
 
-if (galleryGrid && lightboxModal && lightboxImage) {
-    galleryGrid.addEventListener('click', (e) => {
-        const slide = e.target.closest('.gallery-slide');
-        if (!slide) return;
+if (transformGrid && lightboxModal && lightboxImage) {
+    transformGrid.addEventListener('click', (e) => {
+        const link = e.target.closest('.transform-media');
+        if (!link || typeof bootstrap === 'undefined') return;
         e.preventDefault();
-        lightboxImage.src = slide.getAttribute('href');
-        lightboxImage.alt = slide.querySelector('img')?.alt || 'Immagine ingrandita';
-        new bootstrap.Modal(lightboxModal).show();
+        lightboxImage.src = link.getAttribute('href');
+        lightboxImage.alt = link.querySelector('img')?.alt || 'Immagine ingrandita';
+        bootstrap.Modal.getOrCreateInstance(lightboxModal).show();
     });
-
-    const scrollGallery = (direction) => {
-        galleryGrid.scrollBy({ left: direction * galleryGrid.clientWidth * 0.75, behavior: 'smooth' });
-    };
-
-    document.querySelector('.gallery-prev')?.addEventListener('click', () => scrollGallery(-1));
-    document.querySelector('.gallery-next')?.addEventListener('click', () => scrollGallery(1));
 }
+
+// ===== DISTURBI SPECIFICI → FORM PRECOMPILATO =====
+document.querySelectorAll('[data-condition]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+        const condition = trigger.dataset.condition;
+        const message = document.getElementById('message');
+        const contact = document.getElementById('contatti');
+
+        const serviceRadio = document.querySelector('input[name="service"][value="Percorso per disturbi specifici"]');
+        if (serviceRadio) serviceRadio.checked = true;
+        if (message && condition) {
+            message.value = `Vorrei iniziare un percorso per ${condition}.`;
+        }
+
+        if (contact) {
+            const top = contact.getBoundingClientRect().top + window.pageYOffset - 90;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
+        // Focus dopo lo scroll, senza un secondo salto della pagina
+        setTimeout(() => document.getElementById('name')?.focus({ preventScroll: true }), 600);
+    });
+});
 
 // ===== STRUTTURA: THUMBNAIL GALLERY =====
 const strutturaMain = document.getElementById('strutturaMain');
@@ -303,41 +323,6 @@ if (cookieBanner) {
     document.getElementById('cookieReject')?.addEventListener('click', () => dismissCookie('rejected'));
 }
 
-// ===== BARRA CTA MOBILE: appare dopo l'hero, si nasconde su shop/contatti/footer =====
-(function initMobileCta() {
-    const bar = document.getElementById('mobileCta');
-    if (!bar) return;
-
-    const hero = document.getElementById('hero');
-    // Sezioni dove la barra è ridondante (CTA già presenti a schermo)
-    const hideZones = ['shop', 'contatti', 'footer'].map(id => document.getElementById(id)).filter(Boolean);
-
-    let pastHero = false;
-    let overHideZone = false;
-    const sync = () => bar.classList.toggle('visible', pastHero && !overHideZone);
-
-    if (hero) {
-        new IntersectionObserver(([entry]) => {
-            pastHero = !entry.isIntersecting;
-            sync();
-        }, { rootMargin: '-40% 0px 0px 0px' }).observe(hero);
-    } else {
-        pastHero = true;
-    }
-
-    if (hideZones.length) {
-        const visibleZones = new Set();
-        const zoneObserver = new IntersectionObserver(entries => {
-            entries.forEach(e => e.isIntersecting ? visibleZones.add(e.target) : visibleZones.delete(e.target));
-            overHideZone = visibleZones.size > 0;
-            sync();
-        }, { rootMargin: '0px 0px -25% 0px' });
-        hideZones.forEach(zone => zoneObserver.observe(zone));
-    }
-
-    sync();
-})();
-
 // ===== WHATSAPP FORM =====
 const whatsappForm = document.getElementById('whatsappForm');
 if (whatsappForm) {
@@ -358,7 +343,7 @@ if (whatsappForm) {
     whatsappForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = nameField.value.trim();
-        const service = document.getElementById('service').value;
+        const service = whatsappForm.querySelector('input[name="service"]:checked')?.value || '';
         const message = document.getElementById('message').value.trim();
 
         if (!name) {

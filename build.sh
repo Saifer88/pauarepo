@@ -51,7 +51,12 @@ if sed --version >/dev/null 2>&1; then
     SED_INPLACE=(-i)
 fi
 
-sed "${SED_INPLACE[@]}" -E "s#(styles\.min\.css\?v=)[^\"']*#\1${CSS_VER}#g" index.html
-sed "${SED_INPLACE[@]}" -E "s#(script\.min\.js\?v=)[^\"']*#\1${JS_VER}#g" index.html
+# Tutte le pagine che usano gli asset minificati
+PAGES=(index.html fitness-aziendale/index.html)
+for page in "${PAGES[@]}"; do
+    [ -f "$page" ] || continue
+    sed "${SED_INPLACE[@]}" -E "s#(styles\.min\.css\?v=)[^\"']*#\1${CSS_VER}#g" "$page"
+    sed "${SED_INPLACE[@]}" -E "s#(script\.min\.js\?v=)[^\"']*#\1${JS_VER}#g" "$page"
+done
 
 echo "==> Build completata. (css v=$CSS_VER, js v=$JS_VER)"
