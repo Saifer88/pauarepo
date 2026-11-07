@@ -323,6 +323,61 @@ if (cookieBanner) {
     document.getElementById('cookieReject')?.addEventListener('click', () => dismissCookie('rejected'));
 }
 
+// ===== FAQ A FISARMONICA SU MOBILE =====
+// Senza JS o su desktop le risposte restano tutte visibili (nel DOM sempre).
+(function initFaqAccordion() {
+    const faq = document.getElementById('faq');
+    const items = faq ? Array.from(faq.querySelectorAll('.faq-numbered')) : [];
+    if (!items.length) return;
+
+    const mq = window.matchMedia('(max-width: 767px)');
+
+    const enable = () => items.forEach((item, i) => {
+        const heading = item.querySelector('h6');
+        const answer = item.querySelector('p');
+        if (!heading || !answer || heading.querySelector('.faq-toggle')) return;
+
+        const label = heading.textContent.trim();
+        heading.dataset.label = label;
+        answer.id = `faq-answer-${i + 1}`;
+
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'faq-toggle';
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-controls', answer.id);
+        const text = document.createElement('span');
+        text.textContent = label;
+        const icon = document.createElement('i');
+        icon.className = 'bi bi-chevron-down';
+        icon.setAttribute('aria-hidden', 'true');
+        button.append(text, icon);
+
+        heading.textContent = '';
+        heading.append(button);
+        item.classList.add('faq-collapsible');
+    });
+
+    const disable = () => items.forEach(item => {
+        const heading = item.querySelector('h6');
+        if (heading?.querySelector('.faq-toggle')) heading.textContent = heading.dataset.label || '';
+        item.querySelector('p')?.removeAttribute('id');
+        item.classList.remove('faq-collapsible', 'is-open');
+    });
+
+    const sync = () => (mq.matches ? enable() : disable());
+    sync();
+    mq.addEventListener('change', sync);
+
+    faq.addEventListener('click', (e) => {
+        const button = e.target.closest('.faq-toggle');
+        if (!button) return;
+        const item = button.closest('.faq-numbered');
+        const open = item.classList.toggle('is-open');
+        button.setAttribute('aria-expanded', String(open));
+    });
+})();
+
 // ===== WHATSAPP FORM =====
 const whatsappForm = document.getElementById('whatsappForm');
 if (whatsappForm) {

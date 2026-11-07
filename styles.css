@@ -3821,3 +3821,190 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 
     .footer-contacts a { display: flex; }
 }
+
+/* ===== SPAZIO SICURO (neurotipici e neurodivergenti) ===== */
+.safe-head {
+    max-width: 760px;
+    margin: 0 auto 2.25rem;
+    text-align: center;
+}
+
+.safe-quote {
+    margin: 0 0 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-wrap: balance;
+}
+
+.safe-quote em {
+    font-style: normal;
+    color: var(--accent-strong);
+}
+
+.safe-lead {
+    margin: 0;
+    line-height: 1.75;
+    color: var(--text-muted);
+}
+
+.safe-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.safe-box {
+    padding: 28px;
+    border-radius: 20px;
+}
+
+.safe-box h3 {
+    margin: 0 0 16px;
+    font-size: 1.25rem;
+    text-wrap: balance;
+}
+
+.safe-box ul {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.safe-box li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1.5;
+}
+
+/* L'icona occupa esattamente l'altezza di una riga di testo (1.5em) e il glifo
+   è centrato: così resta allineata alla prima riga anche quando il testo va a capo */
+.safe-box li .bi,
+.safe-note .bi {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem; /* = line-height 1.5 del testo a 1rem */
+    margin-top: 0;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.safe-box li .bi::before,
+.safe-note .bi::before {
+    vertical-align: 0;
+    line-height: 1;
+}
+
+/* Stesso spessore di bordo nei due riquadri: i titoli partono alla stessa altezza */
+.safe-before {
+    background: #f1ede7;
+    border: 2px solid var(--line);
+    color: var(--text-muted);
+}
+
+.safe-before .bi { color: #a8998a; }
+
+.safe-after {
+    background: #fff;
+    border: 2px solid var(--accent);
+    box-shadow: var(--shadow-card);
+}
+
+.safe-after .bi { color: var(--accent-strong); }
+.safe-after li { color: var(--text); font-weight: 500; }
+
+.safe-foot {
+    display: grid;
+    gap: 22px;
+    max-width: 760px;
+    margin: 2.25rem auto 0;
+}
+
+.safe-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+}
+
+.safe-note .bi {
+    color: var(--accent-strong);
+    height: 1.364rem; /* = 0.88rem * line-height 1.55 del testo della nota */
+    width: 1.25rem;
+}
+
+@media (max-width: 767px) {
+    .safe-grid { grid-template-columns: minmax(0, 1fr); }
+    .safe-box { padding: 22px 18px; }
+}
+
+/* ===== FAQ a fisarmonica su mobile (il JS la attiva solo sotto 768px) ===== */
+.faq-collapsible {
+    align-items: flex-start;
+    margin-bottom: 0 !important;
+    padding: 2px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.faq-collapsible .faq-num {
+    font-size: 1.6rem;
+    min-width: 40px;
+    line-height: 44px;
+}
+
+.faq-collapsible > div { flex: 1; min-width: 0; }
+.faq-collapsible h6 { margin: 0 !important; }
+
+.faq-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.faq-toggle .bi {
+    flex: 0 0 auto;
+    color: var(--accent-strong);
+    transition: transform 0.25s var(--ease-out);
+}
+
+.faq-toggle[aria-expanded="true"] .bi { transform: rotate(180deg); }
+
+.faq-toggle:focus-visible {
+    outline: 3px solid var(--accent-strong);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.faq-collapsible p { display: none; }
+
+.faq-collapsible.is-open p {
+    display: block;
+    padding: 2px 0 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .faq-toggle .bi { transition: none; }
+}
