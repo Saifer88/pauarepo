@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preload" as="image" href="images/hero-personal-training-bari.webp" fetchpriority="high">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.min.css?v=9fc2f48a80">
+    <link rel="stylesheet" href="styles.min.css?v=48f6b27ed3">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
     <noscript>
@@ -662,7 +662,7 @@
                     <li class="nav-item"><a class="nav-link" href="#servizi" data-nav-sections="servizi">Servizi</a></li>
                     <li class="nav-item"><a class="nav-link" href="#metodo" data-nav-sections="metodo percorsi-specifici">Metodo</a></li>
                     <li class="nav-item"><a class="nav-link" href="#galleria" data-nav-sections="galleria risultati">Risultati</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#struttura" data-nav-sections="struttura spazio-sicuro">Studio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#struttura" data-nav-sections="struttura">Studio</a></li>
                 </ul>
                 <div class="navbar-actions">
                     <a class="nav-contact-link" href="#contatti"><i class="bi bi-telephone" aria-hidden="true"></i><span>Contattami</span></a>
@@ -887,47 +887,44 @@
         </div>
     </section>
 
-    <!-- Metodo -->
-    <section class="py-section" id="metodo">
+    <!-- Metodo + Spazio sicuro: pannello unico con azioni condivise -->
+    <section class="py-section" id="metodo" aria-label="Il mio metodo e il tuo spazio sicuro">
         <div class="container">
-            <div class="text-center mb-5">
-                <p class="section-tag text-uppercase fw-semibold letter-spacing mb-2">Il Mio Metodo</p>
-                <h2 class="display-5 fw-bold" data-split>Un approccio scientifico pensato per te</h2>
-                <p class="text-muted mx-auto" style="max-width: 600px;">Il mio metodo tiene conto della tua età, del tuo stile di vita e dei tuoi obiettivi reali.</p>
-            </div>
-            <div class="row g-4 method-steps">
-                <div class="col-md-6 col-lg-3">
-                    <div class="text-center method-step p-4">
-                        <div class="step-number display-4 fw-bold">01</div>
-                        <h5 class="fw-bold mt-3 mb-2">Ascolto</h5>
-                        <p class="text-muted small">Il primo passo è sempre conoscerti: la tua storia, i tuoi obiettivi, le tue esigenze.</p>
+            <div class="duo">
+                <div class="duo-halves">
+                    <article class="duo-half duo-method">
+                        <p class="section-tag text-uppercase fw-semibold letter-spacing mb-2 align-self-start">Il Mio Metodo</p>
+                        <h2 class="duo-title">Un approccio scientifico pensato per te</h2>
+                        <p class="duo-intro">Il mio metodo tiene conto della tua età, del tuo stile di vita e dei tuoi obiettivi reali.</p>
+                        <ol class="duo-steps">
+                            <li><span class="duo-num" aria-hidden="true">01</span><div><h3>Ascolto</h3><p>Il primo passo è sempre conoscerti: la tua storia, i tuoi obiettivi, le tue esigenze.</p></div></li>
+                            <li><span class="duo-num" aria-hidden="true">02</span><div><h3>Valutazione</h3><p>Analisi posturale, test funzionali e valutazione della composizione corporea.</p></div></li>
+                            <li><span class="duo-num" aria-hidden="true">03</span><div><h3>Programmazione</h3><p>Programma su misura basato su evidenze scientifiche, adattato al tuo livello.</p></div></li>
+                            <li><span class="duo-num" aria-hidden="true">04</span><div><h3>Evoluzione</h3><p>Monitoro i progressi e adatto il programma per risultati costanti nel tempo.</p></div></li>
+                        </ol>
+                    </article>
+                    <article class="duo-half duo-safe" id="spazio-sicuro">
+                        <p class="section-tag text-uppercase fw-semibold letter-spacing mb-2 align-self-start">Il tuo spazio sicuro</p>
+                        <h2 class="duo-title">Credo in un fitness che si adatti alla persona, <em>non il contrario.</em></h2>
+                        <p class="duo-intro">Il mio non è un percorso di terapia: l'allenamento è uno strumento di benessere psicofisico e regolazione del sistema nervoso. Il movimento diventa un alleato per la regolazione emotiva e la gestione dell'ansia, che tu sia neurotipico o neurodivergente.</p>
+                        <p class="duo-aside">Comprendo se hai avuto esperienze negative con le palestre tradizionali: sovraccarico sensoriale, richiesta di rigore e routine impossibili, giudizio, vergogna. Da me trovi:</p>
+                        <ul class="duo-checks">
+                            <li><i class="bi bi-check2-circle" aria-hidden="true"></i>Professionalità, flessibilità e comprensione</li>
+                            <li><i class="bi bi-check2-circle" aria-hidden="true"></i>Rispetto per i giorni "no" e per la variabilità dell'energia</li>
+                            <li><i class="bi bi-check2-circle" aria-hidden="true"></i>Attenzione alle esigenze sensoriali</li>
+                            <li><i class="bi bi-check2-circle" aria-hidden="true"></i>Sinergia con i tuoi specialisti, se lo desideri</li>
+                        </ul>
+                        <div class="duo-note"><i class="bi bi-shield-check" aria-hidden="true"></i><span>L'attività fisica è complementare e non sostituisce percorsi medici o psicoterapeutici.</span></div>
+                    </article>
+                </div>
+                <div class="duo-actions">
+                    <p class="duo-actions-text"><strong>Parti da dove ti senti più a tuo agio.</strong><span>Di solito rispondo in giornata.</span></p>
+                    <div class="duo-actions-btns">
+                        <a href="#contatti" class="btn btn-primary">Scrivimi, a modo tuo</a>
+                        <a href="#shop" class="btn btn-outline-accent">Vedi i pacchetti</a>
+                        <a href="#servizi" class="duo-link">Scopri i servizi <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="text-center method-step p-4">
-                        <div class="step-number display-4 fw-bold">02</div>
-                        <h5 class="fw-bold mt-3 mb-2">Valutazione</h5>
-                        <p class="text-muted small">Analisi posturale, test funzionali e valutazione della composizione corporea.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="text-center method-step p-4">
-                        <div class="step-number display-4 fw-bold">03</div>
-                        <h5 class="fw-bold mt-3 mb-2">Programmazione</h5>
-                        <p class="text-muted small">Programma su misura basato su evidenze scientifiche, adattato al tuo livello.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="text-center method-step p-4">
-                        <div class="step-number display-4 fw-bold">04</div>
-                        <h5 class="fw-bold mt-3 mb-2">Evoluzione</h5>
-                        <p class="text-muted small">Monitoro i progressi e adatto il programma per risultati costanti nel tempo.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="section-cta mt-5">
-                <a href="#servizi" class="btn btn-outline-accent">Scopri i servizi</a>
-                <a href="#shop" class="btn btn-primary">Vedi i pacchetti</a>
             </div>
         </div>
     </section>
@@ -1417,46 +1414,6 @@
         </div>
     </section>
 
-    <!-- Spazio sicuro: neurotipici e neurodivergenti -->
-    <section class="py-section bg-light" id="spazio-sicuro" aria-labelledby="safe-title">
-        <div class="container">
-            <div class="safe-head">
-                <p class="section-tag text-uppercase fw-semibold letter-spacing mb-2">Il tuo spazio sicuro</p>
-                <h2 class="safe-quote display-6" id="safe-title">Credo in un fitness che si adatti alla persona, <em>non il contrario.</em></h2>
-                <p class="safe-lead">Il mio non è un percorso di terapia: l'allenamento è uno strumento di benessere psicofisico e regolazione del sistema nervoso. Il movimento diventa un alleato per la regolazione emotiva e la gestione dell'ansia, che tu sia neurotipico o neurodivergente.</p>
-            </div>
-
-            <div class="safe-grid">
-                <div class="safe-box safe-before">
-                    <h3>Se la palestra ti ha fatto sentire così</h3>
-                    <ul>
-                        <li><i class="bi bi-x-circle" aria-hidden="true"></i>Sovraccarico sensoriale</li>
-                        <li><i class="bi bi-x-circle" aria-hidden="true"></i>Richiesta di rigore e routine impossibili</li>
-                        <li><i class="bi bi-x-circle" aria-hidden="true"></i>Giudizio</li>
-                        <li><i class="bi bi-x-circle" aria-hidden="true"></i>Vergogna</li>
-                    </ul>
-                </div>
-                <div class="safe-box safe-after">
-                    <h3>Da me trovi</h3>
-                    <ul>
-                        <li><i class="bi bi-check2-circle" aria-hidden="true"></i>Professionalità, flessibilità e comprensione</li>
-                        <li><i class="bi bi-check2-circle" aria-hidden="true"></i>Rispetto per i giorni "no" e per la variabilità dell'energia</li>
-                        <li><i class="bi bi-check2-circle" aria-hidden="true"></i>Attenzione alle esigenze sensoriali</li>
-                        <li><i class="bi bi-check2-circle" aria-hidden="true"></i>Sinergia con i tuoi specialisti, se lo desideri</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="safe-foot">
-                <div class="safe-note"><i class="bi bi-shield-check" aria-hidden="true"></i><span>L'attività fisica è complementare e non sostituisce percorsi medici o psicoterapeutici.</span></div>
-                <div class="section-cta">
-                    <a href="#contatti" class="btn btn-primary">Scrivimi, a modo tuo</a>
-                    <a href="#faq" class="btn btn-outline-accent">Domande frequenti</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Shop Allenamento Bari -->
     <section class="py-section pricing-section">
         <div id="shop" class="container">
@@ -1818,6 +1775,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="script.min.js?v=dd66bef275" defer></script>
+    <script src="script.min.js?v=f9a3c03ea6" defer></script>
 </body>
 </html>

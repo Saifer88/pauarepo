@@ -1009,46 +1009,6 @@ a.service-card:focus {
     }
 }
 
-.method-steps { margin: 0; }
-.method-steps .method-step { min-height: 220px; padding: 2rem !important; }
-.method-steps .step-number { font-size: 4.5rem !important; }
-
-/* ===== METHOD ===== */
-.step-number {
-    color: var(--accent-light);
-    font-family: var(--font-heading);
-    font-size: 4rem !important;
-    line-height: 1;
-    opacity: 0.8;
-}
-
-.method-step {
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.method-step:hover {
-    transform: translateY(-5px);
-}
-
-.method-step::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 3px;
-    background: var(--accent-light);
-    border-radius: 3px;
-    transition: width 0.3s ease;
-}
-
-.method-step:hover::after {
-    width: 60px;
-    background: var(--accent);
-}
-
 /* ===== REVIEWS ===== */
 .reviews-heading {
     max-width: 760px;
@@ -2420,9 +2380,6 @@ a.service-card:focus {
         display: none;
     }
 
-    .step-number {
-        font-size: 3rem !important;
-    }
 }
 
 @media (max-width: 767px) {
@@ -2447,9 +2404,6 @@ a.service-card:focus {
         padding: 60px 0;
     }
 
-    .method-step::after {
-        display: none;
-    }
 }
 
 /* ============================================= */
@@ -3035,7 +2989,6 @@ body.hero-ready .hero-cta-pulse::after {
     .review-card:hover,
     .credential-card:hover,
     .gallery-slide:hover,
-    .method-step:hover,
     .az-pricing:hover,
     .az-benefit:hover,
     .az-step:hover,
@@ -3822,135 +3775,6 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
     .footer-contacts a { display: flex; }
 }
 
-/* ===== SPAZIO SICURO (neurotipici e neurodivergenti) ===== */
-.safe-head {
-    max-width: 760px;
-    margin: 0 auto 2.25rem;
-    text-align: center;
-}
-
-.safe-quote {
-    margin: 0 0 1rem;
-    font-weight: 600;
-    line-height: 1.2;
-    text-wrap: balance;
-}
-
-.safe-quote em {
-    font-style: normal;
-    color: var(--accent-strong);
-}
-
-.safe-lead {
-    margin: 0;
-    line-height: 1.75;
-    color: var(--text-muted);
-}
-
-.safe-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-    max-width: 980px;
-    margin: 0 auto;
-}
-
-.safe-box {
-    padding: 28px;
-    border-radius: 20px;
-}
-
-.safe-box h3 {
-    margin: 0 0 16px;
-    font-size: 1.25rem;
-    text-wrap: balance;
-}
-
-.safe-box ul {
-    display: grid;
-    gap: 12px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.safe-box li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    line-height: 1.5;
-}
-
-/* L'icona occupa esattamente l'altezza di una riga di testo (1.5em) e il glifo
-   è centrato: così resta allineata alla prima riga anche quando il testo va a capo */
-.safe-box li .bi,
-.safe-note .bi {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem; /* = line-height 1.5 del testo a 1rem */
-    margin-top: 0;
-    font-size: 1.1rem;
-    line-height: 1;
-}
-
-.safe-box li .bi::before,
-.safe-note .bi::before {
-    vertical-align: 0;
-    line-height: 1;
-}
-
-/* Stesso spessore di bordo nei due riquadri: i titoli partono alla stessa altezza */
-.safe-before {
-    background: #f1ede7;
-    border: 2px solid var(--line);
-    color: var(--text-muted);
-}
-
-.safe-before .bi { color: #a8998a; }
-
-.safe-after {
-    background: #fff;
-    border: 2px solid var(--accent);
-    box-shadow: var(--shadow-card);
-}
-
-.safe-after .bi { color: var(--accent-strong); }
-.safe-after li { color: var(--text); font-weight: 500; }
-
-.safe-foot {
-    display: grid;
-    gap: 22px;
-    max-width: 760px;
-    margin: 2.25rem auto 0;
-}
-
-.safe-note {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: 14px;
-    background: #fff;
-    border: 1px solid var(--line);
-    font-size: 0.88rem;
-    line-height: 1.55;
-    color: var(--text-muted);
-}
-
-.safe-note .bi {
-    color: var(--accent-strong);
-    height: 1.364rem; /* = 0.88rem * line-height 1.55 del testo della nota */
-    width: 1.25rem;
-}
-
-@media (max-width: 767px) {
-    .safe-grid { grid-template-columns: minmax(0, 1fr); }
-    .safe-box { padding: 22px 18px; }
-}
-
 /* ===== FAQ a fisarmonica su mobile (il JS la attiva solo sotto 768px) ===== */
 .faq-collapsible {
     align-items: flex-start;
@@ -4007,4 +3831,284 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 
 @media (prefers-reduced-motion: reduce) {
     .faq-toggle .bi { transition: none; }
+}
+
+/* ===== METODO + SPAZIO SICURO: pannello unico con azioni condivise ===== */
+/* Un solo contenitore racchiude le due metà e la striscia dei bottoni:
+   il confine comune (regione comune) dice che le azioni valgono per entrambe. */
+.duo {
+    border-radius: 28px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(44, 43, 41, 0.13);
+    box-shadow: var(--shadow-soft);
+}
+
+.duo-halves {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.duo-half {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(24px, 3.4vw, 44px);
+}
+
+.duo-method { background: #fdfaf6; } /* crema leggerissimo: stacca il pannello dalla pagina bianca */
+
+.duo-safe {
+    background: linear-gradient(160deg, #18221f 0%, #203a37 100%);
+    color: #fff;
+}
+
+.duo-safe .section-tag {
+    background: rgba(212, 165, 116, 0.18);
+    color: var(--accent);
+}
+
+.duo-title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.6rem, 2.5vw, 2.15rem);
+    line-height: 1.2;
+    font-weight: 600;
+    text-wrap: balance;
+}
+
+.duo-safe .duo-title { color: #fff; }
+
+.duo-title em {
+    font-style: normal;
+    color: var(--accent);
+}
+
+.duo-intro {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--text-muted);
+}
+
+.duo-safe .duo-intro { color: rgba(255, 255, 255, 0.82); }
+
+/* Metodo: i 4 passi si dividono l'altezza disponibile */
+.duo-steps {
+    flex: 1;
+    display: grid;
+    grid-auto-rows: 1fr;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Percorso a tappe: pallini numerati uniti da una linea verticale */
+.duo-steps li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 18px;
+    align-content: start;
+}
+
+.duo-steps li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 21px;
+    top: 50px;
+    bottom: 6px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--accent-light);
+}
+
+.duo-num {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent-strong);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    box-shadow: 0 0 0 5px #fdfaf6; /* stacca il pallino dalla linea */
+}
+
+.duo-steps h3 {
+    margin: 10px 0 4px; /* centra il titolo sul pallino */
+    font-size: 1.1rem;
+    line-height: 1.3;
+}
+
+.duo-steps p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+}
+
+/* Spazio sicuro */
+/* La frase di empatia diventa una citazione: dà gerarchia al blocco di testo */
+.duo-aside {
+    margin: 1.5rem 0 1.25rem;
+    padding-left: 16px;
+    border-left: 2px solid var(--accent);
+    font-family: var(--font-heading);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.duo-checks {
+    display: grid;
+    gap: 12px;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.duo-checks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* L'icona occupa l'altezza di una riga di testo: resta allineata alla prima riga anche quando il testo va a capo */
+.duo-checks .bi,
+.duo-note .bi {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--accent);
+}
+
+.duo-checks .bi::before,
+.duo-note .bi::before {
+    vertical-align: 0;
+    line-height: 1;
+}
+
+.duo-note {
+    display: flex;
+    align-items: center; /* icona centrata sul blocco di testo, anche su 2 o 3 righe */
+    gap: 12px;
+    margin-top: auto;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.duo-note .bi {
+    width: 1.25rem;
+    height: 1.275rem; /* = 0.85rem x line-height 1.5 del testo */
+}
+
+/* Striscia azioni: dentro lo stesso contenitore, sotto le due metà */
+.duo-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px clamp(24px, 3.4vw, 44px);
+    background: var(--bg-warm);
+    border-top: 1px solid var(--line);
+}
+
+.duo-actions-text { margin: 0; }
+
+.duo-actions-text strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    line-height: 1.3;
+    color: var(--text);
+}
+
+.duo-actions-text span {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.duo-actions-btns {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.duo-actions-btns .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    white-space: nowrap;
+}
+
+.duo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 6px;
+    border-radius: 8px;
+    color: var(--accent-strong);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.duo-link:hover {
+    color: var(--accent-strong-hover);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.duo-link:focus-visible {
+    outline: 3px solid var(--accent-strong);
+    outline-offset: 2px;
+}
+
+.duo-link .bi { transition: transform 0.2s var(--ease-out); }
+.duo-link:hover .bi { transform: translateX(3px); }
+
+@media (max-width: 991px) {
+    .duo-halves { grid-template-columns: minmax(0, 1fr); }
+
+    .duo-actions {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .duo-actions-btns {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .duo-actions-btns .btn { width: 100%; }
+    .duo-actions-btns .duo-link { justify-content: center; }
+}
+
+@media (max-width: 575px) {
+    .duo-half { padding: 22px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .duo-link .bi { transition: none; }
+    .duo-link:hover .bi { transform: none; }
 }
