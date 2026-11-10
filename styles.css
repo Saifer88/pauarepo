@@ -4153,8 +4153,10 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
     box-shadow: none;
 }
 
-.conditions-stage.is-open .condition-feature p,
-.conditions-stage.is-open .condition-feature .condition-phases { display: none; }
+.conditions-stage.is-open .condition-feature p { display: none; }
+
+.conditions-stage:not(.is-open) .condition-details { display: none; }
+.conditions-stage.is-open .condition-details { align-self: stretch; }
 
 .conditions-stage.is-open .condition-feature-icon {
     flex: none;
@@ -4183,18 +4185,19 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
     background: #fff;
     border: 1px solid var(--accent);
     box-shadow: var(--shadow-soft);
-    animation: conditionDetailIn 0.55s var(--ease-out) both;
+    overflow: hidden;
+    animation: conditionDetailIn 0.3s var(--ease-out) both;
 }
 
-.condition-detail.is-swapping { animation: conditionDetailSwap 0.35s var(--ease-out) both; }
+.condition-detail.is-swapping { animation: conditionDetailSwap 0.2s var(--ease-out) both; }
 
 @keyframes conditionDetailIn {
-    from { opacity: 0; transform: translateX(32px); }
+    from { opacity: 0; }
     to { opacity: 1; transform: none; }
 }
 
 @keyframes conditionDetailSwap {
-    from { opacity: 0.2; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: none; }
 }
 
@@ -4214,6 +4217,8 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 }
 
 .condition-detail-close:hover { background: var(--accent-light); border-color: var(--accent); }
+.condition-detail-close:active { transform: scale(0.95); }
+.condition-detail-close:focus-visible { outline: 3px solid var(--accent-strong); outline-offset: 2px; }
 
 .condition-detail-icon { display: grid; width: 56px; height: 56px; font-size: 1.5rem; margin-bottom: 16px; }
 
@@ -4257,6 +4262,33 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
     counter-increment: fase;
 }
 
+/* Testo: entra da destra. Numero: solo dissolvenza */
+.condition-detail-phases li strong,
+.condition-detail-phases li span {
+    animation: conditionPhaseSlide 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: inherit;
+}
+
+.condition-detail-phases li::before {
+    animation: conditionPhaseFade 0.4s ease-out both;
+    animation-delay: inherit;
+}
+
+.condition-detail-phases li:nth-child(1) { animation-delay: 120ms; }
+.condition-detail-phases li:nth-child(2) { animation-delay: 200ms; }
+.condition-detail-phases li:nth-child(3) { animation-delay: 280ms; }
+.condition-detail-phases li:nth-child(4) { animation-delay: 360ms; }
+
+@keyframes conditionPhaseSlide {
+    from { opacity: 0; transform: translateX(110%); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes conditionPhaseFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 .condition-detail-phases li::before {
     content: counter(fase);
     position: absolute;
@@ -4291,7 +4323,8 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 
 @media (max-width: 991px) {
     .conditions-stage.is-open { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-    .conditions-stage.is-open .condition-detail { order: -1; position: relative; top: 0; padding: 26px 22px; }
+    .conditions-stage.is-open .condition-details { order: -1; }
+    .conditions-stage.is-open .condition-detail { position: relative; top: 0; padding: 26px 22px; }
     .conditions-stage.is-open .conditions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .condition-detail-title { font-size: 1.55rem; padding-right: 44px; }
 }
@@ -4301,6 +4334,6 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .condition-detail, .condition-detail.is-swapping { animation: none; }
+    .condition-detail, .condition-detail.is-swapping, .condition-detail-phases li strong, .condition-detail-phases li span, .condition-detail-phases li::before { animation: none; }
 }
 

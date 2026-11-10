@@ -585,20 +585,20 @@ if (whatsappForm) {
 
 })();
 
-// ===== DISTURBI SPECIFICI: SCHEDA DETTAGLIO CON FASI DEL PERCORSO =====
+// ===== DISTURBI SPECIFICI: SCHEDA DETTAGLIO (contenuto nell'HTML, JS alterna solo la visibilità) =====
 (() => {
     const stage = document.getElementById('conditionsStage');
-    const detail = document.getElementById('conditionDetail');
-    if (!stage || !detail) return;
+    if (!stage) return;
 
     const grid = stage.querySelector('.conditions-grid');
     const cards = Array.from(grid.querySelectorAll('.condition-feature'));
-    const titleEl = detail.querySelector('.condition-detail-title');
-    const textEl = detail.querySelector('.condition-detail-text');
-    const phasesEl = detail.querySelector('.condition-detail-phases');
-    const iconEl = detail.querySelector('.condition-detail-icon .bi');
-    const ctaEl = detail.querySelector('[data-condition]');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const bySlug = new Map();
+    cards.forEach(card => {
+        const button = card.querySelector('.condition-start');
+        const panel = document.getElementById(button.getAttribute('aria-controls'));
+        if (panel) bySlug.set(button.dataset.slug, { card, button, panel });
+    });
     let active = null;
 
     // FLIP: le card scivolano nella nuova posizione invece di saltare
@@ -613,71 +613,79 @@ if (whatsappForm) {
             if (!dx && !dy) return;
             c.animate(
                 [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }],
-                { duration: 480, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+                { duration: 320, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
             );
         });
     };
 
-    const fill = (card) => {
-        const button = card.querySelector('.condition-start');
-        titleEl.textContent = button.firstChild.textContent.trim();
-        textEl.textContent = card.querySelector('p').textContent;
-        iconEl.className = card.querySelector('.condition-feature-icon .bi').className;
-        phasesEl.innerHTML = card.querySelector('.condition-phases').innerHTML;
-        ctaEl.dataset.condition = button.dataset.condition;
-    };
-
-    const setActive = (card) => {
-        cards.forEach(c => {
-            const on = c === card;
-            c.classList.toggle('is-active', on);
-            c.querySelector('.condition-start').setAttribute('aria-expanded', String(on));
+    const setActive = (slug) => {
+        bySlug.forEach((item, key) => {
+            const on = key === slug;
+            item.card.classList.toggle('is-active', on);
+            item.button.setAttribute('aria-expanded', String(on));
+            item.panel.hidden = !on;
+            item.panel.classList.remove('is-swapping');
         });
-        active = card;
+        active = slug;
     };
 
-    const open = (card) => {
-        if (card === active) return;
+    const setHash = (slug) => {
+        const url = slug ? `#${slug}` : location.pathname + location.search;
+        history.replaceState(null, '', url);
+    };
+
+    const open = (slug, { updateHash = true, focus = true, scroll = true } = {}) => {
+        const item = bySlug.get(slug);
+        if (!item || slug === active) return;
         const alreadyOpen = stage.classList.contains('is-open');
-        fill(card);
         if (alreadyOpen) {
-            setActive(card);
-            detail.classList.remove('is-swapping');
-            void detail.offsetWidth;
-            detail.classList.add('is-swapping');
+            setActive(slug);
+            item.panel.classList.add('is-swapping');
         } else {
             flip(() => {
                 stage.classList.add('is-open');
-                detail.hidden = false;
-                setActive(card);
+                setActive(slug);
             });
         }
-        const top = stage.getBoundingClientRect().top;
-        if (top < 70 || top > window.innerHeight * 0.4) {
-            stage.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+        if (updateHash) setHash(slug);
+        if (scroll) {
+            const top = stage.getBoundingClientRect().top;
+            if (top < 70 || top > window.innerHeight * 0.4) {
+                const y = top + window.pageYOffset - 112;
+                window.scrollTo({ top: y, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+            }
         }
-        titleEl.focus({ preventScroll: true });
+        if (focus) item.panel.querySelector('.condition-detail-title').focus({ preventScroll: true });
     };
 
-    const close = () => {
+    const close = ({ updateHash = true, restoreFocus = true } = {}) => {
         if (!stage.classList.contains('is-open')) return;
-        const previous = active;
+        const previous = bySlug.get(active);
         flip(() => {
             stage.classList.remove('is-open');
-            detail.hidden = true;
             setActive(null);
         });
-        previous?.querySelector('.condition-start').focus({ preventScroll: true });
+        if (updateHash) setHash(null);
+        if (restoreFocus) previous?.button.focus({ preventScroll: true });
     };
 
-    cards.forEach(card => {
-        const button = card.querySelector('.condition-start');
-        button.setAttribute('aria-controls', 'conditionDetail');
-        button.setAttribute('aria-expanded', 'false');
-        button.addEventListener('click', () => open(card));
+    bySlug.forEach((item, slug) => {
+        item.button.addEventListener('click', () => open(slug));
+        item.panel.querySelector('.condition-detail-close').addEventListener('click', () => close());
     });
-    detail.querySelector('.condition-detail-close').addEventListener('click', close);
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') close();
     });
+
+    // Link diretti: /#lipedema apre la scheda corrispondente
+    const fromHash = (initial) => {
+        const slug = decodeURIComponent(location.hash.slice(1));
+        if (bySlug.has(slug)) {
+            open(slug, { updateHash: false, focus: !initial, scroll: true });
+        } else if (!initial && !slug) {
+            close({ updateHash: false, restoreFocus: false });
+        }
+    };
+    window.addEventListener('hashchange', () => fromHash(false));
+    if (location.hash) window.addEventListener('load', () => fromHash(true));
 })();
