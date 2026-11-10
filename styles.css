@@ -4186,10 +4186,15 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
     border: 1px solid var(--accent);
     box-shadow: var(--shadow-soft);
     overflow: hidden;
-    animation: conditionDetailIn 0.3s var(--ease-out) both;
+    /* Prima si spostano le card (320ms), poi entra la scheda */
+    --panel-delay: 180ms;
+    animation: conditionDetailIn 0.25s var(--ease-out) var(--panel-delay) both;
 }
 
-.condition-detail.is-swapping { animation: conditionDetailSwap 0.2s var(--ease-out) both; }
+.condition-detail.is-swapping {
+    --panel-delay: 0ms;
+    animation: conditionDetailSwap 0.2s var(--ease-out) both;
+}
 
 @keyframes conditionDetailIn {
     from { opacity: 0; }
@@ -4274,10 +4279,10 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
     animation-delay: inherit;
 }
 
-.condition-detail-phases li:nth-child(1) { animation-delay: 120ms; }
-.condition-detail-phases li:nth-child(2) { animation-delay: 200ms; }
-.condition-detail-phases li:nth-child(3) { animation-delay: 280ms; }
-.condition-detail-phases li:nth-child(4) { animation-delay: 360ms; }
+.condition-detail-phases li:nth-child(1) { animation-delay: calc(var(--panel-delay) + 120ms); }
+.condition-detail-phases li:nth-child(2) { animation-delay: calc(var(--panel-delay) + 200ms); }
+.condition-detail-phases li:nth-child(3) { animation-delay: calc(var(--panel-delay) + 280ms); }
+.condition-detail-phases li:nth-child(4) { animation-delay: calc(var(--panel-delay) + 360ms); }
 
 @keyframes conditionPhaseSlide {
     from { opacity: 0; transform: translateX(110%); }
