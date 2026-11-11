@@ -1471,6 +1471,19 @@ a.service-card:focus {
     min-width: 50px;
 }
 
+.faq-question { font-size: 1rem; line-height: 1.5; }
+.faq-group { margin-bottom: 2.25rem; }
+.faq-group-title {
+    margin: 0 0 .5rem;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+}
+.faq-pay-icons img { height: 28px; width: auto; display: block; }
+.faq-cta { margin: 0; font-size: .95rem; color: var(--text-muted, #6c757d); }
+.faq-cta a { font-weight: 600; color: var(--accent-strong); }
 /* ===== CTA DARK SECTION ===== */
 .bg-dark {
     background: var(--bg-dark) !important;
@@ -1839,6 +1852,49 @@ a.service-card:focus {
     bottom: -1.2rem;
 }
 
+.pricing-policy-note {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: .25rem;
+    text-align: center;
+    max-width: 640px;
+    margin: 2.5rem auto 0;
+    padding: 1rem 1.5rem;
+    color: rgba(255, 255, 255, .9);
+    border: 1px solid rgba(212, 165, 116, .45);
+    border-radius: 12px;
+    background: rgba(212, 165, 116, .08);
+}
+.pricing-policy-note > .bi {
+    margin-bottom: .25rem;
+    font-size: 1.9rem;
+    line-height: 1;
+    color: var(--accent);
+}
+.pricing-policy-note p { margin: 0; }
+.pricing-policy-main {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #fff;
+    text-align: center;
+}
+.pricing-policy-sub {
+    font-size: .85rem;
+    line-height: 1.5;
+    font-style: italic;
+    text-align: center;
+    color: rgba(255, 255, 255, .8);
+}
+.pricing-btn-price .pricing-price-asterisk {
+    margin-left: 1px;
+    font-weight: 700;
+}
+.pricing-policy-note a {
+    color: inherit;
+    text-decoration: underline;
+}
 .pricing-btn .pricing-btn-icon {
     position: absolute;
     left: 1.5rem;
@@ -3791,7 +3847,7 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
     .footer-contacts a { display: flex; }
 }
 
-/* ===== FAQ a fisarmonica su mobile (il JS la attiva solo sotto 768px) ===== */
+/* ===== FAQ a fisarmonica (attivata dal JS su tutti gli schermi) ===== */
 .faq-collapsible {
     align-items: flex-start;
     margin-bottom: 0 !important;
@@ -3806,7 +3862,7 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 }
 
 .faq-collapsible > div { flex: 1; min-width: 0; }
-.faq-collapsible h6 { margin: 0 !important; }
+.faq-collapsible .faq-question { margin: 0 !important; }
 
 .faq-toggle {
     display: flex;
@@ -3838,13 +3894,16 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
     border-radius: 6px;
 }
 
-.faq-collapsible p { display: none; }
-
-.faq-collapsible.is-open p {
-    display: block;
-    padding: 2px 0 14px;
+.faq-answer {
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
 }
-
+.faq-collapsible.is-open .faq-answer {
+    height: auto;
+    visibility: visible;
+}
+.faq-collapsible p { padding: 2px 0 14px; }
 @media (prefers-reduced-motion: reduce) {
     .faq-toggle .bi { transition: none; }
 }

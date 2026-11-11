@@ -323,61 +323,70 @@ if (cookieBanner) {
     document.getElementById('cookieReject')?.addEventListener('click', () => dismissCookie('rejected'));
 }
 
-// ===== FAQ A FISARMONICA SU MOBILE =====
-// Senza JS o su desktop le risposte restano tutte visibili (nel DOM sempre).
+// ===== FAQ A FISARMONICA =====
+// Senza JS le risposte restano tutte visibili (nel DOM sempre).
 (function initFaqAccordion() {
     const faq = document.getElementById('faq');
     const items = faq ? Array.from(faq.querySelectorAll('.faq-numbered')) : [];
     if (!items.length) return;
-
-    const mq = window.matchMedia('(max-width: 767px)');
-
-    const enable = () => items.forEach((item, i) => {
-        const heading = item.querySelector('h6');
+    const firstGroup = faq.querySelector('.faq-group');
+    items.forEach((item, i) => {
+        const heading = item.querySelector('.faq-question');
         const answer = item.querySelector('p');
-        if (!heading || !answer || heading.querySelector('.faq-toggle')) return;
-
+        if (!heading || !answer) return;
         const label = heading.textContent.trim();
-        heading.dataset.label = label;
-        answer.id = `faq-answer-${i + 1}`;
-
+        const panel = document.createElement('div');
+        panel.className = 'faq-answer';
+        panel.id = `faq-answer-${i + 1}`;
+        const inner = document.createElement('div');
+        inner.className = 'faq-answer-inner';
+        answer.replaceWith(panel);
+        inner.append(answer);
+        panel.append(inner);
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'faq-toggle';
         button.setAttribute('aria-expanded', 'false');
-        button.setAttribute('aria-controls', answer.id);
+        button.setAttribute('aria-controls', panel.id);
         const text = document.createElement('span');
         text.textContent = label;
         const icon = document.createElement('i');
         icon.className = 'bi bi-chevron-down';
         icon.setAttribute('aria-hidden', 'true');
         button.append(text, icon);
-
         heading.textContent = '';
         heading.append(button);
         item.classList.add('faq-collapsible');
+        // Il primo gruppo ("Prima di iniziare") parte aperto
+        if (item.closest('.faq-group') === firstGroup) {
+            item.classList.add('is-open');
+            button.setAttribute('aria-expanded', 'true');
+        }
     });
-
-    const disable = () => items.forEach(item => {
-        const heading = item.querySelector('h6');
-        if (heading?.querySelector('.faq-toggle')) heading.textContent = heading.dataset.label || '';
-        item.querySelector('p')?.removeAttribute('id');
-        item.classList.remove('faq-collapsible', 'is-open');
-    });
-
-    const sync = () => (mq.matches ? enable() : disable());
-    sync();
-    mq.addEventListener('change', sync);
-
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     faq.addEventListener('click', (e) => {
         const button = e.target.closest('.faq-toggle');
         if (!button) return;
         const item = button.closest('.faq-numbered');
-        const open = item.classList.toggle('is-open');
+        const panel = item.querySelector('.faq-answer');
+        // Altezza e opacità correnti, anche se un'animazione è in corso
+        const from = panel.getBoundingClientRect().height;
+        const fromOpacity = Number(getComputedStyle(panel).opacity);
+        panel.getAnimations().forEach((a) => a.cancel());
+        const open = !item.classList.contains('is-open');
+        item.classList.toggle('is-open', open);
         button.setAttribute('aria-expanded', String(open));
+        if (reduceMotion.matches || !panel.animate) return;
+        const to = open ? panel.getBoundingClientRect().height : 0;
+        panel.animate(
+            [
+                { height: `${from}px`, opacity: open ? Math.min(fromOpacity, 0.4) : fromOpacity, visibility: 'visible' },
+                { height: `${to}px`, opacity: open ? 1 : 0, visibility: 'visible' }
+            ],
+            { duration: open ? 340 : 280, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' }
+        );
     });
 })();
-
 // ===== WHATSAPP FORM =====
 const whatsappForm = document.getElementById('whatsappForm');
 if (whatsappForm) {
