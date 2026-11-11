@@ -586,13 +586,17 @@ if (whatsappForm) {
 })();
 
 // ===== DISTURBI SPECIFICI: SCHEDA DETTAGLIO (contenuto nell'HTML, JS alterna solo la visibilità) =====
+// Desktop: elenco a sinistra e scheda a destra. Mobile/tablet: accordion, la scheda si apre sotto la card scelta.
 (() => {
     const stage = document.getElementById('conditionsStage');
     if (!stage) return;
 
     const grid = stage.querySelector('.conditions-grid');
+    const detailsWrap = stage.querySelector('.condition-details');
     const cards = Array.from(grid.querySelectorAll('.condition-feature'));
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileMQ = window.matchMedia('(max-width: 991px)');
+    const EASE = 'cubic-bezier(0.23, 1, 0.32, 1)';
     const bySlug = new Map();
     cards.forEach(card => {
         const button = card.querySelector('.condition-start');
@@ -601,7 +605,7 @@ if (whatsappForm) {
     });
     let active = null;
 
-    // FLIP: le card scivolano nella nuova posizione invece di saltare
+    // ---------- Desktop: FLIP, le card scivolano nella nuova posizione ----------
     const flip = (change) => {
         if (reduceMotion.matches) { change(); return; }
         const first = cards.map(c => c.getBoundingClientRect());
@@ -613,17 +617,63 @@ if (whatsappForm) {
             if (!dx && !dy) return;
             c.animate(
                 [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }],
-                { duration: 320, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+                { duration: 320, easing: EASE }
             );
         });
     };
 
-    const setActive = (slug) => {
+    // ---------- Mobile: la scheda si espande/collassa in altezza ----------
+    const expandPanel = (panel) => {
+        panel.hidden = false;
+        if (reduceMotion.matches) return;
+        const h = panel.offsetHeight;
+        panel.animate(
+            [{ height: '0px', paddingTop: '0px', paddingBottom: '0px', opacity: 0 }, { height: `${h}px`, opacity: 1 }],
+            { duration: 300, delay: 60, easing: EASE, fill: 'backwards' }
+        );
+    };
+
+    const collapsePanel = (panel) => {
+        let anim = null;
+        const done = () => {
+            panel.hidden = true;
+            anim?.cancel();
+            detailsWrap?.appendChild(panel);
+        };
+        if (reduceMotion.matches || panel.hidden) { done(); return; }
+        const h = panel.offsetHeight;
+        anim = panel.animate(
+            [{ height: `${h}px`, opacity: 1 }, { height: '0px', paddingTop: '0px', paddingBottom: '0px', opacity: 0 }],
+            { duration: 240, easing: EASE, fill: 'forwards' }
+        );
+        anim.finished.then(done, () => {});
+    };
+
+    // Mantiene ferma la card toccata mentre le altre cambiano altezza (Safari non ha il scroll anchoring)
+    const holdPosition = (card, duration = 360) => {
+        const startTop = card.getBoundingClientRect().top;
+        const t0 = performance.now();
+        const tick = (now) => {
+            const delta = card.getBoundingClientRect().top - startTop;
+            if (Math.abs(delta) > 0.5) window.scrollBy({ top: delta, behavior: 'instant' });
+            if (now - t0 < duration) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+    };
+
+    const scrollToCard = (card) => {
+        const top = card.getBoundingClientRect().top;
+        if (top < 72 || top > 200) {
+            window.scrollTo({ top: top + window.pageYOffset - 96, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+        }
+    };
+
+    const setActive = (slug, { togglePanels = true } = {}) => {
         bySlug.forEach((item, key) => {
             const on = key === slug;
             item.card.classList.toggle('is-active', on);
             item.button.setAttribute('aria-expanded', String(on));
-            item.panel.hidden = !on;
+            if (togglePanels) item.panel.hidden = !on;
             item.panel.classList.remove('is-swapping');
         });
         active = slug;
@@ -638,36 +688,65 @@ if (whatsappForm) {
         const item = bySlug.get(slug);
         if (!item || slug === active) return;
         const alreadyOpen = stage.classList.contains('is-open');
-        if (alreadyOpen) {
+        const previous = active ? bySlug.get(active) : null;
+
+        if (mobileMQ.matches) {
+            if (previous) collapsePanel(previous.panel);
+            item.card.after(item.panel);
+            holdPosition(item.card);
+            stage.classList.add('is-open');
+            setActive(slug, { togglePanels: false });
+            expandPanel(item.panel);
+            if (scroll) setTimeout(() => scrollToCard(item.card), 380);
+        } else if (alreadyOpen) {
             setActive(slug);
             item.panel.classList.add('is-swapping');
+            if (scroll) scrollToStage();
         } else {
             flip(() => {
                 stage.classList.add('is-open');
                 setActive(slug);
             });
+            if (scroll) scrollToStage();
         }
         if (updateHash) setHash(slug);
-        if (scroll) {
-            const top = stage.getBoundingClientRect().top;
-            if (top < 70 || top > window.innerHeight * 0.4) {
-                const y = top + window.pageYOffset - 112;
-                window.scrollTo({ top: y, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
-            }
-        }
         if (focus) item.panel.querySelector('.condition-detail-title').focus({ preventScroll: true });
     };
+
+    function scrollToStage() {
+        const top = stage.getBoundingClientRect().top;
+        if (top < 70 || top > window.innerHeight * 0.4) {
+            window.scrollTo({ top: top + window.pageYOffset - 112, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+        }
+    }
 
     const close = ({ updateHash = true, restoreFocus = true } = {}) => {
         if (!stage.classList.contains('is-open')) return;
         const previous = bySlug.get(active);
-        flip(() => {
+
+        if (mobileMQ.matches) {
+            holdPosition(previous.card);
             stage.classList.remove('is-open');
-            setActive(null);
-        });
+            setActive(null, { togglePanels: false });
+            collapsePanel(previous.panel);
+        } else {
+            flip(() => {
+                stage.classList.remove('is-open');
+                setActive(null);
+            });
+        }
         if (updateHash) setHash(null);
         if (restoreFocus) previous?.button.focus({ preventScroll: true });
     };
+
+    // Cambio di breakpoint con una scheda aperta: ripristina lo stato senza animazioni
+    mobileMQ.addEventListener('change', () => {
+        if (!stage.classList.contains('is-open')) return;
+        stage.classList.remove('is-open');
+        setActive(null);
+        bySlug.forEach(({ panel }) => { panel.getAnimations().forEach(a => a.cancel()); panel.hidden = true; detailsWrap?.appendChild(panel); });
+        setHash(null);
+    });
 
     bySlug.forEach((item, slug) => {
         item.button.addEventListener('click', () => open(slug));

@@ -4133,41 +4133,47 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 .conditions-stage { scroll-margin-top: 96px; }
 .condition-detail[hidden] { display: none; }
 
-.conditions-stage.is-open {
-    display: grid;
-    grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
-    gap: 28px;
-    align-items: start;
+/* Desktop: elenco a sinistra, scheda a destra */
+@media (min-width: 992px) {
+    .conditions-stage.is-open {
+        display: grid;
+        grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+        gap: 28px;
+        align-items: start;
+    }
+
+    .conditions-stage.is-open .conditions-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .conditions-stage.is-open .condition-feature {
+        flex-direction: row;
+        align-items: center;
+        padding: 12px 14px;
+        border-radius: 14px;
+        box-shadow: none;
+    }
+
+    .conditions-stage.is-open .condition-feature-body { display: none; }
+
+    .conditions-stage:not(.is-open) .condition-details { display: none; }
+    .conditions-stage.is-open .condition-details { align-self: stretch; }
+
+    .conditions-stage.is-open .condition-feature-icon {
+        flex: none;
+        width: 36px;
+        height: 36px;
+        margin: 0 12px 0 0;
+        font-size: 1.05rem;
+    }
+
+    .conditions-stage.is-open .condition-feature h3 { flex: 1; margin: 0; font-size: 1rem; }
+    .conditions-stage.is-open .condition-start .bi { opacity: 0; }
 }
 
-.conditions-stage.is-open .conditions-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 10px;
-}
-
-.conditions-stage.is-open .condition-feature {
-    flex-direction: row;
-    align-items: center;
-    padding: 12px 14px;
-    border-radius: 14px;
-    box-shadow: none;
-}
-
-.conditions-stage.is-open .condition-feature p { display: none; }
-
-.conditions-stage:not(.is-open) .condition-details { display: none; }
-.conditions-stage.is-open .condition-details { align-self: stretch; }
-
-.conditions-stage.is-open .condition-feature-icon {
-    flex: none;
-    width: 36px;
-    height: 36px;
-    margin: 0 12px 0 0;
-    font-size: 1.05rem;
-}
-
-.conditions-stage.is-open .condition-feature h3 { flex: 1; margin: 0; font-size: 1rem; }
-.conditions-stage.is-open .condition-start .bi { opacity: 0; }
+.condition-feature-body { flex: 1; display: flex; flex-direction: column; }
+.condition-feature-body p { flex: 1; }
 
 .condition-feature.is-active {
     border-color: var(--accent);
@@ -4326,19 +4332,83 @@ body:not(.cookie-dismissed) .wa-float { bottom: 110px; }
 .condition-detail-note .bi::before { vertical-align: 0; }
 .condition-detail-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
+/* Mobile e tablet: accordion. La scheda si apre sotto la card scelta, le altre si compattano */
 @media (max-width: 991px) {
-    .conditions-stage.is-open { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-    .conditions-stage.is-open .condition-details { order: -1; }
-    .conditions-stage.is-open .condition-detail { position: relative; top: 0; padding: 26px 22px; }
-    .conditions-stage.is-open .conditions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .condition-detail-title { font-size: 1.55rem; padding-right: 44px; }
+    .conditions-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+        max-width: 640px;
+        margin-inline: auto;
+    }
+
+    .condition-details { display: none !important; }
+
+    .condition-feature {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: 14px;
+        align-items: center;
+        padding: 16px;
+        transition: padding 0.26s var(--ease-out), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.26s var(--ease-out);
+    }
+
+    .condition-feature-icon {
+        grid-row: 1 / span 2;
+        align-self: start;
+        margin: 0;
+        transition: width 0.26s var(--ease-out), height 0.26s var(--ease-out), font-size 0.26s var(--ease-out), background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .condition-feature h3 { grid-column: 2; margin: 0; transition: font-size 0.26s var(--ease-out); }
+
+    .condition-feature-body {
+        grid-column: 2;
+        display: grid;
+        grid-template-rows: 1fr;
+        transition: grid-template-rows 0.26s var(--ease-out), opacity 0.18s ease;
+    }
+
+    .condition-feature-body p { min-height: 0; overflow: hidden; margin-top: 6px; }
+
+    .conditions-stage.is-open .condition-feature { padding: 10px 14px; box-shadow: none; align-items: center; }
+    .conditions-stage.is-open .condition-feature-icon { align-self: center; width: 36px; height: 36px; font-size: 1.05rem; }
+    .conditions-stage.is-open .condition-feature h3 { font-size: 1rem; }
+    .conditions-stage.is-open .condition-feature-body { grid-template-rows: 0fr; opacity: 0; }
+    .conditions-stage.is-open .condition-feature-body p { margin-top: 0; }
+    .conditions-stage.is-open .condition-start .bi { opacity: 0; }
+    .condition-feature.is-active .condition-start .bi { opacity: 1; }
+
+    /* La card attiva e la sua scheda formano un blocco unico */
+    .condition-feature.is-active { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: transparent; }
+
+    .conditions-grid > .condition-detail {
+        position: relative;
+        top: 0;
+        margin-top: -10px;
+        padding: 24px 20px;
+        border-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        box-shadow: none;
+        animation: none;
+        --panel-delay: 140ms;
+    }
+
+    .condition-detail-title { font-size: 1.5rem; padding-right: 44px; }
+    .condition-detail-close { top: 10px; right: 10px; }
+
+    /* Fasi: salgono dolcemente, niente slide laterale su schermi stretti */
+    .condition-detail-phases li strong,
+    .condition-detail-phases li span { animation-name: conditionPhaseRise; animation-duration: 0.32s; animation-timing-function: var(--ease-out); }
 }
 
-@media (max-width: 575px) {
-    .conditions-stage.is-open .conditions-grid { grid-template-columns: minmax(0, 1fr); }
+@keyframes conditionPhaseRise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .condition-detail, .condition-detail.is-swapping, .condition-detail-phases li strong, .condition-detail-phases li span, .condition-detail-phases li::before { animation: none; }
+    .condition-detail, .condition-detail.is-swapping, .condition-detail-phases li strong, .condition-detail-phases li span, .condition-detail-phases li::before { animation: none !important; }
+    .condition-feature, .condition-feature *, .condition-feature-body { transition-duration: 0.01ms !important; }
 }
 
