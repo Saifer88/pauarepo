@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preload" as="image" href="images/hero-personal-training-bari.webp" fetchpriority="high">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.min.css?v=57c88067a4">
+    <link rel="stylesheet" href="styles.min.css?v=dad9990cbb">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
     <noscript>
@@ -1676,7 +1676,7 @@
                                 <span class="w-100 pricing-btn-price"><span class="pricing-price-new">60€</span><span class="pricing-price-unit">a sessione</span></span>
                             </a>
                             <div class="pt-2 position-relative">
-                                <a href="https://buy.stripe.com/9B6aEX3JBbrR62W6Uygbm00" target="_blank" rel="noopener" class="btn btn-primary btn-lg w-100 pricing-btn pricing-btn-single" aria-label="Acquista pacchetto da 10 sessioni a 450€ invece di 600€, sconto 25%">
+                                <a href="https://buy.stripe.com/9B6aEX3JBbrR62W6Uygbm00" target="_blank" rel="noopener" class="btn btn-primary btn-lg w-100 pricing-btn pricing-btn-single" aria-label="Acquista pacchetto da 10 sessioni a 450€ invece di 600€, sconto 25%. Vedi condizioni di disdetta">
                                     <span class="w-100 pricing-btn-price"><span class="pricing-price-old">600€</span><span class="pricing-price-new">450€<span class="pricing-price-asterisk" aria-hidden="true">*</span></span><span class="pricing-price-unit">10 sessioni · -25%</span></span>
                                 </a>
                                 <small class="pricing-included-note d-block text-center">Valutazione funzionale inclusa</small>
@@ -1699,7 +1699,7 @@
                                 <span class="w-100 pricing-btn-price"><span class="pricing-price-new">75€</span><span class="pricing-price-unit">a sessione</span></span>
                             </a>
                             <div class="pt-2 position-relative">
-                                <a href="https://buy.stripe.com/eVq9AT0xp3Zp8b42Eigbm01" target="_blank" rel="noopener" class="btn btn-primary btn-lg w-100 pricing-btn pricing-btn-single" aria-label="Acquista pacchetto da 10 sessioni in coppia a 600€ invece di 750€, sconto 20%">
+                                <a href="https://buy.stripe.com/eVq9AT0xp3Zp8b42Eigbm01" target="_blank" rel="noopener" class="btn btn-primary btn-lg w-100 pricing-btn pricing-btn-single" aria-label="Acquista pacchetto da 10 sessioni in coppia a 600€ invece di 750€, sconto 20%. Vedi condizioni di disdetta">
                                     <span class="w-100 pricing-btn-price"><span class="pricing-price-old">750€</span><span class="pricing-price-new">600€<span class="pricing-price-asterisk" aria-hidden="true">*</span></span><span class="pricing-price-unit">10 sessioni · -20%</span></span>
                                 </a>
                                 <small class="pricing-included-note d-block text-center">Valutazione funzionale inclusa</small>
@@ -1732,11 +1732,26 @@
                     </div>
                 </div>
             </div>
-            <div class="pricing-policy-note" role="note">
-                <i class="bi bi-calendar-x" aria-hidden="true"></i>
-                <p class="pricing-policy-main">Disdette gratuite con almeno 24h di preavviso.</p>
-                <p class="pricing-policy-sub">* Ogni pacchetto dà diritto ad una sola lezione annullabile con meno di 24 ore di preavviso, le altre verranno scalate dagli utilizzi rimanenti. L'annullamento prima delle 24h è sempre possibile. <a href="#faq">Dettagli</a></p>
-            </div>
+            <aside class="pricing-policy" id="condizioni-disdetta" aria-labelledby="policy-title">
+                <div class="pricing-policy-head">
+                    <i class="bi bi-calendar-x" aria-hidden="true"></i>
+                    <h3 id="policy-title">Condizioni di disdetta</h3>
+                </div>
+                <div class="pricing-policy-body">
+                    <dl class="pricing-policy-rows">
+                        <dt class="pricing-policy-row"><i class="bi bi-check-circle" aria-hidden="true"></i><span>Con più di 24h:</span></dt>
+                        <dd>Gratuita.</dd>
+                        <dt class="pricing-policy-row"><i class="bi bi-clock" aria-hidden="true"></i><span>Con meno di 24h:</span></dt>
+                        <dd>
+                            <ul class="pricing-policy-rules">
+                                <li class="pricing-policy-row"><i class="bi bi-person" aria-hidden="true"></i><span><strong>Lezioni singole:</strong> trattenuto metà prezzo.</span></li>
+                                <li class="pricing-policy-row"><i class="bi bi-box-seam" aria-hidden="true"></i><span><strong>Pacchetti*:</strong> una disdetta senza costi, le successive vengono scalate.</span></li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <a class="pricing-policy-link" href="#faq">Dettagli nelle FAQ<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                </div>
+            </aside>
         </div>
     </section>
 
