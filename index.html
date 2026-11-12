@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preload" as="image" href="images/hero-personal-training-bari.webp" fetchpriority="high">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.min.css?v=dad9990cbb">
+    <link rel="stylesheet" href="styles.min.css?v=fbb7ffe6b4">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
     <noscript>
@@ -1738,17 +1738,27 @@
                     <h3 id="policy-title">Condizioni di disdetta</h3>
                 </div>
                 <div class="pricing-policy-body">
-                    <dl class="pricing-policy-rows">
-                        <dt class="pricing-policy-row"><i class="bi bi-check-circle" aria-hidden="true"></i><span>Con preavviso di almeno 24h:</span></dt>
-                        <dd>Gratuita.</dd>
-                        <dt class="pricing-policy-row"><i class="bi bi-clock" aria-hidden="true"></i><span>Con preavviso di meno di 24h:</span></dt>
-                        <dd>
-                            <ul class="pricing-policy-rules">
-                                <li class="pricing-policy-row"><i class="bi bi-person" aria-hidden="true"></i><span><strong>Lezioni singole:</strong> trattenuto metà prezzo.</span></li>
-                                <li class="pricing-policy-row"><i class="bi bi-box-seam" aria-hidden="true"></i><span><strong>Pacchetti*:</strong> una disdetta senza costi, le successive vengono scalate.</span></li>
-                            </ul>
-                        </dd>
-                    </dl>
+                    <table class="pricing-policy-table">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <th scope="col"><i class="bi bi-check-circle" aria-hidden="true"></i>Con preavviso di almeno 24h</th>
+                                <th scope="col"><i class="bi bi-clock" aria-hidden="true"></i>Con preavviso di meno di 24h</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><i class="bi bi-person" aria-hidden="true"></i>Lezioni singole</th>
+                                <td>Gratuita</td>
+                                <td>Trattenuto metà prezzo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><i class="bi bi-box-seam" aria-hidden="true"></i>Pacchetti*</th>
+                                <td>Gratuita</td>
+                                <td>1 disdetta gratuita, poi scalate dal pacchetto</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <a class="pricing-policy-link" href="#faq">Dettagli nelle FAQ<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
                 </div>
             </aside>

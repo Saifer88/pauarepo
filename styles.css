@@ -1891,38 +1891,41 @@ a.service-card:focus {
     font-size: .85rem;
     line-height: 1.45;
 }
-.pricing-policy-body strong { font-weight: 600; color: #fff; }
-.pricing-policy-row {
-    display: flex;
-    align-items: flex-start;
-    gap: .65rem;
+.pricing-policy-table {
+    width: 100%;
     margin: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
-.pricing-policy-row .bi {
-    flex: 0 0 auto;
-    font-size: .95rem;
-    line-height: 1.45;
-    color: var(--accent);
+.pricing-policy-table thead td { width: 24%; }
+.pricing-policy-table th,
+.pricing-policy-table td {
+    padding: .55rem .75rem;
+    text-align: left;
+    vertical-align: middle;
 }
-.pricing-policy-rows {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: .4rem 1rem;
-    margin: 0;
-}
-.pricing-policy-rows dt {
+.pricing-policy-table th {
     font-weight: 600;
-    white-space: nowrap;
     color: #fff;
 }
-.pricing-policy-rows dd { margin: 0; }
-.pricing-policy-rules {
-    display: grid;
-    gap: .2rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.pricing-policy-table th .bi {
+    margin-right: .5rem;
+    font-size: .95rem;
+    color: var(--accent);
 }
+.pricing-policy-table thead th,
+.pricing-policy-table thead td {
+    padding-top: .25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+}
+.pricing-policy-table thead th {
+    font-size: .8rem;
+    color: rgba(255, 255, 255, .75);
+}
+.pricing-policy-table tbody tr + tr th,
+.pricing-policy-table tbody tr + tr td { border-top: 1px solid rgba(255, 255, 255, .08); }
+.pricing-policy-table tbody th { padding-left: 0; }
+.pricing-policy-table thead td { padding-left: 0; }
 .pricing-policy-link {
     display: inline-flex;
     align-items: center;
@@ -1937,8 +1940,10 @@ a.service-card:focus {
 .pricing-policy-link .bi { transition: transform .2s var(--ease-out); }
 @media (max-width: 767px) {
     .pricing-policy { grid-template-columns: 1fr; padding: .75rem; }
-    .pricing-policy-rows { grid-template-columns: 1fr; row-gap: .2rem; }
-    .pricing-policy-rows dd { padding-left: 1.6rem; margin-bottom: .4rem; }
+    .pricing-policy-table thead td { width: 32%; }
+    .pricing-policy-table th,
+    .pricing-policy-table td { padding: .45rem .4rem; }
+    .pricing-policy-table th .bi { display: block; margin: 0 0 .2rem; }
     .pricing-policy-head {
         flex-direction: row;
         justify-content: flex-start;
