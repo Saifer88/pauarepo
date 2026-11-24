@@ -806,7 +806,7 @@ body.hero-ready .hero-text > *:nth-child(5) { animation-delay: 240ms; }
     padding: 0.35rem 0.9rem;
     border-radius: 50px;
     background: var(--accent-light);
-    color: var(--accent-strong-hover);
+    color: #7a4e26;
 }
 
 /* Su sezioni scure il tag resta leggibile */
@@ -1479,11 +1479,11 @@ a.service-card:focus {
     font-weight: 600;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--accent-strong);
+    color: var(--accent-strong-hover);
 }
 .faq-pay-icons img { height: 28px; width: auto; display: block; }
 .faq-cta { margin: 0; font-size: .95rem; color: var(--text-muted, #6c757d); }
-.faq-cta a { font-weight: 600; color: var(--accent-strong); }
+.faq-cta a { font-weight: 600; color: var(--accent-strong-hover); }
 /* ===== CTA DARK SECTION ===== */
 .bg-dark {
     background: var(--bg-dark) !important;
@@ -1986,7 +1986,7 @@ a.service-card:focus {
 .pricing-btn-price .pricing-price-old {
     font-size: 0.78rem;
     font-weight: 500;
-    opacity: 0.85;
+    opacity: 1;
     text-decoration: line-through;
 }
 
@@ -1998,12 +1998,12 @@ a.service-card:focus {
 .pricing-btn-price .pricing-price-unit {
     font-size: 0.74rem;
     font-weight: 500;
-    opacity: 0.95;
+    opacity: 1;
     letter-spacing: 0.01em;
 }
 
 .btn-primary .pricing-btn-price .pricing-price-old {
-    opacity: 0.92;
+    opacity: 1;
 }
 
 .pricing-included {
