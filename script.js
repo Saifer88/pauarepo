@@ -465,7 +465,7 @@ if (whatsappForm) {
         window.addEventListener('scroll', () => {
             if (!ticking) { ticking = true; requestAnimationFrame(updateProgress); }
         }, { passive: true });
-        updateProgress();
+        requestAnimationFrame(updateProgress);
     }
 
     // --- 1b) Parallax hero (solo translateY via variabile, scale resta al Ken Burns) ---
@@ -484,7 +484,7 @@ if (whatsappForm) {
         window.addEventListener('scroll', () => {
             if (!hticking) { hticking = true; requestAnimationFrame(updateParallax); }
         }, { passive: true });
-        updateParallax();
+        requestAnimationFrame(updateParallax);
     }
 
     // --- 4) Titoli a parole sfalsate ---
