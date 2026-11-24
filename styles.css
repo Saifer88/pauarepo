@@ -138,7 +138,7 @@ h1, h2, h3, h4, h5 {
 .home-page :is(.hero-section, .pricing-section, .bg-dark, .site-footer) .text-accent { color: var(--accent) !important; }
 
 .bg-accent {
-    background-color: var(--accent) !important;
+    background-color: var(--accent-strong) !important;
 }
 
 .btn-primary {
@@ -806,7 +806,7 @@ body.hero-ready .hero-text > *:nth-child(5) { animation-delay: 240ms; }
     padding: 0.35rem 0.9rem;
     border-radius: 50px;
     background: var(--accent-light);
-    color: var(--accent-dark);
+    color: var(--accent-strong-hover);
 }
 
 /* Su sezioni scure il tag resta leggibile */
@@ -857,7 +857,7 @@ body.hero-ready .hero-text > *:nth-child(5) { animation-delay: 240ms; }
 }
 
 /* ===== CREDENTIALS SECTION ===== */
-.credentials-section h5 {
+.credentials-section h3 {
     font-family: var(--font-heading);
     color: var(--dark);
 }
@@ -1101,7 +1101,7 @@ a.service-card:focus {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--accent-strong);
     color: #fff;
     display: flex;
     align-items: center;
@@ -1129,7 +1129,7 @@ a.service-card:focus {
     grid-column: 1 / -1;
     justify-self: center;
     text-align: center;
-    color: var(--accent-dark);
+    color: var(--accent-strong-hover);
     font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;
@@ -1140,7 +1140,7 @@ a.service-card:focus {
 }
 
 .reviews-show-more:hover {
-    color: var(--accent-dark);
+    color: var(--accent-strong-hover);
     text-decoration: none;
 }
 
@@ -1277,7 +1277,7 @@ a.service-card:focus {
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: var(--accent);
+    color: var(--accent-strong);
     margin-bottom: 0.5rem;
 }
 
@@ -1411,7 +1411,7 @@ a.service-card:focus {
     left: 0.35rem;
     height: calc(100% - 0.7rem);
     border-radius: 2rem;
-    background: var(--accent);
+    background: var(--accent-strong);
     box-shadow: 0 4px 12px rgba(212, 165, 116, 0.35);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
@@ -1465,8 +1465,8 @@ a.service-card:focus {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--accent);
-    opacity: 0.3;
+    color: var(--accent-strong);
+    opacity: 0.85;
     line-height: 1;
     min-width: 50px;
 }
@@ -1540,7 +1540,7 @@ a.service-card:focus {
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--accent);
+    background: var(--accent-strong);
     color: #fff;
     font-size: 0.75rem;
     font-weight: 600;
@@ -1986,7 +1986,7 @@ a.service-card:focus {
 .pricing-btn-price .pricing-price-old {
     font-size: 0.78rem;
     font-weight: 500;
-    opacity: 0.6;
+    opacity: 0.85;
     text-decoration: line-through;
 }
 
@@ -1998,12 +1998,12 @@ a.service-card:focus {
 .pricing-btn-price .pricing-price-unit {
     font-size: 0.74rem;
     font-weight: 500;
-    opacity: 0.82;
+    opacity: 0.95;
     letter-spacing: 0.01em;
 }
 
 .btn-primary .pricing-btn-price .pricing-price-old {
-    opacity: 0.75;
+    opacity: 0.92;
 }
 
 .pricing-included {
