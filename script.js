@@ -156,32 +156,51 @@ if (strutturaTabEl) {
     let currentIndex = 0;
     let transitionTimer;
 
-    function movePill(idx, animate = true) {
-        const tab = tabs[idx];
-        const tabRect = tab.getBoundingClientRect();
+    function measurePill(idx) {
+        const tabRect = tabs[idx].getBoundingClientRect();
         const parentRect = strutturaTabEl.getBoundingClientRect();
-        if (!animate) pill.style.transition = 'none';
-        pill.style.width = tabRect.width + 'px';
-        pill.style.transform = `translateX(${tabRect.left - parentRect.left - 5.6}px)`;
-        if (!animate) { void pill.offsetWidth; pill.style.transition = ''; }
+        return { width: tabRect.width, x: tabRect.left - parentRect.left - 5.6 };
     }
-
+    function applyPill(m, animate) {
+        if (!animate) pill.style.transition = 'none';
+        pill.style.width = m.width + 'px';
+        pill.style.transform = `translateX(${m.x}px)`;
+        if (!animate) requestAnimationFrame(() => { pill.style.transition = ''; });
+    }
+    function movePill(idx, animate = true) {
+        applyPill(measurePill(idx), animate);
+    }
+    let fixedHeightRaf = 0;
     function setFixedHeight() {
-        panes.forEach(p => { p.style.position = 'relative'; p.style.opacity = '1'; p.style.transform = 'none'; p.style.display = 'block'; });
+        cancelAnimationFrame(fixedHeightRaf);
+        fixedHeightRaf = requestAnimationFrame(runFixedHeight);
+    }
+    function runFixedHeight() {
+        // 1) reads
         const heroImg = document.querySelector('.struttura-hero img');
         const mapIframe = document.getElementById('strutturaMapIframe');
-        if (heroImg && mapIframe) mapIframe.style.height = heroImg.offsetHeight + 'px';
-        tabContent.style.height = Math.max(...panes.map(p => p.offsetHeight)) + 'px';
+        const heroH = heroImg && mapIframe ? heroImg.offsetHeight : null;
+        const pillM = measurePill(currentIndex);
+        // 2) writes
+        panes.forEach(p => { p.style.position = 'relative'; p.style.opacity = '1'; p.style.transform = 'none'; p.style.display = 'block'; });
+        if (heroH !== null) mapIframe.style.height = heroH + 'px';
+        // 3) single forced layout read
+        const maxH = Math.max(...panes.map(p => p.offsetHeight));
+        // 4) writes
+        tabContent.style.height = maxH + 'px';
         panes.forEach((p, i) => {
             if (i !== currentIndex) { p.style.position = 'absolute'; p.style.opacity = '0'; p.style.transform = 'translateX(100%)'; }
             else { p.style.position = 'relative'; }
         });
-        movePill(currentIndex, false);
+        applyPill(pillM, false);
     }
-
     setFixedHeight();
+    let paneRoRaf = 0;
     const paneResizeObserver = new ResizeObserver(() => {
-        tabContent.style.height = Math.max(...panes.map(p => p.offsetHeight)) + 'px';
+        cancelAnimationFrame(paneRoRaf);
+        paneRoRaf = requestAnimationFrame(() => {
+            tabContent.style.height = Math.max(...panes.map(p => p.offsetHeight)) + 'px';
+        });
     });
     panes.forEach(pane => paneResizeObserver.observe(pane));
     window.addEventListener('resize', setFixedHeight);
