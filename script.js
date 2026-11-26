@@ -19,6 +19,7 @@ if (!document.getElementById('preloader')) {
 
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
+let closeNavMenu = () => {};
 if (navbar) {
     const navbarSurface = navbar.querySelector('.navbar-surface');
     let navbarUpdateFrame;
@@ -78,12 +79,43 @@ if (navbar) {
     });
 }
 
+// Menu mobile a pannello (solo pagine con .nav-panel)
+const panelNav = document.querySelector('.navbar.nav-panel');
+const navCollapseEl = document.getElementById('navbarNav');
+const panelToggler = panelNav?.querySelector('.navbar-toggler');
+if (panelNav && panelToggler && navCollapseEl) {
+    const isOpen = () => panelNav.classList.contains('menu-open');
+    const setMenu = open => {
+        panelNav.classList.toggle('menu-open', open);
+        document.body.classList.toggle('nav-locked', open);
+        panelToggler.setAttribute('aria-expanded', String(open));
+        panelToggler.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+    };
+    closeNavMenu = () => { if (isOpen()) setMenu(false); };
+    panelToggler.addEventListener('click', () => setMenu(!isOpen()));
+    document.addEventListener('keydown', e => {
+        if (!isOpen()) return;
+        if (e.key === 'Escape') {
+            setMenu(false);
+            panelToggler.focus();
+            return;
+        }
+        if (e.key !== 'Tab') return;
+        const focusables = [panelNav.querySelector('.navbar-brand'), panelToggler, ...navCollapseEl.querySelectorAll('a[href]')].filter(Boolean);
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    window.matchMedia('(min-width: 992px)').addEventListener('change', e => { if (e.matches) closeNavMenu(); });
+}
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href === '#') return;
         e.preventDefault();
+        closeNavMenu();
         const target = document.querySelector(href);
         if (target) {
             const top = target.getBoundingClientRect().top + window.pageYOffset - 80;
