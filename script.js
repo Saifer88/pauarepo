@@ -19,7 +19,7 @@ if (!document.getElementById('preloader')) {
 
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
-let closeNavMenu = () => {};
+let closeNavMenu = () => false;
 if (navbar) {
     const navbarSurface = navbar.querySelector('.navbar-surface');
     let navbarUpdateFrame;
@@ -91,7 +91,11 @@ if (panelNav && panelToggler && navCollapseEl) {
         panelToggler.setAttribute('aria-expanded', String(open));
         panelToggler.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
     };
-    closeNavMenu = () => { if (isOpen()) setMenu(false); };
+    closeNavMenu = () => {
+        if (!isOpen()) return false;
+        setMenu(false);
+        return true;
+    };
     panelToggler.addEventListener('click', () => setMenu(!isOpen()));
     document.addEventListener('keydown', e => {
         if (!isOpen()) return;
@@ -115,11 +119,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const href = this.getAttribute('href');
         if (href === '#') return;
         e.preventDefault();
-        closeNavMenu();
+        // Menu aperto: salto immediato dietro il pannello, così la sezione è già lì a menu chiuso
+        const wasMenuOpen = closeNavMenu();
         const target = document.querySelector(href);
         if (target) {
             const top = target.getBoundingClientRect().top + window.pageYOffset - 80;
-            window.scrollTo({ top, behavior: 'smooth' });
+            window.scrollTo({ top, behavior: wasMenuOpen ? 'instant' : 'smooth' });
         }
         const navCollapse = document.querySelector('.navbar-collapse');
         if (navCollapse?.classList.contains('show')) {
